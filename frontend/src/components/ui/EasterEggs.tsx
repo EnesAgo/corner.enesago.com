@@ -39,7 +39,7 @@ export function KonamiEgg({ onClose }: { onClose: () => void }) {
         <div style={{ border: '2px dashed #333', padding: 14, background: '#0a0a0a', marginBottom: 16 }}>
           <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#555', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 2 }}>// unlocked: secret playlist</div>
           <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#FFE500', lineHeight: 1.8 }}>
-            1. blink-182 — i miss you<br />2. the strokes — reptilia<br />3. kanye — through the wire<br />4. avril lavigne — sk8er boi<br />5. outkast — hey ya!
+            1. Duman — Bekle Dedi Gitti Ben Beklemedim<br />2. Duman — Kolay Değildir<br />3. Duman - Kırmış Kalbini<br />Elif Ayavefe -Bu Kız - Son Feci Bisiklet (cover) <br />5. Bırakman Doğru Mu? (Akustik) - Zeynep Bastık, @AnilPiyanci
           </div>
         </div>
         <button onClick={onClose} style={{ width: '100%', background: '#FFE500', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>
