@@ -1,10 +1,9 @@
+import { socialLinks } from '@/data/about';
+
 export default function SocialLinks() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      {[
-        { text: 'github.com/devkid' },
-        { text: 'devkid@proton.me' },
-      ].map((link) => (
+      {socialLinks.map((link) => (
         <a
           key={link.text}
           href="#"

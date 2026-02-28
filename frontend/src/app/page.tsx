@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useEasterEggs } from '@/hooks';
 import {
   Ticker,
@@ -35,7 +35,8 @@ import {
 
 export default function Home() {
   const { openEgg, closeEgg, isEggOpen, eggsFound } = useEasterEggs();
-  const [entryCount, setEntryCount] = useState(52);
+  const [entryCount, setEntryCount] = useState(0);
+  const handleCountChange = useCallback((count: number) => setEntryCount(count), []);
 
   return (
     <>
@@ -79,7 +80,7 @@ export default function Home() {
       <MusicSection />
       <BurnedCDsSection />
       <BlogSection />
-      <GuestbookSection entryCount={entryCount} setEntryCount={setEntryCount} />
+      <GuestbookSection onCountChange={handleCountChange} />
       <VlogSection />
       <LabSection />
 

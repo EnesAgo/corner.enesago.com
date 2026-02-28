@@ -1,14 +1,6 @@
-export interface Project {
-  featured?: boolean;
-  title: string;
-  desc: string;
-  img: string;
-  tags: string[];
-  badges: { text: string; bg: string; color: string }[];
-  tagColor: string;
-}
+import type { ProjectData } from '@/data/projects';
 
-export default function ProjectCard({ project: p }: { project: Project }) {
+export default function ProjectCard({ project: p }: { project: ProjectData }) {
   const border = p.featured ? '3px solid #FFE500' : '2px solid #222';
   const shadow = p.featured ? '6px 6px 0px #FFE500' : '4px 4px 0px #222';
   const imgH = p.featured ? 200 : p.badges[0]?.text === 'API' ? 120 : 100;

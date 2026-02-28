@@ -1,13 +1,4 @@
-export interface CDData {
-  name: string;
-  date: string;
-  color: string;
-  bgTint: string;
-  gradient: string;
-  note: string | null;
-  small?: boolean;
-  tracks: { n: string; title: string; artist: string; dur: string; highlight?: boolean }[];
-}
+import type { CDData } from '@/data/burnedCds';
 
 export default function CDCard({ cd }: { cd: CDData }) {
   const discSize = cd.small ? 48 : 52;

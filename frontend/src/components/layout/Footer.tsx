@@ -20,7 +20,7 @@ export default function Footer({ eggsFound, entryCount }: FooterProps) {
   const secrets = [
     { hint: '↑↑↓↓←→←→BA', desc: 'konami code' },
     { hint: 'type "billcipher"', desc: 'gravity falls' },
-    { hint: 'click the dk logo', desc: 'time capsule' },
+    { hint: 'click the ea logo', desc: 'time capsule' },
     { hint: 'open the inventory', desc: 'minecraft world' },
     { hint: 'find the hidden folder', desc: 'private.txt' },
   ];
@@ -39,8 +39,8 @@ export default function Footer({ eggsFound, entryCount }: FooterProps) {
           {/* About */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 36, height: 36, background: '#FFE500', border: '2px solid #000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Press Start 2P', monospace", fontSize: 9, color: '#000', boxShadow: '2px 2px 0px #fff', flexShrink: 0 }}>dk</div>
-              <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#FFE500', letterSpacing: 2 }}>DEVKID.EXE</span>
+              <div style={{ width: 36, height: 36, background: '#FFE500', border: '2px solid #000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Press Start 2P', monospace", fontSize: 9, color: '#000', boxShadow: '2px 2px 0px #fff', flexShrink: 0 }}>AE</div>
+              <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#FFE500', letterSpacing: 2 }}>ENESAGO.EXE</span>
             </div>
             <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#444', lineHeight: 1.85, maxWidth: 340, margin: '0 0 16px 0' }}>
               a personal website. not a brand. not a product. just a person on the internet making stuff and writing about it. no tracking. no analytics. no algorithm.
@@ -100,7 +100,7 @@ export default function Footer({ eggsFound, entryCount }: FooterProps) {
         </div>
 
         <div style={{ borderTop: '2px solid #111', paddingTop: 18, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
-          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#222' }}>© 2024 devkid.exe · built with html, css, vibes, and too many blink-182 songs</div>
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#222' }}>© 2024 ENESAGO.EXE · built with html, css, vibes, and too many blink-182 songs</div>
           <div style={{ fontFamily: "'VT323', monospace", fontSize: 15, color: '#1a1a1a' }}>visitors: 004,892 (fake) · entries: {entryCount} (real)</div>
         </div>
       </div>

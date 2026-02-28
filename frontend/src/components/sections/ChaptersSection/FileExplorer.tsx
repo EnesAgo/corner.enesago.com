@@ -1,14 +1,10 @@
+import { fileExplorerEntries } from '@/data/chapters';
+
 export default function FileExplorer({ onOpenEgg }: { onOpenEgg: (n: number) => void }) {
-  const files = [
-    { text: '📁 devkid_world/', color: '#FFE500', indent: 0 },
-    { text: '📁 projects/', indent: 24 },
-    { text: '📄 skatelog.tsx', indent: 40 },
-    { text: '📄 nightshot.tsx', indent: 40 },
-    { text: '📁 music/', indent: 24 },
-    { text: '🎵 nocturne_take3.mp4', indent: 40 },
-    { text: '🔒 hidden_folder/ ← click', indent: 24, color: '#9B59FF', onClick: () => onOpenEgg(5) },
-    { text: '📄 readme.md', indent: 0 },
-  ];
+  const files = fileExplorerEntries.map((f) => ({
+    ...f,
+    onClick: f.hasAction && f.eggId != null ? () => onOpenEgg(f.eggId!) : undefined,
+  }));
 
   return (
     <div style={{ border: '2px solid #222', background: '#0d0d0d', overflow: 'hidden' }}>

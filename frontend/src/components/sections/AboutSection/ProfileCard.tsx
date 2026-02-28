@@ -1,10 +1,4 @@
-const info = [
-  { label: 'status', value: 'available', color: '#00FF88', dot: true },
-  { label: 'location', value: 'Munich, DE 🇩🇪', color: '#888' },
-  { label: 'studying', value: 'Cyber Security', color: '#888' },
-  { label: 'working', value: 'Zenfulfillment', color: '#00FF88' },
-  { label: 'vibe', value: 'chaotic good', color: '#FFE500', font: "'Caveat', cursive", size: 14 },
-];
+import { profileInfo } from '@/data/about';
 
 export default function ProfileCard() {
   return (
@@ -22,8 +16,8 @@ export default function ProfileCard() {
         </div>
       </div>
       <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 5 }}>
-        {info.map((item, i) => (
-          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: i < info.length - 1 ? '1px solid #111' : 'none', paddingBottom: i < info.length - 1 ? 4 : 0 }}>
+        {profileInfo.map((item, i) => (
+          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: i < profileInfo.length - 1 ? '1px solid #111' : 'none', paddingBottom: i < profileInfo.length - 1 ? 4 : 0 }}>
             <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', textTransform: 'uppercase' }}>{item.label}</span>
             <span style={{ fontFamily: item.font || "'IBM Plex Mono', monospace", fontSize: item.size || 9, color: item.color, display: 'flex', alignItems: 'center', gap: 4 }}>
               {item.dot && <span className="md" style={{ background: item.color, width: 6, height: 6 }} />}

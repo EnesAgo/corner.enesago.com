@@ -1,19 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
-const statuses = [
-  '"refactoring something that wasn\'t broken"',
-  '"3am. the code works. i don\'t know why."',
-  '"currently: pretending to understand kubernetes"',
-  '"burning a cd nobody asked for"',
-  '"learning german one pretzel at a time 🥨"',
-  '"committed something. praying it doesn\'t break prod"',
-  '"skating > standup meetings"',
-  '"playing chopin badly at 2am"',
-  '"writing code like it\'s a love letter"',
-  '"munich is cold. the codebase is warm."',
-];
+import { statuses } from '@/data/hero';
 
 export default function StatusWidget() {
   const [si, setSi] = useState(0);

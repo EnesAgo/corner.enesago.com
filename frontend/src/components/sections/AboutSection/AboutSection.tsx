@@ -4,6 +4,7 @@ import SocialLinks from './SocialLinks';
 import ThingsICareAbout from './ThingsICareAbout';
 import CurrentlyInto from './CurrentlyInto';
 import SkillBars from './SkillBars';
+import { aboutParagraphs } from '@/data/about';
 
 interface AboutSectionProps {
   onOpenEgg: (n: number) => void;
@@ -30,12 +31,11 @@ export default function AboutSection({ onOpenEgg }: AboutSectionProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#777', lineHeight: 1.85, margin: 0 }}>
-              i started coding when i was 16 because i wanted to make a website for my skate crew. it was terrible. it had autoplay music and a hit counter. i loved it. now i build production apps but i still think about that site.
-            </p>
-            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#777', lineHeight: 1.85, margin: 0 }}>
-              by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, burning mix cds, taking photos with a disposable camera, and writing blog posts nobody asked for.
-            </p>
+            {aboutParagraphs.map((text, i) => (
+              <p key={i} style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#777', lineHeight: 1.85, margin: 0 }}>
+                {text}
+              </p>
+            ))}
           </div>
 
           <ThingsICareAbout />

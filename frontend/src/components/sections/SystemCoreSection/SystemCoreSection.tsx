@@ -1,12 +1,6 @@
-export default function SystemCoreSection() {
-  const modules = [
-    'Network Security & Protocols',
-    'Applied Cryptography',
-    'Ethical Hacking & Pen Testing',
-    'Secure Software Development',
-  ];
+import { universityModules, securitySkills } from '@/data/systemCore';
 
-  const skills = ['secure apis', 'auth systems', 'pen testing', 'ctf challenges'];
+export default function SystemCoreSection() {
 
   return (
     <section id="sysCore" style={{ background: '#050508', borderTop: '3px solid #00FF88', borderBottom: '3px solid #00FF88', position: 'relative', overflow: 'hidden' }}>
@@ -29,11 +23,11 @@ export default function SystemCoreSection() {
             </div>
             <div style={{ padding: 18, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, lineHeight: 2 }}>
               <div style={{ color: '#1a4a1a' }}>$ whoami</div>
-              <div style={{ color: '#00FF88', marginBottom: 8 }}>alex_kim · student · hacker (the good kind)</div>
+              <div style={{ color: '#00FF88', marginBottom: 8 }}>enes_ago · student · hacker (the good kind)</div>
               <div style={{ color: '#1a4a1a' }}>$ cat university.txt</div>
               <div style={{ color: '#00FF88', marginBottom: 8 }}>Munich University of Digital Technologies<br /><span style={{ color: '#00aa55' }}>B.Sc. Cyber Security · Munich, DE 🇩🇪</span></div>
               <div style={{ color: '#1a4a1a' }}>$ ls subjects/</div>
-              <div style={{ color: '#00aa55', marginBottom: 8 }}>network_security/ &nbsp; cryptography/<br />ethical_hacking/ &nbsp;&nbsp; secure_coding/</div>
+              <div style={{ color: '#00aa55', marginBottom: 8 }}>network_security/ &nbsp; cryptography/<br />algoritms_&_ds/ &nbsp;&nbsp; secure_coding/</div>
               <div style={{ color: '#1a4a1a' }}>$ cat current_focus.txt</div>
               <div style={{ color: '#00FF88', marginBottom: 8 }}>→ learning how to break things (legally)<br />→ the intersection of dev + security = my thing</div>
               <div style={{ color: '#1a4a1a' }}>$ uptime</div>
@@ -50,7 +44,7 @@ export default function SystemCoreSection() {
             <div style={{ border: '2px solid #1a3a1a', background: '#020a02', padding: 16 }}>
               <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#1a4a1a', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 10 }}>// current modules</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
-                {modules.map((m) => (
+                {universityModules.map((m) => (
                   <div key={m} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#00FF88' }}>▶</span>
                     <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#557755' }}>{m}</span>
@@ -61,7 +55,7 @@ export default function SystemCoreSection() {
             <div style={{ border: '2px dashed #1a3a1a', background: '#010501', padding: 14 }}>
               <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#1a4a1a', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 8 }}>// dev + security</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {skills.map((s) => (
+                {securitySkills.map((s) => (
                   <span key={s} style={{ background: '#001a00', color: '#00FF88', border: '1px solid #00FF88', padding: '3px 8px', fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, textTransform: 'uppercase' }}>{s}</span>
                 ))}
               </div>

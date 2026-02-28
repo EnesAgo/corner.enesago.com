@@ -34,13 +34,13 @@ export default function Navbar({ onOpenEgg }: NavbarProps) {
               onClick={() => onOpenEgg(3)}
               style={{ width: 36, height: 36, background: '#FFE500', border: '2px solid #000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Press Start 2P', monospace", fontSize: 9, color: '#000', boxShadow: '2px 2px 0px #fff', cursor: 'pointer', flexShrink: 0 }}
             >
-              dk
+              AE
             </div>
             <div className="tc">est. 2009 · click me 👀</div>
           </div>
           <div>
-            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, color: '#FFE500', letterSpacing: 2, lineHeight: 1 }}>DEVKID.EXE</div>
-            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 8, color: '#444' }}>v2.0.11 · <span>{time}</span></div>
+            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, color: '#FFE500', letterSpacing: 2, lineHeight: 1 }}>ENESAGO.EXE</div>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.3, color: '#444' }}>v2.0.11 · <span>{time}</span></div>
           </div>
         </div>
 

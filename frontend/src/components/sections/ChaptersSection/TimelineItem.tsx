@@ -1,12 +1,4 @@
-export interface TimelineItemData {
-  year: string;
-  color: string;
-  title?: string | null;
-  company?: { name: string; sub: string } | null;
-  desc: string;
-  tags: string[];
-  current?: boolean;
-}
+import type { TimelineItemData } from '@/data/chapters';
 
 export default function TimelineItem({ item: t, isLast }: { item: TimelineItemData; isLast: boolean }) {
   const isCompany = !!t.company;

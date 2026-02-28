@@ -1,9 +1,4 @@
-const skills = [
-  { name: 'React / Next.js', pct: 92, color: '#FF2D78', grad: 'linear-gradient(90deg,#FF2D78,#9B59FF)', delay: '0s' },
-  { name: 'NestJS / Node.js', pct: 85, color: '#FFE500', grad: 'linear-gradient(90deg,#FFE500,#FF2D78)', delay: '.5s' },
-  { name: 'MongoDB / Redis', pct: 78, color: '#00FF88', grad: 'linear-gradient(90deg,#00FF88,#00C8FF)', delay: '.7s' },
-  { name: 'Cyber Security', pct: 68, color: '#00C8FF', grad: 'linear-gradient(90deg,#00C8FF,#9B59FF)', delay: '.9s' },
-];
+import { skillBars } from '@/data/about';
 
 export default function SkillBars() {
   return (
@@ -15,7 +10,7 @@ export default function SkillBars() {
         <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', marginLeft: 8 }}>skill_levels.exe</span>
       </div>
       <div style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {skills.map((skill) => (
+        {skillBars.map((skill) => (
           <div key={skill.name}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
               <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#777' }}>{skill.name}</span>

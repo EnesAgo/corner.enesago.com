@@ -1,17 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { hotbarItems } from '@/data/chapters';
 
 export default function MinecraftInventory({ onOpenEgg }: { onOpenEgg: (n: number) => void }) {
   const [tooltip, setTooltip] = useState('');
-  const hotbar = [
-    { emoji: '⚛', count: '64', name: 'React' },
-    { emoji: '🪺', count: '32', name: 'NestJS' },
-    { emoji: '🍃', count: '16', name: 'MongoDB' },
-    { emoji: '🎹', count: '8', name: 'Piano 🎹' },
-    { emoji: '✨', count: '∞', name: 'Vibes ✨' },
-    { emoji: '🛹', count: '1', name: 'Skateboard 🛹' },
-  ];
 
   return (
     <div style={{ border: '2px solid #3a6028', background: '#0a0d08', overflow: 'hidden' }}>
@@ -25,7 +18,7 @@ export default function MinecraftInventory({ onOpenEgg }: { onOpenEgg: (n: numbe
       <div style={{ padding: 12 }}>
         <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#3a6028', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 1 }}>hotbar — things i carry</div>
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-          {hotbar.map((item) => (
+          {hotbarItems.map((item) => (
             <div key={item.name} className="mcs" data-c={item.count} onMouseOver={() => setTooltip(item.name)} onMouseOut={() => setTooltip('')}>{item.emoji}</div>
           ))}
         </div>

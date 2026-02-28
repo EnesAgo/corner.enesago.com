@@ -1,9 +1,4 @@
-const items = [
-  { icon: '🎵', label: 'listening', value: 'Blink-182', sub: 'also: Kanye, Strokes', color: '#888' },
-  { icon: '💻', label: 'coding', value: 'NightShot v2', sub: 'photo sharing', color: '#00FF88' },
-  { icon: '📖', label: 'reading', value: 'Clean Architecture', sub: 'Robert C. Martin', color: '#888' },
-  { icon: '🇩🇪', label: 'learning', value: 'Deutsch', sub: 'langsam aber sicher', color: '#FFE500' },
-];
+import { currentlyIntoItems } from '@/data/about';
 
 export default function CurrentlyInto() {
   return (
@@ -13,7 +8,7 @@ export default function CurrentlyInto() {
         <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#00FF88', textTransform: 'uppercase', letterSpacing: 2 }}>currently into</span>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4" style={{ padding: 14, gap: 10 }}>
-        {items.map((item) => (
+        {currentlyIntoItems.map((item) => (
           <div key={item.label} style={{ border: '1px solid #111', padding: 10, background: '#080808' }}>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 8, color: '#333', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 6 }}>{item.icon} {item.label}</div>
             <div style={{ fontFamily: "'Caveat', cursive", fontSize: 13, color: item.color, lineHeight: 1.4 }}>

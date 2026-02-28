@@ -1,37 +1,39 @@
 'use client';
 
-import { useState } from 'react';
-
-const initialEntries = [
-  { name: 'sk8er_mike', color: '#FFE500', time: '2 days ago', msg: 'dude your site is sick. reminds me of the old web. keep it up 🤙' },
-  { name: 'anonymous', color: '#00C8FF', time: '1 week ago', msg: 'found this site at 2am. stayed for an hour. this is the internet i miss.' },
-  { name: 'css_nerd_99', color: '#FF2D78', time: '2 weeks ago', msg: '121 day streak on cssbattle?? absolute legend. i gave up at day 12 😭' },
-  { name: 'piano_enjoyer', color: '#9B59FF', time: '3 weeks ago', msg: "the chopin recording is beautiful. don't stop playing." },
-  { name: 'devgirl_mk', color: '#00FF88', time: '1 month ago', msg: 'здраво од Македонија! 🇲🇰 nice to see someone from the balkans building cool stuff in munich' },
-  { name: 'konami_guy', color: '#FFE500', time: '1 month ago', msg: '↑↑↓↓←→←→BA — you know what i mean 😏' },
-];
-
-const nameColors = ['#FFE500', '#FF2D78', '#00C8FF', '#00FF88', '#9B59FF'];
+import { useState, useEffect } from 'react';
+import { useGuestbook } from '@/hooks/useGuestbook';
 
 interface GuestbookSectionProps {
-  entryCount: number;
-  setEntryCount: (n: number) => void;
+  onCountChange?: (count: number) => void;
 }
 
-export default function GuestbookSection({ entryCount, setEntryCount }: GuestbookSectionProps) {
-  const [entries, setEntries] = useState(initialEntries);
+export default function GuestbookSection({ onCountChange }: GuestbookSectionProps) {
+  const { entries, totalCount, loading, submitting, error, submitEntry } = useGuestbook();
   const [name, setName] = useState('');
   const [msg, setMsg] = useState('');
 
-  const addEntry = () => {
-    const n = name.trim() || 'anonymous';
-    const m = msg.trim();
-    if (!m) return;
-    const c = nameColors[Math.floor(Math.random() * nameColors.length)];
-    setEntries([{ name: n, color: c, time: 'just now', msg: m }, ...entries]);
+  useEffect(() => {
+    onCountChange?.(totalCount);
+  }, [totalCount, onCountChange]);
+
+  const handleSubmit = async () => {
+    await submitEntry(name, msg);
     setName('');
     setMsg('');
-    setEntryCount(entryCount + 1);
+  };
+
+  /** Format a Date into a relative time string. */
+  const formatTime = (date: Date): string => {
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    if (seconds < 60) return 'just now';
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    if (days < 30) return `${days}d ago`;
+    const months = Math.floor(days / 30);
+    return `${months}mo ago`;
   };
 
   return (
@@ -41,20 +43,37 @@ export default function GuestbookSection({ entryCount, setEntryCount }: Guestboo
           <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', textTransform: 'uppercase', letterSpacing: 3 }}>// 008</span>
           <h2 className="font-heading" style={{ fontSize: 'clamp(28px,5vw,40px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: -1, margin: 0 }}>GUESTBOOK</h2>
           <div style={{ flex: 1, minWidth: 40, height: 2, background: 'linear-gradient(90deg,#FFE500,transparent)' }} />
-          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', border: '1px solid #222', padding: '4px 8px' }}>{entryCount} entries</span>
+          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', border: '1px solid #222', padding: '4px 8px' }}>{totalCount} entries</span>
         </div>
+
+        {error && (
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#FF2D78', marginBottom: 16, padding: '8px 12px', border: '1px solid #FF2D78', background: '#1a0008' }}>
+            {error}
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Entries */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {entries.map((entry, i) => (
-              <div key={i} className="gm">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: entry.color }}>{entry.name}</span>
-                  <span style={{ fontFamily: "'VT323', monospace", fontSize: 14, color: '#333' }}>{entry.time}</span>
-                </div>
-                <p style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#888', margin: 0, lineHeight: 1.5 }}>{entry.msg}</p>
+            {loading ? (
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#444', padding: 20, textAlign: 'center' }}>
+                loading guestbook...
               </div>
-            ))}
+            ) : entries.length === 0 ? (
+              <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#555', padding: 20, textAlign: 'center' }}>
+                no entries yet. be the first to sign!
+              </div>
+            ) : (
+              entries.map((entry) => (
+                <div key={entry.id} className="gm">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: entry.color }}>{entry.name}</span>
+                    <span style={{ fontFamily: "'VT323', monospace", fontSize: 14, color: '#333' }}>{formatTime(entry.createdAt)}</span>
+                  </div>
+                  <p style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#888', margin: 0, lineHeight: 1.5 }}>{entry.msg}</p>
+                </div>
+              ))
+            )}
           </div>
           {/* Form */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -88,12 +107,13 @@ export default function GuestbookSection({ entryCount, setEntryCount }: Guestboo
                   />
                 </div>
                 <button
-                  onClick={addEntry}
-                  style={{ width: '100%', background: '#FFE500', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2, cursor: 'pointer', boxShadow: '4px 4px 0px #000', transition: 'all .15s' }}
-                  onMouseOver={(e) => { e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '6px 6px 0px #000'; }}
+                  onClick={handleSubmit}
+                  disabled={submitting}
+                  style={{ width: '100%', background: submitting ? '#999' : '#FFE500', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2, cursor: submitting ? 'wait' : 'pointer', boxShadow: '4px 4px 0px #000', transition: 'all .15s', opacity: submitting ? 0.7 : 1 }}
+                  onMouseOver={(e) => { if (!submitting) { e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '6px 6px 0px #000'; } }}
                   onMouseOut={(e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '4px 4px 0px #000'; }}
                 >
-                  SIGN IT →
+                  {submitting ? 'SIGNING...' : 'SIGN IT →'}
                 </button>
               </div>
             </div>

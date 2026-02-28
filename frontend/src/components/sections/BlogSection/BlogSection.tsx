@@ -2,6 +2,7 @@ import FeaturedPost from './FeaturedPost';
 import SmallPost from './SmallPost';
 import CurrentlySidebar from './CurrentlySidebar';
 import MultilingualQuotes from './MultilingualQuotes';
+import { smallPosts } from '@/data/blog';
 
 export default function BlogSection() {
   return (
@@ -16,8 +17,9 @@ export default function BlogSection() {
         <div className="lg:col-span-2 flex flex-col gap-4">
           <FeaturedPost />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <SmallPost date="OCT 28 · 5 MIN" title="Building Real-Time Chat with NestJS WebSockets" desc="the actual way to do it, not the tutorial way." tag="dev" />
-            <SmallPost date="OCT 12 · 3 MIN" title="Playing Piano While Learning to Code" desc="both require muscle memory. both require patience." tag="life" />
+            {smallPosts.map((post, i) => (
+              <SmallPost key={i} date={post.date} title={post.title} desc={post.desc} tag={post.tag} />
+            ))}
           </div>
         </div>
         {/* Right sidebar */}
