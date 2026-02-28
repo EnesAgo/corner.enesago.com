@@ -1,0 +1,14 @@
+export { default as HeroSection } from './HeroSection';
+export { default as TechStrip } from './TechStrip';
+export { default as DiarySection } from './DiarySection';
+export { default as AboutSection } from './AboutSection';
+export { default as ProjectsSection } from './ProjectsSection';
+export { default as PolaroidWall } from './PolaroidWall';
+export { default as ChaptersSection } from './ChaptersSection';
+export { default as SystemCoreSection } from './SystemCoreSection';
+export { default as MusicSection } from './MusicSection';
+export { default as BurnedCDsSection } from './BurnedCDsSection';
+export { default as BlogSection } from './BlogSection';
+export { default as GuestbookSection } from './GuestbookSection';
+export { default as VlogSection } from './VlogSection';
+export { default as LabSection } from './LabSection';
