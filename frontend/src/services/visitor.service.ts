@@ -63,11 +63,17 @@ export function getVisitorId(): string {
 /** Fetch approximate geo-location (city, country) from a free API. */
 async function fetchGeoData(): Promise<GeoData | null> {
   try {
-    const res = await fetch('https://ip-api.com/json/?fields=city,country,countryCode,timezone', {
+    const res = await fetch('https://ipapi.co/json/', {
       signal: AbortSignal.timeout(3000),
     });
     if (!res.ok) return null;
-    return (await res.json()) as GeoData;
+    const data = await res.json();
+    return {
+      city: data.city ?? null,
+      country: data.country_name ?? null,
+      countryCode: data.country_code ?? null,
+      timezone: data.timezone ?? null,
+    } as GeoData;
   } catch {
     return null;
   }

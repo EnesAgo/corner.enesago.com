@@ -114,13 +114,13 @@ export function MinecraftEgg({ onClose }: { onClose: () => void }) {
       <div style={{ padding: 20 }}>
         <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 9, color: '#5D9E3F', marginBottom: 14, lineHeight: 2 }}>🌍 WORLD SEED FOUND</div>
         <div style={{ border: '3px solid #3a6028', background: '#0d1a08', padding: 14, marginBottom: 16 }}>
-          <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 8, color: '#5D9E3F', marginBottom: 8 }}>SEED: devkid_2011</div>
+          <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 8, color: '#5D9E3F', marginBottom: 8 }}>SEED: -6533818095930530816</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 2, marginBottom: 8 }}>
             {colors.map((c, i) => <div key={i} style={{ height: 14, background: c }} />)}
           </div>
         </div>
         <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#7ab85a', lineHeight: 1.8, marginBottom: 16 }}>
-          &quot;playing since alpha. my first server was &apos;devkid_world&apos;. i built a skatepark. it was terrible. i was so proud.&quot;
+          &quot;playing since alpha. my first server was &apos;enesago_world&apos;. i built a skatepark. it was terrible. i was so proud.&quot;
         </div>
         <button onClick={onClose} style={{ width: '100%', background: '#5D9E3F', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Press Start 2P', monospace", fontSize: 9, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>JOIN WORLD</button>
       </div>

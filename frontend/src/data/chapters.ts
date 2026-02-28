@@ -62,7 +62,7 @@ export interface FileEntry {
 }
 
 export const fileExplorerEntries: FileEntry[] = [
-  { text: '📁 devkid_world/', color: '#FFE500', indent: 0 },
+  { text: '📁 enesago_world/', color: '#FFE500', indent: 0 },
   { text: '📁 projects/', indent: 24 },
   { text: '📄 skatelog.tsx', indent: 40 },
   { text: '📄 nightshot.tsx', indent: 40 },

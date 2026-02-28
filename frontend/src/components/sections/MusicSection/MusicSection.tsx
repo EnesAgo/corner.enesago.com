@@ -46,7 +46,7 @@ export default function MusicSection() {
             <div>
               {tapes.map((tape, i) => (
                 <div key={i} className="hs" style={{ padding: '10px 14px', borderBottom: i < tapes.length - 1 ? '1px solid #111' : 'none', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }}>
-                  <div style={{ width: 32, height: 32, background: '#1a1a1a', border: `2px solid ${tape.borderColor}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0 }}>▶</div>
+                  <div style={{ width: 32, height: 32, background: '#1a1a1a', border: `2px solid ${tape.borderColor}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0, color: '#ccc' }}>▶</div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#ccc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tape.title}</div>
                     <div style={{ fontFamily: "'VT323', monospace", fontSize: 13, color: '#444' }}>{tape.meta}</div>
