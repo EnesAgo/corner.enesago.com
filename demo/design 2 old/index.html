@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en" style="height: auto; min-height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@devkid — my corner of the web</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link id="heading-font-link" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link id="body-font-link" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Bebas+Neue&family=VT323&family=Press+Start+2P&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['var(--font-heading-name)', 'sans-serif'],
+                        body: ['var(--font-body-name)', 'monospace'],
+                        marker: ['Permanent Marker', 'cursive'],
+                        bebas: ['Bebas Neue', 'sans-serif'],
+                        vt: ['VT323', 'monospace'],
+                        pixel: ['"Press Start 2P"', 'monospace'],
+                        caveat: ['Caveat', 'cursive'],
+                    },
+                    borderRadius: {
+                        small: 'var(--radius-small)',
+                        large: 'var(--radius-large)',
+                    },
+                    boxShadow: {
+                        custom: 'var(--shadow-custom)',
+                        'custom-hover': 'var(--shadow-custom-hover)',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --font-heading-name: 'Space Grotesk';
+            --font-body-name: 'IBM Plex Mono';
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'IBM Plex Mono', monospace;
+            --letter-spacing-heading: -0.5px;
+            --letter-spacing-body: 0px;
+            --space-base: 1rem;
+            --radius-small: 0px;
+            --radius-large: 0px;
+            --border-width: 2px;
+            --shadow-color: 0 0 0;
+            --shadow-offset-x: 4px;
+            --shadow-offset-y: 4px;
+            --shadow-blur: 0px;
+            --shadow-spread: 0px;
+            --shadow-opacity: 1;
+            --shadow-custom: 4px 4px 0px rgb(var(--shadow-color));
+            --shadow-custom-hover: 2px 2px 0px rgb(var(--shadow-color));
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #080808; cursor: none; overflow-x: hidden; }
+
+        #cursor { width:12px;height:12px;background:#FFE500;border:2px solid #000;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .15s; }
+        #cursor.hovering { width:28px;height:28px;background:#FF2D78;border-color:#FF2D78; }
+        #cursor-trail { position:fixed;top:0;left:0;pointer-events:none;z-index:99998; }
+        .trail-dot { position:absolute;width:4px;height:4px;background:#FFE500;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);opacity:.6; }
+
+        body::before { content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9990; }
+        body::after { content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.06) 3px,rgba(0,0,0,.06) 4px);pointer-events:none;z-index:9989; }
+
+        .ambient-blob { position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:.06;animation:blob-drift 12s ease-in-out infinite alternate; }
+        @keyframes blob-drift { 0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,-20px) scale(1.08)} }
+
+        #flash-overlay { position:fixed;inset:0;background:white;pointer-events:none;z-index:9995;opacity:0;transition:opacity .05s; }
+
+        .font-heading { font-family:var(--font-heading); }
+        .font-body { font-family:var(--font-body); }
+        .font-marker { font-family:'Permanent Marker',cursive; }
+        .font-bebas { font-family:'Bebas Neue',sans-serif; }
+        .font-vt { font-family:'VT323',monospace; }
+        .font-pixel { font-family:'Press Start 2P',monospace; }
+        .font-caveat { font-family:'Caveat',cursive; }
+
+        .glitch-text { position:relative;display:inline-block; }
+        .glitch-text::before,.glitch-text::after { content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%; }
+        .glitch-text::before { color:#FF2D78;animation:glitch-1 4s infinite;clip-path:polygon(0 0,100% 0,100% 35%,0 35%); }
+        .glitch-text::after { color:#00C8FF;animation:glitch-2 4s infinite;clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%); }
+        @keyframes glitch-1 { 0%,88%,100%{transform:translate(0);opacity:1}90%{transform:translate(-3px,1px);opacity:.8}93%{transform:translate(3px,-1px);opacity:.9}96%{transform:translate(-1px,2px);opacity:.7} }
+        @keyframes glitch-2 { 0%,85%,100%{transform:translate(0);opacity:1}87%{transform:translate(3px,-1px);opacity:.8}91%{transform:translate(-3px,1px);opacity:.9}95%{transform:translate(1px,-2px);opacity:.7} }
+
+        .sticker { display:inline-block;transform:rotate(-2deg);transition:transform .2s ease,box-shadow .2s ease;cursor:default; }
+        .sticker:hover { transform:rotate(2deg) scale(1.08); }
+        .sticker-2 { display:inline-block;transform:rotate(3deg);transition:transform .2s ease;cursor:default; }
+        .sticker-2:hover { transform:rotate(-2deg) scale(1.08); }
+        .sticker-3 { display:inline-block;transform:rotate(-5deg);transition:transform .2s ease;cursor:default; }
+        .sticker-3:hover { transform:rotate(1deg) scale(1.1); }
+
+        .photo-frame { border:3px solid #fff;box-shadow:0 4px 20px rgba(0,0,0,.8),4px 4px 0px #000;transform:rotate(-1.5deg);transition:transform .3s ease,box-shadow .3s ease; }
+        .photo-frame:hover { transform:rotate(0deg) scale(1.03);box-shadow:0 8px 32px rgba(0,0,0,.9),6px 6px 0px #000; }
+        .photo-frame-2 { border:3px solid #fff;box-shadow:0 4px 20px rgba(0,0,0,.8),4px 4px 0px #000;transform:rotate(2.5deg);transition:transform .3s ease; }
+        .photo-frame-2:hover { transform:rotate(0deg) scale(1.03); }
+        .photo-frame-3 { border:3px solid #fff;box-shadow:0 4px 20px rgba(0,0,0,.8),4px 4px 0px #000;transform:rotate(-3.5deg);transition:transform .3s ease; }
+        .photo-frame-3:hover { transform:rotate(0deg) scale(1.03); }
+
+        .polaroid { background:#f5f0e8;padding:8px 8px 32px 8px;box-shadow:3px 3px 0px #000,0 8px 24px rgba(0,0,0,.6);transition:transform .3s ease,box-shadow .3s ease;cursor:pointer; }
+        .polaroid:hover { transform:rotate(0deg) scale(1.06) !important;box-shadow:6px 6px 0px #000,0 12px 32px rgba(0,0,0,.8) !important; }
+
+        .hover-lift { transition:transform .2s ease,box-shadow .2s ease; }
+        .hover-lift:hover { transform:translateY(-3px) translateX(-2px);box-shadow:6px 6px 0px #000 !important; }
+
+        .window-bar { background:linear-gradient(90deg,#1a1a2e 0%,#16213e 100%);border-bottom:2px solid #2a2a4a; }
+
+        @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+        .cursor-blink { animation:blink 1s step-end infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)} }
+        .float-anim { animation:float 3s ease-in-out infinite; }
+
+        .vhs-lines { background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,200,255,.025) 3px,rgba(0,200,255,.025) 4px);pointer-events:none; }
+
+        ::-webkit-scrollbar { width:8px; }
+        ::-webkit-scrollbar-track { background:#080808; }
+        ::-webkit-scrollbar-thumb { background:#FFE500;border:2px solid #080808; }
+
+        .egg-modal { position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99997;display:none;align-items:center;justify-content:center; }
+        .egg-modal.active { display:flex; }
+
+        .secret-tooltip { position:relative; }
+        .secret-tooltip .tooltip-content { position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) scale(.8);background:#FFE500;color:#000;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border:2px solid #000;white-space:nowrap;opacity:0;pointer-events:none;transition:all .2s ease;box-shadow:2px 2px 0px #000;z-index:100; }
+        .secret-tooltip:hover .tooltip-content { opacity:1;transform:translateX(-50%) scale(1); }
+
+        .diary-line { border-bottom:1px solid rgba(255,229,0,.1);padding-bottom:8px;margin-bottom:8px; }
+        .diary-line:last-child { border-bottom:none;margin-bottom:0;padding-bottom:0; }
+
+        .imperfect-1 { transform:rotate(-1deg); }
+        .imperfect-2 { transform:rotate(.8deg) translateY(2px); }
+        .imperfect-3 { transform:rotate(-1.2deg) translateX(-1px); }
+
+        .flash-photo { position:relative;overflow:hidden; }
+        .flash-photo::after { content:'';position:absolute;top:-20%;left:-20%;width:40%;height:40%;background:radial-gradient(circle,rgba(255,255,255,.25) 0%,transparent 70%);pointer-events:none; }
+
+        #konami-hint { position:fixed;bottom:20px;right:20px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#1a1a1a;z-index:100;transition:color .3s;cursor:default;letter-spacing:1px;user-select:none; }
+        #konami-hint:hover { color:#333; }
+
+        #live-clock { font-variant-numeric:tabular-nums; }
+
+        .mood-dot { width:8px;height:8px;border-radius:50%;animation:pulse-mood 2s ease-in-out infinite; }
+        @keyframes pulse-mood { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7} }
+
+        .hover-scratch { position:relative;overflow:hidden; }
+        .hover-scratch::before { content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);transition:left .4s ease;pointer-events:none;z-index:1; }
+        .hover-scratch:hover::before { left:150%; }
+
+        .room-label { writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);font-family:'IBM Plex Mono',monospace;font-size:9px;color:#1e1e1e;letter-spacing:3px;text-transform:uppercase;user-select:none; }
+
+        .sticky-note { background:#FFE500;padding:12px 14px;box-shadow:2px 2px 0px rgba(0,0,0,.4),inset 0 -2px 4px rgba(0,0,0,.08);position:relative; }
+        .sticky-note::before { content:'';position:absolute;top:0;left:0;right:0;height:4px;background:rgba(0,0,0,.08); }
+
+        .link-hover { text-decoration:none;position:relative; }
+        .link-hover::after { content:'';position:absolute;bottom:-2px;left:0;width:0%;height:2px;background:currentColor;transition:width .2s ease; }
+        .link-hover:hover::after { width:100%; }
+
+        .distort-hover { transition:filter .3s ease; }
+        .distort-hover:hover { filter:contrast(1.3) saturate(1.4) brightness(1.05); }
+
+        @keyframes eq-bar { 0%{transform:scaleY(.3)}100%{transform:scaleY(1)} }
+
+        @keyframes bill-float { 0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-8px) rotate(3deg)}75%{transform:translateY(-4px) rotate(-3deg)} }
+        .bill-float { animation:bill-float 4s ease-in-out infinite; }
+
+        @keyframes gf-glitch { 0%,90%,100%{transform:translate(0);filter:hue-rotate(0deg)}92%{transform:translate(-4px,2px);filter:hue-rotate(90deg)}94%{transform:translate(4px,-2px);filter:hue-rotate(180deg)}96%{transform:translate(-2px,4px);filter:hue-rotate(270deg)} }
+        .gf-glitch { animation:gf-glitch 6s infinite; }
+
+        @keyframes progress-fill { 0%{width:0%}100%{width:var(--target-width)} }
+        .skill-bar-fill { animation:progress-fill 1.5s ease-out forwards;animation-delay:.3s;width:0%; }
+
+        #draggable-note { position:fixed;z-index:9980;cursor:grab;user-select:none; }
+        #draggable-note:active { cursor:grabbing; }
+        #draggable-note.dragging { opacity:.9; }
+
+        .mc-slot { width:44px;height:44px;background:#8B8B8B;border:3px solid;border-color:#FFF #555 #555 #FFF;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:filter .15s;position:relative; }
+        .mc-slot:hover { filter:brightness(1.3); }
+        .mc-slot::after { content:attr(data-count);position:absolute;bottom:1px;right:3px;font-family:'Press Start 2P',monospace;font-size:7px;color:#fff;text-shadow:1px 1px 0px #000; }
+
+        .passport-stamp { border:3px solid;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(var(--rot,-3deg));opacity:.85;transition:opacity .2s,transform .2s; }
+        .passport-stamp:hover { opacity:1;transform:rotate(0deg) scale(1.05); }
+
+        .terminal-line { font-family:'IBM Plex Mono',monospace;font-size:11px;color:#00FF88;line-height:1.8;padding:2px 0; }
+        .terminal-line.dim { color:#2a4a2a; }
+        .terminal-line.warn { color:#FFE500; }
+        .terminal-line.err { color:#FF2D78; }
+        @keyframes type-cursor { 0%,100%{opacity:1}50%{opacity:0} }
+        .type-cursor { animation:type-cursor .8s step-end infinite; }
+
+        .lang-bubble { border:2px solid;padding:10px 14px;position:relative;transition:transform .2s,box-shadow .2s;cursor:pointer; }
+        .lang-bubble:hover { transform:translateY(-2px); }
+        .lang-bubble::before { content:'';position:absolute;bottom:-10px;left:16px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid; }
+
+        @keyframes reel-spin { 0%{transform:rotate(0deg)}100%{transform:rotate(360deg)} }
+        .reel-spin { animation:reel-spin 3s linear infinite; }
+
+        .webcam-frame { border:3px solid #333;position:relative;overflow:hidden; }
+        .webcam-frame::before { content:'REC ●';position:absolute;top:8px;right:10px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF2D78;z-index:2;text-shadow:0 0 8px #FF2D78; }
+        .webcam-timestamp { position:absolute;bottom:8px;left:10px;font-family:'VT323',monospace;font-size:14px;color:rgba(255,229,0,.75);z-index:2; }
+
+        /* LIGHTBOX */
+        #lightbox { position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:99996;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px; }
+        #lightbox.active { display:flex; }
+        #lightbox img { max-width:80vw;max-height:70vh;object-fit:contain;border:4px solid #fff;box-shadow:8px 8px 0px #000; }
+        #lightbox-caption { font-family:'Caveat',cursive;font-size:22px;color:#fff; }
+        #lightbox-close { position:absolute;top:24px;right:32px;font-family:'IBM Plex Mono',monospace;font-size:14px;color:#888;cursor:pointer;border:2px solid #333;padding:6px 14px;background:transparent;transition:all .15s; }
+        #lightbox-close:hover { color:#fff;border-color:#fff; }
+
+        /* INTEREST TAGS */
+        .interest-tag { display:flex;align-items:center;gap:8px;padding:7px 12px;border:2px solid #1a1a1a;background:#0a0a0a;transition:all .2s ease; }
+        .interest-tag:hover { border-color:#FFE500;background:#0d0d0d;transform:translateX(3px); }
+        .interest-tag:hover .tag-emoji { transform:scale(1.2) rotate(5deg); }
+        .tag-emoji { transition:transform .2s ease;display:inline-block;font-size:16px; }
+
+        @keyframes marquee { 0%{background-position:0% 50%}100%{background-position:200% 50%} }
+
+        .section-fade { opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease; }
+        .section-fade.visible { opacity:1;transform:translateY(0); }
+
+        /* CSSBATTLE BADGE */
+        @keyframes streak-pulse { 0%,100%{box-shadow:0 0 0px #FF6B00}50%{box-shadow:0 0 16px #FF6B00,0 0 32px rgba(255,107,0,.3)} }
+        .streak-badge { animation:streak-pulse 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="font-body" style="height:auto;min-height:100%;background-color:#080808;color:#f0f0f0;">
+
+<!-- AMBIENT BLOBS -->
+<div class="ambient-blob" style="width:600px;height:600px;background:#FF2D78;top:-100px;left:-200px;"></div>
+<div class="ambient-blob" style="width:500px;height:500px;background:#00C8FF;top:200px;right:-150px;animation-delay:-4s;"></div>
+<div class="ambient-blob" style="width:400px;height:400px;background:#FFE500;top:800px;left:30%;animation-delay:-8s;"></div>
+
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+<div id="flash-overlay"></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+    <button id="lightbox-close" onclick="closeLightbox()">✕ CLOSE</button>
+    <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-caption"></div>
+</div>
+
+<!-- DRAGGABLE STICKY NOTE -->
+<div id="draggable-note" style="top:140px;left:calc(100vw - 220px);width:190px;">
+    <div style="background:#FFE500;border:2px solid #000;box-shadow:4px 4px 0px #000;padding:0;">
+        <div style="background:#e6ce00;border-bottom:2px solid #000;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;cursor:grab;" id="note-handle">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#000;font-weight:700;text-transform:uppercase;letter-spacing:1px;">sticky.txt</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#000;cursor:pointer;" onclick="document.getElementById('draggable-note').style.display='none'">✕</span>
+        </div>
+        <div style="padding:12px;">
+            <div style="font-family:'Caveat',cursive;font-size:15px;color:#000;line-height:1.6;" id="note-content" contenteditable="true">todo:<br>— finish auth module<br>— call mom<br>— buy new strings<br>— skate tomorrow 🛹</div>
+        </div>
+    </div>
+</div>
+
+<!-- EASTER EGG 1 — KONAMI -->
+<div id="easter-egg-1" class="egg-modal">
+    <div style="border:3px solid #FFE500;background:#0d0d0d;max-width:480px;width:90%;box-shadow:8px 8px 0px #FFE500;position:relative;">
+        <div class="window-bar" style="padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #2a2a4a;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:10px;height:10px;background:#FF2D78;border-radius:50%;"></div>
+                <div style="width:10px;height:10px;background:#FFE500;border-radius:50%;"></div>
+                <div style="width:10px;height:10px;background:#00FF88;border-radius:50%;"></div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#666;margin-left:8px;">secret.txt — unlocked</span>
+            </div>
+            <button onclick="document.getElementById('easter-egg-1').classList.remove('active')" style="background:none;border:none;color:#666;cursor:pointer;font-size:16px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">✕</button>
+        </div>
+        <div style="padding:28px;">
+            <div style="font-family:'Press Start 2P',monospace;font-size:11px;color:#FFE500;margin-bottom:20px;line-height:2;">🎮 CHEAT CODE ACTIVATED</div>
+            <div style="font-family:'Caveat',cursive;font-size:18px;color:#aaa;line-height:1.8;margin-bottom:20px;">hey, you actually did it. the konami code. you're my kind of person.<br><br>here's a secret: i built this whole site in one night listening to blink-182 on repeat. the visitor counter is fake. the guestbook is real. the vibes are 100% authentic.</div>
+            <div style="border:2px dashed #333;padding:14px;background:#0a0a0a;margin-bottom:20px;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;margin-bottom:8px;text-transform:uppercase;letter-spacing:2px;">// unlocked: secret playlist</div>
+                <div style="font-family:'Caveat',cursive;font-size:15px;color:#FFE500;line-height:1.8;">1. blink-182 — i miss you<br>2. the strokes — reptilia<br>3. kanye west — through the wire<br>4. avril lavigne — sk8er boi<br>5. outkast — hey ya!<br>6. my chemical romance — i'm not okay</div>
+            </div>
+            <button onclick="document.getElementById('easter-egg-1').classList.remove('active')" style="width:100%;background:#FFE500;color:#000;border:3px solid #000;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;box-shadow:4px 4px 0px #000;transition:all .15s;" onmouseover="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='6px 6px 0px #000'" onmouseout="this.style.transform='translate(0,0)';this.style.boxShadow='4px 4px 0px #000'">CLOSE & KEEP THE SECRET</button>
+        </div>
+    </div>
+</div>
+
+<!-- EASTER EGG 2 — BILL CIPHER -->
+<div id="easter-egg-2" class="egg-modal">
+    <div style="border:3px solid #FFD700;background:#0a0800;max-width:520px;width:90%;box-shadow:8px 8px 0px #FFD700;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(60deg,transparent,transparent 20px,rgba(255,215,0,.02) 20px,rgba(255,215,0,.02) 21px);pointer-events:none;"></div>
+        <div class="window-bar" style="padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #3a3000;position:relative;z-index:1;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:10px;height:10px;background:#FFD700;border-radius:50%;"></div>
+                <div style="width:10px;height:10px;background:#FF6B00;border-radius:50%;"></div>
+                <div style="width:10px;height:10px;background:#FF2D78;border-radius:50%;"></div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#666;margin-left:8px;">bill_cipher.exe — REALITY BREACH</span>
+            </div>
+            <button onclick="document.getElementById('easter-egg-2').classList.remove('active')" style="background:none;border:none;color:#666;cursor:pointer;font-size:16px;" onmouseover="this.style.color='#FFD700'" onmouseout="this.style.color='#666'">✕</button>
+        </div>
+        <div style="padding:32px;text-align:center;position:relative;z-index:1;">
+            <div class="bill-float" style="margin-bottom:20px;">
+                <div style="font-family:'Press Start 2P',monospace;font-size:36px;color:#FFD700;text-shadow:0 0 20px #FFD700,0 0 40px #FF6B00;">△</div>
+                <div style="font-family:'Press Start 2P',monospace;font-size:10px;color:#FFD700;margin-top:4px;letter-spacing:3px;text-shadow:0 0 10px #FFD700;">👁</div>
+            </div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#FFD700;letter-spacing:4px;margin-bottom:12px;text-shadow:0 0 20px #FFD700;" class="gf-glitch">A-HAHAHA! DEAL?</div>
+            <div style="font-family:'Caveat',cursive;font-size:17px;color:#aa9900;line-height:1.8;margin-bottom:24px;">"Interesting... a developer who builds things for fun, not profit. I haven't seen that since 2009.<br><br>I've been watching your commits, kid. That auth refactor at 3am? Inspired. Chaotic. <em style="color:#FFD700;">My kind of energy.</em><br><br>— Bill Cipher, Dimension 46'\"</div>
+            <div style="border:2px solid #3a3000;padding:14px;background:#050400;margin-bottom:20px;text-align:left;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#555;margin-bottom:8px;text-transform:uppercase;letter-spacing:2px;">// decoded: gravity falls cipher</div>
+                <div style="font-family:'Caveat',cursive;font-size:14px;color:#888;line-height:1.8;">TRUST NO ONE · QUESTION EVERYTHING<br>THE AUTHOR IS CLOSER THAN YOU THINK<br><span style="color:#FFD700;">STAN WAS RIGHT ALL ALONG</span></div>
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button onclick="document.getElementById('easter-egg-2').classList.remove('active')" style="flex:1;background:#FFD700;color:#000;border:3px solid #000;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;box-shadow:4px 4px 0px #000;transition:all .15s;" onmouseover="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='6px 6px 0px #000'" onmouseout="this.style.transform='translate(0,0)';this.style.boxShadow='4px 4px 0px #000'">MAKE A DEAL</button>
+                <button onclick="document.getElementById('easter-egg-2').classList.remove('active')" style="flex:1;background:transparent;color:#555;border:3px solid #333;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='#FFD700';this.style.color='#FFD700'" onmouseout="this.style.borderColor='#333';this.style.color='#555'">RESIST</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EASTER EGG 3 — TIME CAPSULE -->
+<div id="easter-egg-3" class="egg-modal">
+    <div style="border:3px solid #00C8FF;background:#0d0d0d;max-width:500px;width:90%;box-shadow:8px 8px 0px #00C8FF;position:relative;">
+        <div class="window-bar" style="padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #2a2a4a;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:10px;height:10px;background:#FF2D78;border-radius:50%;"></div>
+                <div style="width:10px;height:10px;background:#FFE500;border-radius:50%;"></div>
+                <div style="width:10px;height:10px;background:#00FF88;border-radius:50%;"></div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#666;margin-left:8px;">time_capsule.exe — 2009</span>
+            </div>
+            <button onclick="document.getElementById('easter-egg-3').classList.remove('active')" style="background:none;border:none;color:#666;cursor:pointer;font-size:16px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#666'">✕</button>
+        </div>
+        <div style="padding:28px;">
+            <div style="font-family:'Press Start 2P',monospace;font-size:10px;color:#00C8FF;margin-bottom:20px;line-height:2;">📼 TIME CAPSULE: 2009</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+                <div style="border:2px solid #111;padding:10px;background:#0a0a0a;"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">top 8 friends</div><div style="font-family:'Caveat',cursive;font-size:13px;color:#888;line-height:1.7;">tom · sk8er_mike<br>xXdarkXx · jess99<br>coolguy2009 · ...</div></div>
+                <div style="border:2px solid #111;padding:10px;background:#0a0a0a;"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">mood</div><div style="font-family:'Caveat',cursive;font-size:13px;color:#FFE500;line-height:1.7;">♫ listening to<br>linkin park<br>feeling: emo 🖤</div></div>
+                <div style="border:2px solid #111;padding:10px;background:#0a0a0a;"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">about me</div><div style="font-family:'Caveat',cursive;font-size:13px;color:#888;line-height:1.7;">16. skater. i like<br>music + computers.<br>don't add if fake</div></div>
+                <div style="border:2px solid #111;padding:10px;background:#0a0a0a;"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">profile views</div><div style="font-family:'Press Start 2P',monospace;font-size:14px;color:#00C8FF;line-height:1.7;">004,892</div></div>
+            </div>
+            <div style="font-family:'Caveat',cursive;font-size:15px;color:#555;text-align:center;margin-bottom:20px;line-height:1.7;">"this is where it all started. myspace. 2009.<br>i was 16 and i thought html was magic.<br><span style="color:#888;">it still is.</span>"</div>
+            <button onclick="document.getElementById('easter-egg-3').classList.remove('active')" style="width:100%;background:#00C8FF;color:#000;border:3px solid #000;padding:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;box-shadow:4px 4px 0px #000;transition:all .15s;" onmouseover="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='6px 6px 0px #000'" onmouseout="this.style.transform='translate(0,0)';this.style.boxShadow='4px 4px 0px #000'">CLOSE TIME CAPSULE</button>
+        </div>
+    </div>
+</div>
+
+<!-- EASTER EGG 4 — MINECRAFT SEED -->
+<div id="easter-egg-4" class="egg-modal">
+    <div style="border:3px solid #5D9E3F;background:#0a0d08;max-width:500px;width:90%;box-shadow:8px 8px 0px #5D9E3F;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(93,158,63,.03) 8px,rgba(93,158,63,.03) 9px);pointer-events:none;"></div>
+        <div style="background:#2d4a1e;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #3a6028;position:relative;z-index:1;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <div style="width:10px;height:10px;background:#5D9E3F;"></div>
+                <div style="width:10px;height:10px;background:#8B6914;"></div>
+                <div style="width:10px;height:10px;background:#4A90D9;"></div>
+                <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#5D9E3F;margin-left:8px;">minecraft.exe</span>
+            </div>
+            <button onclick="document.getElementById('easter-egg-4').classList.remove('active')" style="background:none;border:none;color:#555;cursor:pointer;font-size:16px;" onmouseover="this.style.color='#5D9E3F'" onmouseout="this.style.color='#555'">✕</button>
+        </div>
+        <div style="padding:28px;position:relative;z-index:1;">
+            <div style="font-family:'Press Start 2P',monospace;font-size:10px;color:#5D9E3F;margin-bottom:16px;line-height:2;">🌍 WORLD SEED FOUND</div>
+            <div style="border:3px solid #3a6028;background:#0d1a08;padding:16px;margin-bottom:18px;font-family:'Press Start 2P',monospace;">
+                <div style="font-size:8px;color:#5D9E3F;margin-bottom:10px;">SEED: devkid_2011</div>
+                <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-bottom:10px;">
+                    <div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#8B6914;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#4A90D9;"></div><div style="height:16px;background:#4A90D9;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#5D9E3F;"></div>
+                    <div style="height:16px;background:#8B6914;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#8B6914;"></div><div style="height:16px;background:#8B6914;"></div><div style="height:16px;background:#4A90D9;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#8B6914;"></div>
+                    <div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#8B6914;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#5D9E3F;"></div><div style="height:16px;background:#8B6914;"></div><div style="height:16px;background:#5D9E3F;"></div>
+                </div>
+                <div style="font-size:7px;color:#3a6028;">BIOME: creative_chaos · DIFFICULTY: hard · MODE: survival</div>
+            </div>
+            <div style="font-family:'Caveat',cursive;font-size:16px;color:#7ab85a;line-height:1.8;margin-bottom:20px;">"i've been playing minecraft since alpha. my first server was called 'devkid_world'. i built a skatepark in it. it was terrible. i was so proud."</div>
+            <button onclick="document.getElementById('easter-egg-4').classList.remove('active')" style="width:100%;background:#5D9E3F;color:#000;border:3px solid #000;padding:10px;font-family:'Press Start 2P',monospace;font-size:10px;letter-spacing:1px;cursor:pointer;box-shadow:4px 4px 0px #000;transition:all .15s;" onmouseover="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='6px 6px 0px #000'" onmouseout="this.style.transform='translate(0,0)';this.style.boxShadow='4px 4px 0px #000'">JOIN WORLD</button>
+        </div>
+    </div>
+</div>
+
+<div id="konami-hint">↑↑↓↓←→←→BA</div>
+
+<!-- TICKER TAPE -->
+<div style="background:#FFE500;border-bottom:3px solid #000;height:30px;display:flex;align-items:center;position:relative;z-index:50;padding:0 18px;">
+    <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#000;white-space:nowrap;">★ WELCOME TO MY CORNER OF THE WEB &nbsp;&nbsp; ★ last commit: 2 hrs ago &nbsp;&nbsp; mood: chaotic but shipping &nbsp;&nbsp; react 18 · nestjs · mongodb · vibes &nbsp;&nbsp; ★ no algorithm. no feed. just me.</span>
+</div>
+
+<!-- NAVIGATION -->
+<nav style="background:rgba(10,10,10,.96);border-bottom:3px solid #FFE500;padding:0 28px;position:sticky;top:0;z-index:200;backdrop-filter:blur(8px);">
+    <div style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+            <div class="secret-tooltip" style="position:relative;">
+                <div id="logo-btn" style="width:36px;height:36px;background:#FFE500;border:2px solid #000;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P',monospace;font-size:9px;color:#000;box-shadow:2px 2px 0px #fff;cursor:pointer;transition:transform .15s;" onmouseover="this.style.transform='rotate(8deg)'" onmouseout="this.style.transform='rotate(0deg)'" onclick="openEgg(3)">dk</div>
+                <div class="tooltip-content">est. 2009 · click me 👀</div>
+            </div>
+            <div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFE500;letter-spacing:2px;line-height:1;">DEVKID.EXE</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;letter-spacing:1px;">v2.0.11 · <span id="live-clock" style="color:#555;">--:--:--</span></div>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:2px;flex-wrap:wrap;">
+            <a href="#home" class="hover-scratch" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FFE500;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border:2px solid #FFE500;text-decoration:none;transition:all .15s;background:transparent;" onmouseover="this.style.background='#FFE500';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#FFE500'">HOME</a>
+            <a href="#about" class="hover-scratch" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#ccc;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border:2px solid #222;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#FF2D78';this.style.color='#FF2D78'" onmouseout="this.style.borderColor='#222';this.style.color='#ccc'">ABOUT</a>
+            <a href="#chapters" class="hover-scratch" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#ccc;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border:2px solid #222;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#FFE500';this.style.color='#FFE500'" onmouseout="this.style.borderColor='#222';this.style.color='#ccc'">CHAPTERS</a>
+            <a href="#projects" class="hover-scratch" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#ccc;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border:2px solid #222;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#00C8FF';this.style.color='#00C8FF'" onmouseout="this.style.borderColor='#222';this.style.color='#ccc'">WORK</a>
+            <a href="#music" class="hover-scratch" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#ccc;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border:2px solid #222;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#FF2D78';this.style.color='#FF2D78'" onmouseout="this.style.borderColor='#222';this.style.color='#ccc'">MUSIC</a>
+            <a href="#blog" class="hover-scratch" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#ccc;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border:2px solid #222;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#00FF88';this.style.color='#00FF88'" onmouseout="this.style.borderColor='#222';this.style.color='#ccc'">BLOG</a>
+            <a href="#lab" class="hover-scratch" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#ccc;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border:2px solid #222;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#FFE500';this.style.color='#FFE500'" onmouseout="this.style.borderColor='#222';this.style.color='#ccc'">LAB ⚗</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div style="display:flex;align-items:center;gap:6px;border:1px solid #1a1a1a;padding:4px 12px;background:#0d0d0d;">
+                <div class="mood-dot" style="background:#00FF88;width:8px;height:8px;"></div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00FF88;text-transform:uppercase;letter-spacing:1px;">online</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ═══ HERO — THE LIVING ROOM ═══ -->
+<section id="home" style="max-width:1440px;margin:0 auto;padding:56px 32px 48px;position:relative;overflow:hidden;">
+    <div style="position:absolute;left:6px;top:80px;bottom:80px;display:flex;align-items:center;">
+        <span class="room-label">// room_01 — the living room</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:36px;align-items:start;">
+        <div style="position:relative;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:3px;">// hello world, i'm</span>
+                <div style="flex:1;height:1px;background:linear-gradient(90deg,#222,transparent);"></div>
+                <span style="font-family:'VT323',monospace;font-size:14px;color:#333;" id="hero-timestamp">NOV 14 2024 · 03:47:22</span>
+            </div>
+            <div style="position:relative;margin-bottom:22px;">
+                <h1 class="font-heading glitch-text" data-text="ENES AGO" style="font-size:clamp(64px,7.5vw,104px);font-weight:700;color:#f0f0f0;line-height:.88;letter-spacing:-4px;">ENES AGO</h1>
+                <div style="position:absolute;bottom:-6px;left:0;width:100%;height:3px;background:linear-gradient(90deg,#FFE500 0%,#FF2D78 40%,#00C8FF 70%,transparent 100%);"></div>
+                <div style="position:absolute;top:-18px;right:20px;font-family:'Caveat',cursive;font-size:14px;color:#FF2D78;transform:rotate(3deg);">← that's me</div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px;">
+                <span style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#FF2D78;letter-spacing:2px;">FULLSTACK DEV</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#333;">×</span>
+                <span style="font-family:'Permanent Marker',cursive;font-size:24px;color:#FFE500;transform:rotate(-2deg);display:inline-block;">skater</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#333;">×</span>
+                <span style="font-family:'VT323',monospace;font-size:28px;color:#00C8FF;letter-spacing:1px;">INTERNET ARCHAEOLOGIST</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#333;">×</span>
+                <span style="font-family:'Permanent Marker',cursive;font-size:20px;color:#9B59FF;transform:rotate(1deg);display:inline-block;">pianist</span>
+            </div>
+            <div style="position:relative;margin-bottom:26px;">
+                <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#FFE500,#FF2D78,#00C8FF);"></div>
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#888;line-height:1.8;padding-left:18px;max-width:500px;">i build things with react, nextjs, nestjs + mongodb. i skate, play piano at 2am, burn cds nobody asked for, take grainy photos, and occasionally write stuff that makes sense.<br><span style="color:#555;font-style:italic;">this is my site. not a portfolio. a place.</span></p>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px;">
+                <span class="sticker" style="background:#FF2D78;color:#fff;border:2px solid #000;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #000;">React/Next.js</span>
+                <span class="sticker-2" style="background:#FFE500;color:#000;border:2px solid #000;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #000;">NestJS</span>
+                <span class="sticker" style="background:#00C8FF;color:#000;border:2px solid #000;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #000;">MongoDB</span>
+                <span class="sticker-2" style="background:#00FF88;color:#000;border:2px solid #000;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #000;">TypeScript</span>
+                <span class="sticker-3" style="background:#9B59FF;color:#fff;border:2px solid #000;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #000;">Cyber Security</span>
+                <span class="sticker" style="background:#111;color:#FFE500;border:2px solid #FFE500;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #FFE500;">Munich 🇩🇪</span>
+                <span class="sticker-2" style="background:#111;color:#FF2D78;border:2px dashed #FF2D78;padding:4px 10px;font-family:'Caveat',cursive;font-size:13px;box-shadow:2px 2px 0px #FF2D78;">& vibes ✨</span>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                <a href="#projects" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#000;background:#FFE500;border:3px solid #000;padding:10px 28px;text-decoration:none;box-shadow:4px 4px 0px #000;transition:all .15s;display:inline-block;" onmouseover="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='6px 6px 0px #000'" onmouseout="this.style.transform='translate(0,0)';this.style.boxShadow='4px 4px 0px #000'">SEE MY WORK →</a>
+                <a href="#blog" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#FF2D78;background:transparent;border:3px solid #FF2D78;padding:10px 28px;text-decoration:none;box-shadow:4px 4px 0px #FF2D78;transition:all .15s;display:inline-block;" onmouseover="this.style.background='#FF2D78';this.style.color='#fff';this.style.transform='translate(-2px,-2px)'" onmouseout="this.style.background='transparent';this.style.color='#FF2D78';this.style.transform='translate(0,0)'">READ MY BRAIN</a>
+                <button id="flash-btn" class="secret-tooltip" style="background:none;border:2px solid #333;color:#555;padding:10px 14px;font-family:'IBM Plex Mono',monospace;font-size:16px;cursor:pointer;transition:all .15s;position:relative;" onmouseover="this.style.borderColor='#fff';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#555'" onclick="triggerFlash()">📸<div class="tooltip-content">take a photo!</div></button>
+                <button class="secret-tooltip" style="background:none;border:2px solid #1a1a00;color:#2a2a00;padding:10px 12px;font-family:'IBM Plex Mono',monospace;font-size:14px;cursor:pointer;transition:all .15s;position:relative;" onmouseover="this.style.borderColor='#FFD700';this.style.color='#FFD700'" onmouseout="this.style.borderColor='#1a1a00';this.style.color='#2a2a00'" onclick="openEgg(2)">△<div class="tooltip-content" style="background:#FFD700;border-color:#000;">gravity falls...</div></button>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+            <!-- Winamp -->
+            <div class="imperfect-1" style="border:2px solid #2a2a4a;background:#0d0d0d;box-shadow:4px 4px 0px #FFE500;">
+                <div class="window-bar" style="padding:6px 12px;display:flex;align-items:center;gap:8px;border-bottom:2px solid #2a2a4a;">
+                    <div style="width:10px;height:10px;background:#FF2D78;border-radius:50%;border:1px solid #000;cursor:pointer;"></div>
+                    <div style="width:10px;height:10px;background:#FFE500;border-radius:50%;border:1px solid #000;cursor:pointer;"></div>
+                    <div style="width:10px;height:10px;background:#00FF88;border-radius:50%;border:1px solid #000;cursor:pointer;"></div>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;margin-left:8px;">winamp.exe — now playing</span>
+                </div>
+                <div style="padding:12px 16px;display:flex;align-items:center;gap:14px;">
+                    <div style="width:52px;height:52px;flex-shrink:0;border:2px solid #222;background:#0a0a0a;overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=100&h=100&fit=crop" alt="album" style="width:100%;height:100%;object-fit:cover;filter:saturate(1.4) contrast(1.1);opacity:.8;">
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#fff;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">I Miss You — Blink-182</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-top:2px;">Take Off Your Pants and Jacket · 2001</div>
+                        <div style="margin-top:8px;height:4px;background:#1a1a1a;border:1px solid #222;position:relative;">
+                            <div style="width:45%;height:100%;background:linear-gradient(90deg,#FF2D78,#9B59FF);"></div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin-top:3px;">
+                            <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;">1:47</span>
+                            <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;">3:48</span>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                        <button style="background:none;border:1px solid #222;color:#555;width:26px;height:26px;font-size:10px;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='#FFE500';this.style.color='#FFE500'" onmouseout="this.style.borderColor='#222';this.style.color='#555'">⏮</button>
+                        <button style="background:#FFE500;border:1px solid #000;color:#000;width:26px;height:26px;font-size:10px;cursor:pointer;font-weight:700;">▶</button>
+                        <button style="background:none;border:1px solid #222;color:#555;width:26px;height:26px;font-size:10px;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='#FFE500';this.style.color='#FFE500'" onmouseout="this.style.borderColor='#222';this.style.color='#555'">⏭</button>
+                    </div>
+                </div>
+                <div style="padding:0 16px 10px;display:flex;gap:3px;align-items:flex-end;height:28px;">
+                    <div style="flex:1;background:#FF2D78;animation:eq-bar .4s ease-in-out infinite alternate;height:60%;"></div>
+                    <div style="flex:1;background:#FF2D78;animation:eq-bar .3s ease-in-out infinite alternate;height:90%;animation-delay:.1s;"></div>
+                    <div style="flex:1;background:#FFE500;animation:eq-bar .5s ease-in-out infinite alternate;height:40%;animation-delay:.05s;"></div>
+                    <div style="flex:1;background:#FFE500;animation:eq-bar .35s ease-in-out infinite alternate;height:75%;animation-delay:.15s;"></div>
+                    <div style="flex:1;background:#00FF88;animation:eq-bar .45s ease-in-out infinite alternate;height:55%;animation-delay:.2s;"></div>
+                    <div style="flex:1;background:#00FF88;animation:eq-bar .38s ease-in-out infinite alternate;height:85%;animation-delay:.08s;"></div>
+                    <div style="flex:1;background:#00C8FF;animation:eq-bar .42s ease-in-out infinite alternate;height:45%;animation-delay:.12s;"></div>
+                    <div style="flex:1;background:#9B59FF;animation:eq-bar .48s ease-in-out infinite alternate;height:95%;animation-delay:.06s;"></div>
+                    <div style="flex:1;background:#FF2D78;animation:eq-bar .41s ease-in-out infinite alternate;height:80%;animation-delay:.14s;"></div>
+                    <div style="flex:1;background:#FFE500;animation:eq-bar .37s ease-in-out infinite alternate;height:35%;animation-delay:.09s;"></div>
+                </div>
+            </div>
+            <!-- Photo collage -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                <div class="photo-frame flash-photo distort-hover" style="overflow:hidden;height:158px;position:relative;">
+                    <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=300&fit=crop" alt="night city" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.3) saturate(.75) brightness(.85);">
+                    <div style="position:absolute;bottom:6px;left:6px;font-family:'Caveat',cursive;font-size:12px;color:rgba(255,255,255,.7);text-shadow:1px 1px 2px rgba(0,0,0,.8);">munich, 2am 🌃</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <div class="photo-frame-2 flash-photo distort-hover" style="overflow:hidden;height:72px;position:relative;">
+                        <img src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=300&h=200&fit=crop" alt="skate" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.4) saturate(.65) brightness(.8);">
+                    </div>
+                    <div class="photo-frame flash-photo distort-hover" style="overflow:hidden;height:72px;position:relative;">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=200&fit=crop" alt="music" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.55) brightness(.75);">
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                <div class="sticker" style="background:#080808;border:2px solid #FF2D78;padding:5px 12px;font-family:'Permanent Marker',cursive;font-size:13px;color:#FF2D78;box-shadow:3px 3px 0px #FF2D78;">est. 2011 🌐</div>
+                <div class="sticker-2" style="background:#FFE500;border:2px solid #000;padding:5px 12px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#000;font-weight:700;text-transform:uppercase;box-shadow:3px 3px 0px #000;">MADE WITH ❤️ + CAFFEINE</div>
+                <div class="sticker-3" style="background:#080808;border:2px solid #00C8FF;padding:5px 12px;font-family:'VT323',monospace;font-size:18px;color:#00C8FF;box-shadow:3px 3px 0px #00C8FF;">NO ALGORITHMS</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATIC TECH STRIP -->
+<div style="background:#0d0d0d;border-top:3px solid #111;border-bottom:3px solid #111;padding:10px 32px;">
+    <div style="max-width:1440px;margin:0 auto;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#1e1e1e;letter-spacing:5px;white-space:nowrap;">REACT &nbsp;·&nbsp; NEXTJS &nbsp;·&nbsp; NESTJS &nbsp;·&nbsp; MONGODB &nbsp;·&nbsp; TYPESCRIPT &nbsp;·&nbsp; GRAPHQL &nbsp;·&nbsp; DOCKER &nbsp;·&nbsp; REDIS &nbsp;·&nbsp; AWS &nbsp;·&nbsp; SKATEBOARDING &nbsp;·&nbsp; PIANO &nbsp;·&nbsp; MINECRAFT &nbsp;·&nbsp; PHOTOGRAPHY &nbsp;·&nbsp; CD BURNING &nbsp;·&nbsp; MUNICH</span>
+    </div>
+</div>
+
+<!-- DIGITAL DIARY STRIP -->
+<section style="background:#0a0a0a;border-top:2px solid #111;border-bottom:2px solid #111;overflow:hidden;position:relative;">
+    <div style="max-width:1440px;margin:0 auto;padding:22px 32px;">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:3px;writing-mode:vertical-rl;transform:rotate(180deg);">diary</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
+                <div class="diary-line" style="border-bottom:1px solid #1a1a1a;padding-bottom:12px;"><div style="font-family:'VT323',monospace;font-size:13px;color:#333;margin-bottom:4px;">NOV 14 · 03:47</div><p style="font-family:'Caveat',cursive;font-size:14px;color:#666;line-height:1.5;margin:0;">can't sleep. been refactoring the auth module for 3 hours. it's actually good now. maybe.</p></div>
+                <div class="diary-line" style="border-bottom:1px solid #1a1a1a;padding-bottom:12px;"><div style="font-family:'VT323',monospace;font-size:13px;color:#333;margin-bottom:4px;">NOV 12 · 22:15</div><p style="font-family:'Caveat',cursive;font-size:14px;color:#666;line-height:1.5;margin:0;">played piano for an hour after work. no sheet music. just making stuff up. it was good.</p></div>
+                <div class="diary-line" style="border-bottom:1px solid #1a1a1a;padding-bottom:12px;"><div style="font-family:'VT323',monospace;font-size:13px;color:#333;margin-bottom:4px;">NOV 09 · 01:30</div><p style="font-family:'Caveat',cursive;font-size:14px;color:#666;line-height:1.5;margin:0;">burned a cd for someone i like. put "reptilia" as track 3. if they get it, they get it.</p></div>
+                <div class="diary-line" style="border-bottom:1px solid #1a1a1a;padding-bottom:12px;"><div style="font-family:'VT323',monospace;font-size:13px;color:#333;margin-bottom:4px;">NOV 06 · 19:00</div><p style="font-family:'Caveat',cursive;font-size:14px;color:#666;line-height:1.5;margin:0;">first week at zenfulfillment done. munich is cold. the codebase is huge. i love it.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ABOUT — THE BEDROOM ═══ -->
+<section id="about" style="max-width:1440px;margin:0 auto;padding:56px 32px;position:relative;">
+    <div style="position:absolute;left:6px;top:80px;bottom:80px;display:flex;align-items:center;">
+        <span class="room-label">// room_02 — the bedroom</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:36px;align-items:start;">
+        <!-- LEFT: Profile card -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="imperfect-2" style="border:3px solid #FFE500;background:#0d0d0d;box-shadow:6px 6px 0px #FFE500;overflow:hidden;">
+                <div style="background:#FFE500;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#000;font-weight:700;text-transform:uppercase;">profile.html</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#000;">✕ □ —</span>
+                </div>
+                <div style="overflow:hidden;height:190px;position:relative;" class="flash-photo">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="profile" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.1) saturate(.85) brightness(.9);">
+                    <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.85));padding:20px 12px 10px;">
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;">ENES AGO</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;">Skopje → Munich → The Internet</div>
+                    </div>
+                </div>
+                <div style="padding:14px;">
+                    <div style="display:flex;flex-direction:column;gap:7px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #111;padding-bottom:6px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px;">status</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00FF88;display:flex;align-items:center;gap:4px;"><span class="mood-dot" style="background:#00FF88;width:6px;height:6px;"></span>available for work</span></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #111;padding-bottom:6px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px;">location</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;">Munich, DE 🇩🇪</span></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #111;padding-bottom:6px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px;">studying</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;">Cyber Security</span></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #111;padding-bottom:6px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px;">timezone</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;">CET (UTC+1)</span></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px;">vibe</span><span style="font-family:'Caveat',cursive;font-size:14px;color:#FFE500;">chaotic good</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="sticky-note sticker-2">
+                <div style="font-family:'Caveat',cursive;font-size:15px;color:#000;line-height:1.6;">"the best code i ever wrote was for a site nobody uses. it was perfect." — me, 3am</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+                <a href="#" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;text-decoration:none;border:2px solid #111;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;transition:all .15s;" onmouseover="this.style.borderColor='#333';this.style.color='#fff';this.style.background='#0d0d0d'" onmouseout="this.style.borderColor='#111';this.style.color='#555';this.style.background='transparent'"><span>github.com/devkid</span><span>→</span></a>
+                <a href="#" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;text-decoration:none;border:2px solid #111;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;transition:all .15s;" onmouseover="this.style.borderColor='#333';this.style.color='#fff';this.style.background='#0d0d0d'" onmouseout="this.style.borderColor='#111';this.style.color='#555';this.style.background='transparent'"><span>devkid@proton.me</span><span>→</span></a>
+            </div>
+        </div>
+
+        <!-- RIGHT: WHO AM I + Languages + Skills -->
+        <div>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// 001</span>
+                <h2 class="font-heading" style="font-size:40px;font-weight:700;color:#f0f0f0;letter-spacing:-1px;margin:0;">WHO AM I</h2>
+                <div style="flex:1;height:2px;background:linear-gradient(90deg,#FFE500,transparent);"></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#777;line-height:1.85;margin:0;">i started coding when i was 16 because i wanted to make a website for my skate crew. it was terrible. it had autoplay music and a hit counter. i loved it. now i build production apps but i still think about that site.</p>
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#777;line-height:1.85;margin:0;">by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, burning mix cds, taking photos with a disposable camera, and writing blog posts nobody asked for.</p>
+            </div>
+
+            <!-- INTERESTS GRID — restored from v1 -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:22px;">
+                <div class="interest-tag"><span class="tag-emoji">🛹</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">skateboarding</span></div>
+                <div class="interest-tag"><span class="tag-emoji">🎸</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">punk / rock</span></div>
+                <div class="interest-tag"><span class="tag-emoji">🎤</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">hip-hop</span></div>
+                <div class="interest-tag"><span class="tag-emoji">📸</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">film photography</span></div>
+                <div class="interest-tag"><span class="tag-emoji">💿</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">cd burning</span></div>
+                <div class="interest-tag"><span class="tag-emoji">🌃</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">night city</span></div>
+                <div class="interest-tag"><span class="tag-emoji">🖥️</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">open source</span></div>
+                <div class="interest-tag"><span class="tag-emoji">📼</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">vlogging</span></div>
+                <div class="interest-tag"><span class="tag-emoji">🎹</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">piano / singing</span></div>
+                <div class="interest-tag"><span class="tag-emoji">🎮</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;">minecraft</span></div>
+            </div>
+
+            <!-- LANGUAGES — added as its own sub-section -->
+            <div style="border:2px solid #111;background:#0a0a0a;padding:16px;margin-bottom:18px;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span>🌍</span> languages</div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <div class="lang-bubble" style="border-color:#00C8FF;background:#0a0f14;--rot:-2deg;min-width:100px;" onclick="playGreeting('en')" onmouseover="this.style.boxShadow='3px 3px 0px #00C8FF'" onmouseout="this.style.boxShadow='none'">
+                        <div style="font-size:18px;margin-bottom:4px;">🇬🇧</div>
+                        <div style="font-family:'Caveat',cursive;font-size:15px;color:#00C8FF;line-height:1.3;">"hey, what's up?"</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;margin-top:4px;text-transform:uppercase;letter-spacing:1px;">English · fluent</div>
+                    </div>
+                    <div class="lang-bubble" style="border-color:#FF2D78;background:#140a0f;--rot:2deg;min-width:100px;" onclick="playGreeting('mk')" onmouseover="this.style.boxShadow='3px 3px 0px #FF2D78'" onmouseout="this.style.boxShadow='none'">
+                        <div style="font-size:18px;margin-bottom:4px;">🇲🇰</div>
+                        <div style="font-family:'Caveat',cursive;font-size:15px;color:#FF2D78;line-height:1.3;">"здраво, ка си?"</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Macedonian · native</div>
+                    </div>
+                    <div class="lang-bubble" style="border-color:#FFE500;background:#14120a;--rot:-1deg;min-width:100px;" onclick="playGreeting('tr')" onmouseover="this.style.boxShadow='3px 3px 0px #FFE500'" onmouseout="this.style.boxShadow='none'">
+                        <div style="font-size:18px;margin-bottom:4px;">🇹🇷</div>
+                        <div style="font-family:'Caveat',cursive;font-size:15px;color:#FFE500;line-height:1.3;">"selam, nasılsın?"</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Turkish · fluent</div>
+                    </div>
+                    <div class="lang-bubble" style="border-color:#555;background:#0d0d0d;--rot:3deg;min-width:100px;opacity:.75;" onclick="playGreeting('de')" onmouseover="this.style.opacity='1';this.style.boxShadow='3px 3px 0px #555'" onmouseout="this.style.opacity='.75';this.style.boxShadow='none'">
+                        <div style="font-size:18px;margin-bottom:4px;">🇩🇪</div>
+                        <div style="font-family:'Caveat',cursive;font-size:15px;color:#888;line-height:1.3;">"hallo... ich lerne"</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Deutsch · learning 📚</div>
+                    </div>
+                </div>
+                <div id="greeting-display" style="margin-top:12px;padding:8px 12px;border:2px dashed #222;background:#080808;font-family:'Caveat',cursive;font-size:15px;color:#555;display:none;"></div>
+            </div>
+
+            <!-- SKILLS -->
+            <div style="border:2px solid #111;background:#0a0a0a;overflow:hidden;">
+                <div style="padding:8px 14px;border-bottom:2px solid #111;display:flex;align-items:center;gap:8px;">
+                    <div style="width:8px;height:8px;background:#FF2D78;border-radius:50%;"></div>
+                    <div style="width:8px;height:8px;background:#FFE500;border-radius:50%;"></div>
+                    <div style="width:8px;height:8px;background:#00FF88;border-radius:50%;"></div>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-left:8px;">skill_levels.exe</span>
+                </div>
+                <div style="padding:16px;display:flex;flex-direction:column;gap:11px;">
+                    <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#777;">React / Next.js</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF2D78;">92%</span></div><div style="height:6px;background:#111;border:1px solid #1a1a1a;"><div class="skill-bar-fill" style="--target-width:92%;height:100%;background:linear-gradient(90deg,#FF2D78,#9B59FF);"></div></div></div>
+                    <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#777;">NestJS / Node.js</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FFE500;">85%</span></div><div style="height:6px;background:#111;border:1px solid #1a1a1a;"><div class="skill-bar-fill" style="--target-width:85%;height:100%;background:linear-gradient(90deg,#FFE500,#FF2D78);animation-delay:.5s;"></div></div></div>
+                    <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#777;">MongoDB / Redis</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#00FF88;">78%</span></div><div style="height:6px;background:#111;border:1px solid #1a1a1a;"><div class="skill-bar-fill" style="--target-width:78%;height:100%;background:linear-gradient(90deg,#00FF88,#00C8FF);animation-delay:.7s;"></div></div></div>
+                    <div><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#777;">Cyber Security</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#00C8FF;">68%</span></div><div style="height:6px;background:#111;border:1px solid #1a1a1a;"><div class="skill-bar-fill" style="--target-width:68%;height:100%;background:linear-gradient(90deg,#00C8FF,#9B59FF);animation-delay:.9s;"></div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CHAPTERS — THE HALLWAY OF ERAS ═══ -->
+<section id="chapters" style="background:#0a0a0a;border-top:3px solid #FFE500;border-bottom:3px solid #111;position:relative;">
+    <div style="max-width:1440px;margin:0 auto;padding:56px 32px;">
+        <div style="position:absolute;left:6px;top:80px;bottom:80px;display:flex;align-items:center;">
+            <span class="room-label">// room_03 — the hallway of eras</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:38px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// 002</span>
+            <h2 class="font-heading" style="font-size:40px;font-weight:700;color:#f0f0f0;letter-spacing:-1px;margin:0;">CHAPTERS</h2>
+            <div style="flex:1;height:2px;background:linear-gradient(90deg,#FFE500,transparent);"></div>
+            <span style="font-family:'Caveat',cursive;font-size:14px;color:#444;transform:rotate(-1deg);display:inline-block;">not a resume. a story.</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+            <!-- LEFT: Timeline -->
+            <div style="display:flex;flex-direction:column;gap:0;">
+
+                <!-- Chapter 1 -->
+                <div style="display:flex;gap:20px;padding-bottom:28px;position:relative;">
+                    <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                        <div style="width:14px;height:14px;background:#FF2D78;border:3px solid #080808;outline:2px solid #FF2D78;z-index:1;"></div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#FF2D78,#333);margin-top:4px;min-height:60px;"></div>
+                    </div>
+                    <div style="flex:1;">
+                        <div style="font-family:'VT323',monospace;font-size:14px;color:#FF2D78;letter-spacing:2px;margin-bottom:4px;">2011 — THE ORIGIN</div>
+                        <div style="border:2px solid #1a1a1a;background:#0d0d0d;padding:14px;position:relative;overflow:hidden;">
+                            <div style="font-family:'Permanent Marker',cursive;font-size:16px;color:#FF2D78;margin-bottom:6px;transform:rotate(-1deg);display:inline-block;">first html file</div>
+                            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#666;line-height:1.7;margin:0 0 8px 0;">built a myspace page for my skate crew. autoplay music, hit counter, guestbook. terrible. perfect. this is where it started.</p>
+                            <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="border:1px solid #FF2D78;color:#FF2D78;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">HTML</span><span style="border:1px solid #FF2D78;color:#FF2D78;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">MySpace CSS</span><span style="border:1px solid #FF2D78;color:#FF2D78;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">pure chaos</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 2 -->
+                <div style="display:flex;gap:20px;padding-bottom:28px;position:relative;">
+                    <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                        <div style="width:14px;height:14px;background:#9B59FF;border:3px solid #080808;outline:2px solid #9B59FF;z-index:1;"></div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#9B59FF,#333);margin-top:4px;min-height:60px;"></div>
+                    </div>
+                    <div style="flex:1;">
+                        <div style="font-family:'VT323',monospace;font-size:14px;color:#9B59FF;letter-spacing:2px;margin-bottom:4px;">2020–2022 — THE GRIND</div>
+                        <div style="border:2px solid #1a1a1a;background:#0d0d0d;padding:14px;position:relative;overflow:hidden;">
+                            <div style="font-family:'Permanent Marker',cursive;font-size:16px;color:#9B59FF;margin-bottom:6px;">learning everything</div>
+                            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#666;line-height:1.7;margin:0 0 8px 0;">javascript, then react, then node. youtube tutorials at 2am. building things nobody asked for. breaking things. fixing things. repeat.</p>
+                            <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="border:1px solid #9B59FF;color:#9B59FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">JavaScript</span><span style="border:1px solid #9B59FF;color:#9B59FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">React</span><span style="border:1px solid #9B59FF;color:#9B59FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">Node.js</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 3 — EagleIT -->
+                <div style="display:flex;gap:20px;padding-bottom:28px;position:relative;">
+                    <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                        <div style="width:14px;height:14px;background:#00C8FF;border:3px solid #080808;outline:2px solid #00C8FF;z-index:1;"></div>
+                        <div style="width:2px;flex:1;background:linear-gradient(180deg,#00C8FF,#333);margin-top:4px;min-height:60px;"></div>
+                    </div>
+                    <div style="flex:1;">
+                        <div style="font-family:'VT323',monospace;font-size:14px;color:#00C8FF;letter-spacing:2px;margin-bottom:4px;">2023 — THE FIRST REAL JOB</div>
+                        <div style="border:2px solid #00C8FF;background:#0d0d0d;padding:14px;box-shadow:4px 4px 0px #00C8FF;position:relative;overflow:hidden;">
+                            <div style="position:absolute;top:8px;right:10px;"><span style="background:#00C8FF;color:#000;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;">COMPLETE ✓</span></div>
+                            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#00C8FF;letter-spacing:2px;margin-bottom:2px;">EagleIT</div>
+                            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#555;margin-bottom:8px;">Fullstack Internship · 2023</div>
+                            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#666;line-height:1.7;margin:0 0 8px 0;">first real internship. first real codebase. built features, broke prod once (sorry), learned more in 3 months than in 2 years of tutorials.</p>
+                            <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="border:1px solid #00C8FF;color:#00C8FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">React</span><span style="border:1px solid #00C8FF;color:#00C8FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">NestJS</span><span style="border:1px solid #00C8FF;color:#00C8FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">MongoDB</span><span style="border:1px solid #00C8FF;color:#00C8FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">TypeScript</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter 4 — Zenfulfillment (current) -->
+                <div style="display:flex;gap:20px;position:relative;">
+                    <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                        <div style="width:18px;height:18px;background:#FFE500;border:3px solid #080808;outline:3px solid #FFE500;z-index:1;animation:pulse-mood 1.5s ease-in-out infinite;"></div>
+                    </div>
+                    <div style="flex:1;">
+                        <div style="font-family:'VT323',monospace;font-size:14px;color:#FFE500;letter-spacing:2px;margin-bottom:4px;display:flex;align-items:center;gap:8px;">NOW — THE CURRENT ERA <span class="mood-dot" style="background:#FFE500;width:8px;height:8px;"></span></div>
+                        <div style="border:3px solid #FFE500;background:#0d0d0d;padding:14px;box-shadow:6px 6px 0px #FFE500;position:relative;overflow:hidden;">
+                            <div style="position:absolute;top:-1px;left:0;right:0;height:3px;background:linear-gradient(90deg,#FFE500,#FF2D78,#00C8FF,#FFE500);background-size:200%;animation:marquee 3s linear infinite;"></div>
+                            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFE500;letter-spacing:2px;margin-bottom:2px;">Zenfulfillment</div>
+                            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;margin-bottom:8px;">Fullstack Internship · Munich, Germany · 2024 → present</div>
+                            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#777;line-height:1.7;margin:0 0 8px 0;">building real features for a real product in munich. huge codebase. great team. learning german by osmosis and eating too many pretzels.</p>
+                            <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;"><span style="background:#FFE500;color:#000;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;">Next.js</span><span style="background:#FFE500;color:#000;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;">NestJS</span><span style="background:#FFE500;color:#000;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;">MongoDB</span><span style="background:#FFE500;color:#000;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;">Munich 🥨</span></div>
+                            <div style="font-family:'Caveat',cursive;font-size:13px;color:#888;font-style:italic;">currently shipping features and trying to understand Bavarian German</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: MUDT + CSSBattle + Currently + Minecraft -->
+            <div style="display:flex;flex-direction:column;gap:16px;">
+
+                <!-- MUDT Security Lab -->
+                <div style="border:3px solid #00FF88;background:#0a0d0a;box-shadow:6px 6px 0px #00FF88;overflow:hidden;">
+                    <div style="background:#0d1a0d;padding:8px 14px;border-bottom:2px solid #00FF88;display:flex;align-items:center;justify-content:space-between;">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <div class="mood-dot" style="background:#00FF88;width:8px;height:8px;"></div>
+                            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#00FF88;text-transform:uppercase;letter-spacing:1px;">system_core.exe — MUDT</span>
+                        </div>
+                        <span style="font-family:'VT323',monospace;font-size:14px;color:#2a4a2a;">Munich, DE</span>
+                    </div>
+                    <div style="padding:14px;">
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00FF88;letter-spacing:2px;margin-bottom:2px;">CYBER SECURITY</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#2a4a2a;margin-bottom:10px;">Munich University of Digital Technologies · Applied Sciences</div>
+                        <div style="background:#050d05;border:2px solid #0d1a0d;padding:10px;font-family:'IBM Plex Mono',monospace;margin-bottom:10px;">
+                            <div class="terminal-line dim">$ whoami</div>
+                            <div class="terminal-line">→ student@mudt.de [cyber_security]</div>
+                            <div class="terminal-line dim">$ cat modules.txt</div>
+                            <div class="terminal-line warn">→ web_application_security.md [active]</div>
+                            <div class="terminal-line">→ network_security.md</div>
+                            <div class="terminal-line">→ ethical_hacking_101.md</div>
+                            <div class="terminal-line dim">$ echo $status</div>
+                            <div class="terminal-line">→ learning. building. breaking ethically.<span class="type-cursor">_</span></div>
+                        </div>
+                        <div style="display:flex;gap:5px;flex-wrap:wrap;"><span style="border:1px solid #00FF88;color:#00FF88;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">Network Security</span><span style="border:1px solid #00FF88;color:#00FF88;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">Cryptography</span><span style="border:1px solid #00FF88;color:#00FF88;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">Ethical Hacking</span></div>
+                    </div>
+                </div>
+
+                <!-- CSSBATTLE STREAK BADGE -->
+                <div class="streak-badge" style="border:3px solid #FF6B00;background:#0d0800;box-shadow:6px 6px 0px #FF6B00;overflow:hidden;">
+                    <div style="background:#1a0d00;padding:8px 14px;border-bottom:2px solid #FF6B00;display:flex;align-items:center;justify-content:space-between;">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <span style="font-size:14px;">🔥</span>
+                            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF6B00;text-transform:uppercase;letter-spacing:1px;">cssbattle.dev — streak</span>
+                        </div>
+                        <span style="font-family:'VT323',monospace;font-size:14px;color:#3a2000;">2024</span>
+                    </div>
+                    <div style="padding:14px;display:flex;gap:16px;align-items:center;">
+                        <div style="text-align:center;flex-shrink:0;">
+                            <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#FF6B00;line-height:1;text-shadow:0 0 20px rgba(255,107,0,.4);">121</div>
+                            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#3a2000;text-transform:uppercase;letter-spacing:2px;">day streak</div>
+                        </div>
+                        <div style="flex:1;border-left:2px solid #1a0d00;padding-left:14px;">
+                            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FF6B00;letter-spacing:2px;margin-bottom:4px;">TOP #50 GLOBAL</div>
+                            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#555;margin-bottom:8px;">Streak Leaderboard · Ongoing · 2024</div>
+                            <p style="font-family:'Caveat',cursive;font-size:13px;color:#664400;line-height:1.5;margin:0;">"121 days of daily css challenges. no days off. pure pixel obsession."</p>
+                            <div style="margin-top:8px;display:flex;gap:4px;">
+                                <span style="background:#FF6B00;color:#000;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;">CSS</span>
+                                <span style="border:1px solid #FF6B00;color:#FF6B00;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">daily challenge</span>
+                                <span style="border:1px solid #FF6B00;color:#FF6B00;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">top 50 🏆</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currently widget -->
+                <div style="border:2px solid #222;background:#0d0d0d;box-shadow:4px 4px 0px #222;">
+                    <div style="background:#111;padding:8px 12px;border-bottom:2px solid #222;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#00FF88;text-transform:uppercase;letter-spacing:1px;">📡 currently</span></div>
+                    <div style="padding:14px;display:flex;flex-direction:column;gap:9px;">
+                        <div style="display:flex;gap:10px;align-items:start;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;min-width:52px;padding-top:1px;letter-spacing:1px;">reading</span><span style="font-family:'Caveat',cursive;font-size:14px;color:#888;line-height:1.4;">Clean Architecture — Robert C. Martin</span></div>
+                        <div style="display:flex;gap:10px;align-items:start;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;min-width:52px;padding-top:1px;letter-spacing:1px;">playing</span><span style="font-family:'Caveat',cursive;font-size:14px;color:#888;line-height:1.4;">Blink-182 — Enema of the State</span></div>
+                        <div style="display:flex;gap:10px;align-items:start;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;min-width:52px;padding-top:1px;letter-spacing:1px;">coding</span><span style="font-family:'Caveat',cursive;font-size:14px;color:#00FF88;line-height:1.4;">NightShot v2 — photo sharing</span></div>
+                        <div style="display:flex;gap:10px;align-items:start;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;min-width:52px;padding-top:1px;letter-spacing:1px;">learning</span><span style="font-family:'Caveat',cursive;font-size:14px;color:#FFE500;line-height:1.4;">Deutsch 🇩🇪 — langsam aber sicher</span></div>
+                        <div style="display:flex;gap:10px;align-items:start;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;min-width:52px;padding-top:1px;letter-spacing:1px;">feeling</span><span style="font-family:'Caveat',cursive;font-size:14px;color:#FF2D78;line-height:1.4;">chaotic but okay ✌️</span></div>
+                    </div>
+                </div>
+
+                <!-- Minecraft inventory -->
+                <div style="border:2px solid #3a6028;background:#0a0d08;overflow:hidden;" id="mc-inventory">
+                    <div style="background:#2d4a1e;padding:8px 12px;border-bottom:2px solid #3a6028;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onclick="openEgg(4)">
+                        <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#5D9E3F;letter-spacing:1px;">🎮 inventory.exe</span>
+                        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#3a6028;">click to open world →</span>
+                    </div>
+                    <div style="padding:12px;">
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#3a6028;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">hotbar — things i carry</div>
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                            <div class="mc-slot" data-count="64" onmouseover="showMcTooltip(this,'React')" onmouseout="hideMcTooltip()">⚛</div>
+                            <div class="mc-slot" data-count="32" onmouseover="showMcTooltip(this,'NestJS')" onmouseout="hideMcTooltip()">🪺</div>
+                            <div class="mc-slot" data-count="16" onmouseover="showMcTooltip(this,'MongoDB')" onmouseout="hideMcTooltip()">🍃</div>
+                            <div class="mc-slot" data-count="8" onmouseover="showMcTooltip(this,'Piano 🎹')" onmouseout="hideMcTooltip()">🎹</div>
+                            <div class="mc-slot" data-count="∞" onmouseover="showMcTooltip(this,'Vibes ✨')" onmouseout="hideMcTooltip()">✨</div>
+                            <div class="mc-slot" data-count="1" onmouseover="showMcTooltip(this,'Skateboard 🛹')" onmouseout="hideMcTooltip()">🛹</div>
+                            <div class="mc-slot" style="background:#555;border-color:#777 #333 #333 #777;" data-count="" onmouseover="showMcTooltip(this,'???')" onmouseout="hideMcTooltip()"></div>
+                            <div class="mc-slot" style="background:#555;border-color:#777 #333 #333 #777;" data-count="" onmouseover="showMcTooltip(this,'???')" onmouseout="hideMcTooltip()"></div>
+                            <div class="mc-slot" style="background:#555;border-color:#777 #333 #333 #777;" data-count="" onmouseover="showMcTooltip(this,'???')" onmouseout="hideMcTooltip()"></div>
+                        </div>
+                        <div id="mc-tooltip" style="font-family:'Press Start 2P',monospace;font-size:8px;color:#5D9E3F;margin-top:8px;min-height:14px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ MUSIC / PIANO — THE REHEARSAL ROOM ═══ -->
+<section id="music" style="max-width:1440px;margin:0 auto;padding:56px 32px;position:relative;">
+    <div style="position:absolute;left:6px;top:80px;bottom:80px;display:flex;align-items:center;">
+        <span class="room-label">// room_04 — the rehearsal room</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// 003</span>
+        <h2 class="font-heading" style="font-size:40px;font-weight:700;color:#f0f0f0;letter-spacing:-1px;margin:0;">MUSIC / PIANO</h2>
+        <div style="flex:1;height:2px;background:linear-gradient(90deg,#9B59FF,transparent);"></div>
+        <span style="font-family:'Caveat',cursive;font-size:14px;color:#9B59FF;transform:rotate(-1deg);display:inline-block;">not a musician. just someone who plays.</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:28px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="border:3px solid #9B59FF;background:#0d0d0d;box-shadow:6px 6px 0px #9B59FF;overflow:hidden;">
+                <div style="background:#110d1a;padding:8px 14px;border-bottom:2px solid #9B59FF;display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <div class="mood-dot" style="background:#FF2D78;width:8px;height:8px;"></div>
+                        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9B59FF;text-transform:uppercase;letter-spacing:1px;">tape_archive — webcam recordings</span>
+                    </div>
+                    <span style="font-family:'VT323',monospace;font-size:14px;color:#444;">SONY DCR-HC52</span>
+                </div>
+                <div class="webcam-frame" style="height:220px;position:relative;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&h=400&fit=crop" alt="piano" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.1) saturate(.45) brightness(.6) sepia(.2);">
+                    <div style="position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.85));"></div>
+                    <div class="vhs-lines" style="position:absolute;inset:0;"></div>
+                    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.06);"></div>
+                    <div class="webcam-timestamp">NOV 12 2024 · 23:14:07</div>
+                    <div style="position:absolute;bottom:14px;left:14px;right:14px;">
+                        <div style="font-family:'Caveat',cursive;font-size:13px;color:rgba(155,89,255,.8);margin-bottom:5px;transform:rotate(-.5deg);">recorded on my laptop webcam, 11pm</div>
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;">Nocturne in E-flat — Chopin (badly)</div>
+                    </div>
+                    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(155,89,255,.85);border:3px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='#9B59FF';this.style.transform='translate(-50%,-50%) scale(1.1)'" onmouseout="this.style.background='rgba(155,89,255,.85)';this.style.transform='translate(-50%,-50%) scale(1)'"><span style="color:#fff;font-size:20px;margin-left:4px;">▶</span></div>
+                </div>
+                <div style="padding:12px 16px;border-top:2px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;gap:6px;"><span style="border:1px solid #9B59FF;color:#9B59FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">piano</span><span style="border:1px solid #9B59FF;color:#9B59FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">classical</span><span style="border:1px solid #9B59FF;color:#9B59FF;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;">late night</span></div>
+                    <span style="font-family:'VT323',monospace;font-size:16px;color:#444;">03:42</span>
+                </div>
+            </div>
+            <div style="border:2px dashed #333;padding:16px;background:#0a0a0a;position:relative;">
+                <div style="position:absolute;top:-10px;left:14px;background:#0a0a0a;padding:0 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:2px;">note from the artist</div>
+                <p style="font-family:'Caveat',cursive;font-size:16px;color:#666;line-height:1.7;margin:0;">"i'm not a musician. i just play piano and sometimes sing when nobody's home. these are webcam recordings. the quality is bad. the feeling is real."</p>
+                <div style="margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;">— recorded on a sony handycam + laptop mic</div>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="border:2px solid #333;background:#0d0d0d;padding:14px;display:flex;align-items:center;gap:14px;">
+                <div style="width:80px;height:52px;background:#1a1a1a;border:2px solid #333;border-radius:4px;position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:10px;">
+                    <div style="width:18px;height:18px;border:3px solid #555;border-radius:50%;display:flex;align-items:center;justify-content:center;"><div class="reel-spin" style="width:8px;height:8px;border:2px solid #9B59FF;border-radius:50%;border-top-color:transparent;"></div></div>
+                    <div style="width:18px;height:18px;border:3px solid #555;border-radius:50%;display:flex;align-items:center;justify-content:center;"><div class="reel-spin" style="width:8px;height:8px;border:2px solid #9B59FF;border-radius:50%;border-top-color:transparent;animation-delay:-.5s;"></div></div>
+                    <div style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:30px;height:4px;background:#333;border-radius:1px;"></div>
+                </div>
+                <div><div style="font-family:'Permanent Marker',cursive;font-size:14px;color:#9B59FF;line-height:1.3;">late night sessions</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-top:2px;">TDK D90 · Side A</div></div>
+            </div>
+            <div style="border:2px solid #222;background:#0a0a0a;overflow:hidden;">
+                <div style="background:#111;padding:8px 12px;border-bottom:2px solid #222;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9B59FF;text-transform:uppercase;letter-spacing:1px;">📼 tape archive</span></div>
+                <div style="display:flex;flex-direction:column;">
+                    <div class="hover-scratch" style="padding:10px 14px;border-bottom:1px solid #111;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#0d0d0d'" onmouseout="this.style.background='transparent'"><div style="width:32px;height:32px;background:#1a1a1a;border:2px solid #9B59FF;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">▶</div><div style="flex:1;min-width:0;"><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">nocturne_eb_major_take3.mp4</div><div style="font-family:'VT323',monospace;font-size:13px;color:#444;">NOV 12 · 23:14 · piano</div></div><span style="font-family:'VT323',monospace;font-size:14px;color:#444;flex-shrink:0;">3:42</span></div>
+                    <div class="hover-scratch" style="padding:10px 14px;border-bottom:1px solid #111;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#0d0d0d'" onmouseout="this.style.background='transparent'"><div style="width:32px;height:32px;background:#1a1a1a;border:2px solid #FF2D78;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">▶</div><div style="flex:1;min-width:0;"><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">cover_i_miss_you_vocals.mp4</div><div style="font-family:'VT323',monospace;font-size:13px;color:#444;">OCT 28 · 01:33 · piano + vocals</div></div><span style="font-family:'VT323',monospace;font-size:14px;color:#444;flex-shrink:0;">4:11</span></div>
+                    <div class="hover-scratch" style="padding:10px 14px;border-bottom:1px solid #111;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#0d0d0d'" onmouseout="this.style.background='transparent'"><div style="width:32px;height:32px;background:#1a1a1a;border:2px solid #FFE500;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">▶</div><div style="flex:1;min-width:0;"><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">original_thing_no_name_yet.mp4</div><div style="font-family:'VT323',monospace;font-size:13px;color:#444;">OCT 15 · 02:58 · original</div></div><span style="font-family:'VT323',monospace;font-size:14px;color:#444;flex-shrink:0;">2:07</span></div>
+                    <div class="hover-scratch" style="padding:10px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#0d0d0d'" onmouseout="this.style.background='transparent'"><div style="width:32px;height:32px;background:#1a1a1a;border:2px solid #00C8FF;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">▶</div><div style="flex:1;min-width:0;"><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">singing_alone_at_3am.mp4</div><div style="font-family:'VT323',monospace;font-size:13px;color:#444;">SEP 30 · 03:12 · vocals only</div></div><span style="font-family:'VT323',monospace;font-size:14px;color:#444;flex-shrink:0;">1:55</span></div>
+                </div>
+            </div>
+            <div class="photo-frame distort-hover" style="overflow:hidden;height:120px;position:relative;">
+                <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=600&h=300&fit=crop" alt="piano" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.4) brightness(.65);">
+                <div style="position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.7));"></div>
+                <div style="position:absolute;bottom:8px;right:10px;font-family:'Caveat',cursive;font-size:13px;color:rgba(155,89,255,.8);transform:rotate(-1deg);">2am. no sheet music. just feeling it.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ PROJECTS — THE WORKSHOP ═══ -->
+<section id="projects" style="background:#0a0a0a;border-top:3px solid #111;border-bottom:3px solid #111;position:relative;">
+    <div style="max-width:1440px;margin:0 auto;padding:56px 32px;">
+        <div style="position:absolute;left:6px;top:80px;bottom:80px;display:flex;align-items:center;">
+            <span class="room-label">// room_05 — the workshop</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// 004</span>
+            <h2 class="font-heading" style="font-size:40px;font-weight:700;color:#f0f0f0;letter-spacing:-1px;margin:0;">STUFF I BUILT</h2>
+            <div style="flex:1;height:2px;background:linear-gradient(90deg,#FF2D78,transparent);"></div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;border:1px solid #222;padding:4px 8px;">12 projects</span><span style="font-family:'Caveat',cursive;font-size:13px;color:#555;transform:rotate(-2deg);display:inline-block;">more on github →</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+            <div class="hover-lift hover-scratch" style="grid-column:span 2;border:3px solid #FFE500;background:#0d0d0d;box-shadow:6px 6px 0px #FFE500;overflow:hidden;position:relative;">
+                <div style="position:relative;height:215px;overflow:hidden;" class="distort-hover">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop" alt="project" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.65) brightness(.65);">
+                    <div style="position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.92));"></div>
+                    <div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;"><span style="background:#FFE500;color:#000;border:2px solid #000;padding:2px 8px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;">FEATURED</span><span style="background:#FF2D78;color:#fff;border:2px solid #000;padding:2px 8px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;">FULLSTACK</span></div>
+                    <div style="position:absolute;top:12px;right:12px;font-family:'Caveat',cursive;font-size:13px;color:rgba(255,229,0,.7);transform:rotate(2deg);">built in 2 weeks 🔥</div>
+                    <div style="position:absolute;bottom:14px;left:14px;right:14px;">
+                        <div style="font-family:'VT323',monospace;font-size:14px;color:#555;margin-bottom:5px;">github.com/devkid/skatelog · ★ 247</div>
+                        <h3 class="font-heading" style="font-size:24px;font-weight:700;color:#fff;margin:0 0 5px 0;letter-spacing:-.5px;">SkateLog — Session Tracker</h3>
+                        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#999;margin:0;line-height:1.6;">track your skate sessions, tricks, spots. built for the culture.</p>
+                    </div>
+                </div>
+                <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-top:2px solid #1a1a1a;">
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:2px 6px;">Next.js</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:2px 6px;">NestJS</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:2px 6px;">MongoDB</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:2px 6px;">GraphQL</span></div>
+                    <div style="display:flex;gap:8px;"><a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#000;background:#FFE500;border:2px solid #000;padding:5px 14px;text-decoration:none;font-weight:700;text-transform:uppercase;transition:all .15s;" onmouseover="this.style.background='#000';this.style.color='#FFE500'" onmouseout="this.style.background='#FFE500';this.style.color='#000'">LIVE →</a><a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#888;background:transparent;border:2px solid #333;padding:5px 14px;text-decoration:none;text-transform:uppercase;transition:all .15s;" onmouseover="this.style.borderColor='#888';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#888'">CODE</a></div>
+                </div>
+            </div>
+            <div class="hover-lift hover-scratch" style="border:2px solid #222;background:#0d0d0d;box-shadow:4px 4px 0px #222;overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:132px;overflow:hidden;position:relative;" class="distort-hover"><img src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=400&h=200&fit=crop" alt="project" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.3) saturate(.45) brightness(.65);"><div style="position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.85));"></div><div style="position:absolute;top:8px;left:8px;"><span style="background:#9B59FF;color:#fff;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;">API</span></div></div>
+                <div style="padding:14px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div><h3 class="font-heading" style="font-size:16px;font-weight:700;color:#f0f0f0;margin:0 0 6px 0;">MixTape API</h3><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;line-height:1.65;margin:0 0 10px 0;">spotify-like playlist api. nestjs + mongodb. because streaming killed the cd.</p></div><div style="display:flex;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:1px 5px;">NestJS</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:1px 5px;">MongoDB</span></div></div>
+            </div>
+            <div class="hover-lift hover-scratch" style="border:2px solid #222;background:#0d0d0d;box-shadow:4px 4px 0px #222;overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:112px;overflow:hidden;position:relative;" class="distort-hover"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=200&fit=crop" alt="project" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.5) brightness(.65);"><div style="position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.85));"></div><div style="position:absolute;top:8px;left:8px;"><span style="background:#00FF88;color:#000;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;">TOOL</span></div></div>
+                <div style="padding:12px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div><h3 class="font-heading" style="font-size:15px;font-weight:700;color:#f0f0f0;margin:0 0 5px 0;">GrainFilter.js</h3><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;line-height:1.6;margin:0 0 8px 0;">add film grain + vhs effects to any image. canvas api magic.</p></div><div style="display:flex;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00FF88;border:1px solid #00FF88;padding:1px 5px;">Canvas</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00FF88;border:1px solid #00FF88;padding:1px 5px;">TypeScript</span></div></div>
+            </div>
+            <div class="hover-lift hover-scratch" style="border:2px solid #222;background:#0d0d0d;box-shadow:4px 4px 0px #222;overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:112px;overflow:hidden;position:relative;" class="distort-hover"><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=200&fit=crop" alt="project" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.3) saturate(.45) brightness(.6);"><div style="position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.85));"></div><div style="position:absolute;top:8px;left:8px;"><span style="background:#FF2D78;color:#fff;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;">APP</span></div></div>
+                <div style="padding:12px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div><h3 class="font-heading" style="font-size:15px;font-weight:700;color:#f0f0f0;margin:0 0 5px 0;">NightShot</h3><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;line-height:1.6;margin:0 0 8px 0;">photo sharing app. no likes. no algorithm. just photos.</p></div><div style="display:flex;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF2D78;border:1px solid #FF2D78;padding:1px 5px;">React</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF2D78;border:1px solid #FF2D78;padding:1px 5px;">NestJS</span></div></div>
+            </div>
+            <div class="hover-lift hover-scratch" style="border:2px solid #222;background:#0d0d0d;box-shadow:4px 4px 0px #222;overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:112px;overflow:hidden;position:relative;" class="distort-hover" onmouseover="this.querySelector('.secret-reveal').style.opacity='1'" onmouseout="this.querySelector('.secret-reveal').style.opacity='0'"><img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop" alt="project" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.5) brightness(.6);"><div style="position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.85));"></div><div style="position:absolute;top:8px;left:8px;"><span style="background:#00C8FF;color:#000;border:2px solid #000;padding:2px 6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;">WIP</span></div><div class="secret-reveal" style="position:absolute;bottom:6px;right:8px;font-family:'Caveat',cursive;font-size:11px;color:rgba(0,200,255,.7);opacity:0;transition:opacity .3s;pointer-events:none;">shhh, not done yet</div></div>
+                <div style="padding:12px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div><h3 class="font-heading" style="font-size:15px;font-weight:700;color:#f0f0f0;margin:0 0 5px 0;">CrateDigger</h3><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;line-height:1.6;margin:0 0 8px 0;">vinyl record discovery app. find rare records near you.</p></div><div style="display:flex;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:1px 5px;">Next.js</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:1px 5px;">MongoDB</span></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- POLAROID WALL — with lightbox -->
+<section style="overflow:hidden;background:#080808;border-top:2px solid #0f0f0f;border-bottom:2px solid #0f0f0f;position:relative;">
+    <div style="padding:30px 32px;display:flex;gap:22px;align-items:center;overflow:hidden;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;text-transform:uppercase;letter-spacing:3px;writing-mode:vertical-rl;transform:rotate(180deg);flex-shrink:0;">photos</div>
+        <div style="display:flex;gap:22px;align-items:flex-end;flex-wrap:nowrap;overflow:hidden;">
+            <div class="polaroid" style="transform:rotate(-3deg);flex-shrink:0;width:132px;" onclick="openLightbox('https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&h=800&fit=crop','munich, 2am 🌃')"><img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=200&h=200&fit=crop" alt="night" style="width:100%;height:102px;object-fit:cover;filter:contrast(1.2) saturate(.6) brightness(.85);display:block;"><div style="font-family:'Caveat',cursive;font-size:12px;color:#333;text-align:center;padding-top:6px;line-height:1.3;">munich, 2am</div></div>
+            <div class="polaroid" style="transform:rotate(2deg);flex-shrink:0;width:132px;" onclick="openLightbox('https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=800&h=800&fit=crop','the spot 🛹')"><img src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=200&h=200&fit=crop" alt="skate" style="width:100%;height:102px;object-fit:cover;filter:contrast(1.3) saturate(.55) brightness(.8);display:block;"><div style="font-family:'Caveat',cursive;font-size:12px;color:#333;text-align:center;padding-top:6px;line-height:1.3;">the spot 🛹</div></div>
+            <div class="polaroid" style="transform:rotate(-1.5deg);flex-shrink:0;width:132px;" onclick="openLightbox('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=800&h=800&fit=crop','2am piano 🎹')"><img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=200&h=200&fit=crop" alt="piano" style="width:100%;height:102px;object-fit:cover;filter:contrast(1.2) saturate(.4) brightness(.7);display:block;"><div style="font-family:'Caveat',cursive;font-size:12px;color:#333;text-align:center;padding-top:6px;line-height:1.3;">2am piano 🎹</div></div>
+            <div class="polaroid" style="transform:rotate(3.5deg);flex-shrink:0;width:132px;" onclick="openLightbox('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=800&fit=crop','burning cds 💿')"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop" alt="cd" style="width:100%;height:102px;object-fit:cover;filter:contrast(1.3) saturate(.45) brightness(.7);display:block;"><div style="font-family:'Caveat',cursive;font-size:12px;color:#333;text-align:center;padding-top:6px;line-height:1.3;">burning cds 💿</div></div>
+            <div class="polaroid" style="transform:rotate(-2.5deg);flex-shrink:0;width:132px;" onclick="openLightbox('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&h=800&fit=crop','night walk 🌃')"><img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=200&h=200&fit=crop" alt="city" style="width:100%;height:102px;object-fit:cover;filter:contrast(1.2) saturate(.6) brightness(.7);display:block;"><div style="font-family:'Caveat',cursive;font-size:12px;color:#333;text-align:center;padding-top:6px;line-height:1.3;">night walk 🌃</div></div>
+            <div class="polaroid" style="transform:rotate(1deg);flex-shrink:0;width:132px;" onclick="openLightbox('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=800&fit=crop','3am coding 💻')"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=200&h=200&fit=crop" alt="code" style="width:100%;height:102px;object-fit:cover;filter:contrast(1.2) saturate(.4) brightness(.7);display:block;"><div style="font-family:'Caveat',cursive;font-size:12px;color:#333;text-align:center;padding-top:6px;line-height:1.3;">3am coding 💻</div></div>
+            <div class="polaroid secret-tooltip" style="transform:rotate(-4deg);flex-shrink:0;width:132px;position:relative;" onclick="openLightbox('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=800&fit=crop','you found it 👀')"><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=200&h=200&fit=crop" alt="secret" style="width:100%;height:102px;object-fit:cover;filter:contrast(1.1) saturate(.3) brightness(.5);display:block;"><div style="font-family:'Caveat',cursive;font-size:12px;color:#333;text-align:center;padding-top:6px;line-height:1.3;">???</div><div class="tooltip-content" style="bottom:calc(100% + 12px);">you found the secret photo 👀</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ BLOG — THE DESK ═══ -->
+<section id="blog" style="max-width:1440px;margin:0 auto;padding:56px 32px;position:relative;">
+    <div style="position:absolute;left:6px;top:80px;bottom:80px;display:flex;align-items:center;">
+        <span class="room-label">// room_06 — the desk</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// 005</span>
+        <h2 class="font-heading" style="font-size:40px;font-weight:700;color:#f0f0f0;letter-spacing:-1px;margin:0;">BRAIN DUMP</h2>
+        <div style="flex:1;height:2px;background:linear-gradient(90deg,#00C8FF,transparent);"></div>
+        <span style="font-family:'Permanent Marker',cursive;font-size:14px;color:#00C8FF;transform:rotate(-2deg);display:inline-block;">unfiltered thoughts</span>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:26px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="hover-lift hover-scratch" style="border:3px solid #00C8FF;background:#0d0d0d;box-shadow:6px 6px 0px #00C8FF;overflow:hidden;">
+                <div style="position:relative;height:205px;overflow:hidden;" class="distort-hover">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=400&fit=crop" alt="blog" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.55) brightness(.65);">
+                    <div style="position:absolute;inset:0;background:linear-gradient(transparent 25%,rgba(0,0,0,.92));"></div>
+                    <div style="position:absolute;top:12px;left:12px;"><span style="background:#00C8FF;color:#000;border:2px solid #000;padding:2px 8px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;">LATEST</span></div>
+                    <div style="position:absolute;top:12px;right:12px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.15);padding:2px 8px;background:rgba(0,0,0,.5);">8 min read</div>
+                    <div style="position:absolute;bottom:14px;left:14px;right:14px;">
+                        <div style="font-family:'VT323',monospace;font-size:14px;color:#555;margin-bottom:5px;">NOV 14 2024 · 03:47</div>
+                        <h3 class="font-heading" style="font-size:22px;font-weight:700;color:#fff;margin:0 0 5px 0;letter-spacing:-.5px;">Why I Still Burn CDs in 2024</h3>
+                        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;margin:0;line-height:1.6;">there's something about making a physical thing that streaming will never replace.</p>
+                    </div>
+                </div>
+                <div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-top:2px solid #111;">
+                    <div style="display:flex;gap:6px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:2px 6px;">culture</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:2px 6px;">music</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;border:1px solid #00C8FF;padding:2px 6px;">nostalgia</span></div>
+                    <a href="#" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#00C8FF;text-decoration:none;text-transform:uppercase;letter-spacing:1px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#00C8FF'">READ MORE →</a>
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                <div class="hover-lift hover-scratch" style="border:2px solid #111;background:#0a0a0a;padding:18px;box-shadow:4px 4px 0px #111;"><div style="font-family:'VT323',monospace;font-size:13px;color:#444;margin-bottom:7px;">OCT 28 · 5 MIN</div><h4 class="font-heading" style="font-size:15px;font-weight:700;color:#f0f0f0;margin:0 0 7px 0;line-height:1.3;">Building Real-Time Chat with NestJS WebSockets</h4><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;line-height:1.65;margin:0 0 10px 0;">the actual way to do it, not the tutorial way.</p><div style="display:flex;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:1px 5px;">dev</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:1px 5px;">nestjs</span></div></div>
+                <div class="hover-lift hover-scratch" style="border:2px solid #111;background:#0a0a0a;padding:18px;box-shadow:4px 4px 0px #111;"><div style="font-family:'VT323',monospace;font-size:13px;color:#444;margin-bottom:7px;">OCT 12 · 3 MIN</div><h4 class="font-heading" style="font-size:15px;font-weight:700;color:#f0f0f0;margin:0 0 7px 0;line-height:1.3;">Playing Piano While Learning to Code</h4><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#555;line-height:1.65;margin:0 0 10px 0;">both require muscle memory. both require patience. both are worth it.</p><div style="display:flex;gap:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:1px 5px;">life</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:1px 5px;">music</span></div></div>
+            </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="border:2px solid #222;background:#0d0d0d;box-shadow:4px 4px 0px #222;">
+                <div style="background:#111;padding:8px 12px;border-bottom:2px solid #222;display:flex;align-items:center;justify-content:space-between;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FFE500;text-transform:uppercase;letter-spacing:1px;">📖 guestbook</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;">47 entries</span></div>
+                <div style="padding:12px;display:flex;flex-direction:column;gap:8px;">
+                    <div style="border:1px solid #111;padding:8px 10px;background:#0a0a0a;"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-bottom:4px;">sk8er_mike · 2 days ago</div><p style="font-family:'Caveat',cursive;font-size:14px;color:#888;margin:0;line-height:1.5;">dude your site is sick. reminds me of the old web. keep it up 🤙</p></div>
+                    <div style="border:1px solid #111;padding:8px 10px;background:#0a0a0a;"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-bottom:4px;">codewithjess · 5 days ago</div><p style="font-family:'Caveat',cursive;font-size:14px;color:#888;margin:0;line-height:1.5;">the nestjs post helped me so much. finally understand websockets</p></div>
+                    <div style="border:1px solid #111;padding:8px 10px;background:#0a0a0a;"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;margin-bottom:4px;">anonymous · 1 week ago</div><p style="font-family:'Caveat',cursive;font-size:14px;color:#888;margin:0;line-height:1.5;">found this site at 2am. stayed for an hour. this is the internet i miss.</p></div>
+                    <input type="text" placeholder="leave a message..." style="width:100%;background:#0a0a0a;border:2px solid #222;color:#888;padding:7px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;outline:none;transition:border-color .15s;" onfocus="this.style.borderColor='#FFE500'" onblur="this.style.borderColor='#222'">
+                    <button style="width:100%;background:#FFE500;color:#000;border:2px solid #000;padding:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;cursor:pointer;transition:all .15s;" onmouseover="this.style.background='#000';this.style.color='#FFE500';this.style.borderColor='#FFE500'" onmouseout="this.style.background='#FFE500';this.style.color='#000';this.style.borderColor='#000'">SIGN IT →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ VLOG — THE CAMERA ROOM ═══ -->
+<section id="vlog" style="background:#0a0a0a;border-top:3px solid #111;position:relative;">
+    <div style="max-width:1440px;margin:0 auto;padding:56px 32px;">
+        <div style="position:absolute;left:6px;top:80px;bottom:80px;display:flex;align-items:center;">
+            <span class="room-label">// room_07 — the camera room</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// 006</span>
+            <h2 class="font-heading" style="font-size:40px;font-weight:700;color:#f0f0f0;letter-spacing:-1px;margin:0;">VLOG / FILM</h2>
+            <div style="flex:1;height:2px;background:linear-gradient(90deg,#9B59FF,transparent);"></div>
+            <div style="display:flex;align-items:center;gap:6px;border:2px solid #FF2D78;padding:4px 12px;"><div class="mood-dot" style="background:#FF2D78;width:8px;height:8px;"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF2D78;text-transform:uppercase;letter-spacing:1px;">REC</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;">
+            <div class="hover-lift hover-scratch" style="grid-column:span 2;border:3px solid #9B59FF;background:#0d0d0d;box-shadow:6px 6px 0px #9B59FF;overflow:hidden;position:relative;">
+                <div style="position:relative;height:275px;overflow:hidden;" class="distort-hover">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&h=500&fit=crop" alt="vlog" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.65) brightness(.6);">
+                    <div style="position:absolute;inset:0;background:linear-gradient(transparent 25%,rgba(0,0,0,.88));"></div>
+                    <div class="vhs-lines" style="position:absolute;inset:0;pointer-events:none;"></div>
+                    <div style="position:absolute;top:12px;right:14px;font-family:'VT323',monospace;font-size:18px;color:#FF2D78;text-shadow:0 0 10px #FF2D78;letter-spacing:1px;">REC ● 00:23:47</div>
+                    <div style="position:absolute;bottom:70px;right:14px;font-family:'VT323',monospace;font-size:14px;color:rgba(255,229,0,.65);">NOV 14 2024</div>
+                    <div style="position:absolute;top:14px;left:14px;font-family:'Caveat',cursive;font-size:13px;color:rgba(155,89,255,.8);transform:rotate(-1deg);">filmed on handycam 📹</div>
+                    <div style="position:absolute;bottom:14px;left:14px;right:14px;">
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">latest vlog</div>
+                        <h3 class="font-heading" style="font-size:22px;font-weight:700;color:#fff;margin:0 0 5px 0;letter-spacing:-.5px;">Night Skating in Munich — First Winter</h3>
+                        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;margin:0;line-height:1.6;">filmed on a sony handycam. no stabilizer. no color grade. just vibes.</p>
+                    </div>
+                    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(155,89,255,.88);border:3px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='#9B59FF';this.style.transform='translate(-50%,-50%) scale(1.12)'" onmouseout="this.style.background='rgba(155,89,255,.88)';this.style.transform='translate(-50%,-50%) scale(1)'"><span style="color:#fff;font-size:22px;margin-left:4px;">▶</span></div>
+                </div>
+                <div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-top:2px solid #111;">
+                    <div style="display:flex;gap:6px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:2px 6px;">skateboarding</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:2px 6px;">munich</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;border:1px solid #9B59FF;padding:2px 6px;">night</span></div>
+                    <span style="font-family:'VT323',monospace;font-size:16px;color:#444;">23:47</span>
+                </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+                <div class="hover-lift hover-scratch" style="border:2px solid #222;background:#0d0d0d;overflow:hidden;box-shadow:4px 4px 0px #222;cursor:pointer;"><div style="height:97px;overflow:hidden;position:relative;" class="distort-hover"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop" alt="vlog" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.45) brightness(.65);"><div style="position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:20px;opacity:.8;">▶</span></div><div style="position:absolute;bottom:4px;right:6px;font-family:'VT323',monospace;font-size:14px;color:rgba(255,229,0,.75);">12:33</div></div><div style="padding:8px 10px;"><h4 class="font-heading" style="font-size:12px;font-weight:700;color:#f0f0f0;margin:0 0 3px 0;line-height:1.3;">Making a Mix CD for a Stranger</h4><div style="font-family:'VT323',monospace;font-size:13px;color:#444;">OCT 30 · 12:33</div></div></div>
+                <div class="hover-lift hover-scratch" style="border:2px solid #222;background:#0d0d0d;overflow:hidden;box-shadow:4px 4px 0px #222;cursor:pointer;"><div style="height:97px;overflow:hidden;position:relative;" class="distort-hover"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=200&fit=crop" alt="vlog" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.3) saturate(.35) brightness(.6);"><div style="position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:20px;opacity:.8;">▶</span></div><div style="position:absolute;bottom:4px;right:6px;font-family:'VT323',monospace;font-size:14px;color:rgba(255,229,0,.75);">08:14</div></div><div style="padding:8px 10px;"><h4 class="font-heading" style="font-size:12px;font-weight:700;color:#f0f0f0;margin:0 0 3px 0;line-height:1.3;">My Dev Setup Tour (it's a mess)</h4><div style="font-family:'VT323',monospace;font-size:13px;color:#444;">OCT 15 · 08:14</div></div></div>
+                <div class="hover-lift hover-scratch" style="border:2px solid #222;background:#0d0d0d;overflow:hidden;box-shadow:4px 4px 0px #222;cursor:pointer;"><div style="height:97px;overflow:hidden;position:relative;" class="distort-hover"><img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=200&fit=crop" alt="vlog" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) saturate(.45) brightness(.55);"><div style="position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:20px;opacity:.8;">▶</span></div><div style="position:absolute;bottom:4px;right:6px;font-family:'VT323',monospace;font-size:14px;color:rgba(255,229,0,.75);">18:02</div></div><div style="padding:8px 10px;"><h4 class="font-heading" style="font-size:12px;font-weight:700;color:#f0f0f0;margin:0 0 3px 0;line-height:1.3;">Night Walk: Munich 2am</h4><div style="font-family:'VT323',monospace;font-size:13px;color:#444;">SEP 28 · 18:02</div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ LAB — THE BASEMENT ═══ -->
+<section id="lab" style="max-width:1440px;margin:0 auto;padding:56px 32px;position:relative;">
+    <div style="position:absolute;left:6px;top:80px;bottom:80px;display:flex;align-items:center;">
+        <span class="room-label">// room_08 — the basement</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:34px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// 007</span>
+        <h2 class="font-heading" style="font-size:40px;font-weight:700;color:#f0f0f0;letter-spacing:-1px;margin:0;">THE LAB ⚗</h2>
+        <div style="flex:1;height:2px;background:linear-gradient(90deg,#00FF88,transparent);"></div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;border:1px solid #222;padding:4px 8px;">experimental stuff · may break</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+        <div class="hover-lift hover-scratch" style="border:2px solid #00FF88;background:#0a0a0a;box-shadow:4px 4px 0px #00FF88;padding:22px;position:relative;overflow:hidden;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00FF88;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span class="mood-dot" style="background:#00FF88;width:6px;height:6px;"></span>EXPERIMENT #001</div>
+            <h3 class="font-heading" style="font-size:18px;font-weight:700;color:#f0f0f0;margin:0 0 8px 0;">CSS Glitch Generator</h3>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#555;line-height:1.7;margin:0 0 16px 0;">real-time css glitch effects. type something, watch it break. pure css, no js.</p>
+            <div style="border:2px solid #111;padding:12px;background:#080808;margin-bottom:16px;"><div class="font-bebas glitch-text" data-text="HELLO WORLD" style="font-size:28px;color:#00FF88;letter-spacing:2px;">HELLO WORLD</div></div>
+            <a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#000;background:#00FF88;border:2px solid #000;padding:6px 14px;text-decoration:none;font-weight:700;text-transform:uppercase;display:inline-block;transition:all .15s;" onmouseover="this.style.background='#000';this.style.color='#00FF88';this.style.borderColor='#00FF88'" onmouseout="this.style.background='#00FF88';this.style.color='#000';this.style.borderColor='#000'">TRY IT →</a>
+        </div>
+        <div class="hover-lift hover-scratch" style="border:2px solid #FFE500;background:#0a0a0a;box-shadow:4px 4px 0px #FFE500;padding:22px;position:relative;overflow:hidden;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;background:#FFE500;border-radius:50%;"></span>EXPERIMENT #002</div>
+            <h3 class="font-heading" style="font-size:18px;font-weight:700;color:#f0f0f0;margin:0 0 8px 0;">VHS Filter Canvas</h3>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#555;line-height:1.7;margin:0 0 16px 0;">drop any image, get vhs scanlines + grain + color bleed. canvas api + webgl.</p>
+            <div style="border:2px solid #111;overflow:hidden;height:80px;position:relative;margin-bottom:16px;"><img src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=400&h=200&fit=crop" alt="vhs" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.4) saturate(.25) brightness(.65);"><div class="vhs-lines" style="position:absolute;inset:0;"></div><div style="position:absolute;top:6px;right:8px;font-family:'VT323',monospace;font-size:14px;color:rgba(255,45,120,.85);">VHS ●</div></div>
+            <a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#000;background:#FFE500;border:2px solid #000;padding:6px 14px;text-decoration:none;font-weight:700;text-transform:uppercase;display:inline-block;transition:all .15s;" onmouseover="this.style.background='#000';this.style.color='#FFE500';this.style.borderColor='#FFE500'" onmouseout="this.style.background='#FFE500';this.style.color='#000';this.style.borderColor='#000'">TRY IT →</a>
+        </div>
+        <div class="hover-lift hover-scratch" style="border:2px solid #FF2D78;background:#0a0a0a;box-shadow:4px 4px 0px #FF2D78;padding:22px;position:relative;overflow:hidden;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF2D78;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;background:#FF2D78;border-radius:50%;"></span>EXPERIMENT #003</div>
+            <h3 class="font-heading" style="font-size:18px;font-weight:700;color:#f0f0f0;margin:0 0 8px 0;">Pixel Font Renderer</h3>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#555;line-height:1.7;margin:0 0 16px 0;">render any text in retro pixel fonts. export as svg or png. for stickers, obviously.</p>
+            <div style="border:2px solid #111;padding:12px;background:#080808;margin-bottom:16px;text-align:center;"><span style="font-family:'Press Start 2P',monospace;font-size:13px;color:#FF2D78;line-height:1.9;">PIXEL<br>PERFECT</span></div>
+            <a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#fff;background:#FF2D78;border:2px solid #000;padding:6px 14px;text-decoration:none;font-weight:700;text-transform:uppercase;display:inline-block;transition:all .15s;" onmouseover="this.style.background='#000';this.style.color='#FF2D78';this.style.borderColor='#FF2D78'" onmouseout="this.style.background='#FF2D78';this.style.color='#fff';this.style.borderColor='#000'">TRY IT →</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#080808;border-top:3px solid #FFE500;position:relative;">
+    <div style="max-width:1440px;margin:0 auto;padding:48px 32px;">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:34px;">
+            <div>
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+                    <div style="width:36px;height:36px;background:#FFE500;border:2px solid #000;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P',monospace;font-size:9px;color:#000;box-shadow:2px 2px 0px #fff;">dk</div>
+                    <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#FFE500;letter-spacing:2px;">DEVKID.EXE</span>
+                </div>
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#444;line-height:1.85;max-width:340px;margin:0 0 18px 0;">a personal website. not a brand. not a product. just a person on the internet making stuff and writing about it. no tracking. no analytics. no algorithm.</p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+                    <span class="sticker" style="border:2px solid #222;color:#444;padding:3px 8px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:1px;">no cookies 🍪</span>
+                    <span class="sticker-2" style="border:2px solid #222;color:#444;padding:3px 8px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:1px;">no tracking 👁</span>
+                    <span class="sticker" style="border:2px solid #222;color:#444;padding:3px 8px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:1px;">no ads 🚫</span>
+                </div>
+                <div style="font-family:'Caveat',cursive;font-size:14px;color:#333;transform:rotate(-.5deg);display:inline-block;">made with too much coffee and not enough sleep ☕</div>
+            </div>
+            <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;border-bottom:1px solid #111;padding-bottom:8px;">PAGES</div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                    <a href="#home" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">→ home</a>
+                    <a href="#about" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">→ about</a>
+                    <a href="#chapters" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">→ chapters</a>
+                    <a href="#projects" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">→ projects</a>
+                    <a href="#music" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">→ music</a>
+                    <a href="#blog" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">→ blog</a>
+                    <a href="#lab" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">→ lab</a>
+                </div>
+            </div>
+            <div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;border-bottom:1px solid #111;padding-bottom:8px;">FIND ME</div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                    <a href="#" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">github →</a>
+                    <a href="#" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">twitter →</a>
+                    <a href="#" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">instagram →</a>
+                    <a href="#" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#444'">email →</a>
+                    <a href="https://cssbattle.dev" target="_blank" class="link-hover" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FF6B00;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#FF6B00'">cssbattle 🔥 →</a>
+                </div>
+            </div>
+        </div>
+        <div style="border-top:2px solid #111;padding-top:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#2a2a2a;">© 2024 alex kim · <span style="color:#FFE500;">no rights reserved</span> · built with html + tailwind + feelings</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <span style="font-family:'VT323',monospace;font-size:16px;color:#2a2a2a;">visitors:</span>
+                <span style="font-family:'Press Start 2P',monospace;font-size:9px;color:#FFE500;border:1px solid #222;padding:3px 8px;background:#0a0a0a;" id="visitor-count">001337</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const trail = document.getElementById('cursor-trail');
+    const trailDots = [];
+    for (let i = 0; i < 8; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'trail-dot';
+        dot.style.opacity = (1 - i / 8) * 0.5;
+        dot.style.width = (4 - i * 0.3) + 'px';
+        dot.style.height = (4 - i * 0.3) + 'px';
+        trail.appendChild(dot);
+        trailDots.push({ el: dot, x: 0, y: 0 });
+    }
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
+    });
+    function animateTrail() {
+        trailDots.forEach((dot, i) => {
+            const prev = i === 0 ? { x: mouseX, y: mouseY } : trailDots[i - 1];
+            dot.x += (prev.x - dot.x) * 0.35; dot.y += (prev.y - dot.y) * 0.35;
+            dot.el.style.left = dot.x + 'px'; dot.el.style.top = dot.y + 'px';
+        });
+        requestAnimationFrame(animateTrail);
+    }
+    animateTrail();
+    document.querySelectorAll('a, button, [onclick], .mc-slot, .lang-bubble, .polaroid, .interest-tag').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+
+    // EASTER EGGS
+    function openEgg(n) { document.getElementById('easter-egg-' + n).classList.add('active'); }
+
+    // LIGHTBOX
+    function openLightbox(src, caption) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox-caption').textContent = caption;
+        document.getElementById('lightbox').classList.add('active');
+    }
+    function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) closeLightbox();
+    });
+
+    // CLOCK
+    function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0'), m = String(now.getMinutes()).padStart(2,'0'), s = String(now.getSeconds()).padStart(2,'0');
+        const el = document.getElementById('live-clock');
+        if (el) el.textContent = h + ':' + m + ':' + s;
+        const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+        const ts = document.getElementById('hero-timestamp');
+        if (ts) ts.textContent = months[now.getMonth()] + ' ' + String(now.getDate()).padStart(2,'0') + ' ' + now.getFullYear() + ' · ' + h + ':' + m + ':' + s;
+    }
+    updateClock(); setInterval(updateClock, 1000);
+
+    // FLASH
+    function triggerFlash() {
+        const overlay = document.getElementById('flash-overlay');
+        overlay.style.opacity = '0.9';
+        setTimeout(() => { overlay.style.opacity = '0'; }, 80);
+        setTimeout(() => { overlay.style.opacity = '0.3'; }, 120);
+        setTimeout(() => { overlay.style.opacity = '0'; }, 200);
+    }
+
+    // KONAMI
+    const konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let konamiIndex = 0;
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konamiCode[konamiIndex]) { konamiIndex++; if (konamiIndex === konamiCode.length) { openEgg(1); konamiIndex = 0; } } else { konamiIndex = 0; }
+    });
+    let hintClicks = 0;
+    document.getElementById('konami-hint').addEventListener('click', () => { hintClicks++; if (hintClicks >= 3) { openEgg(1); hintClicks = 0; } });
+
+    // VISITOR COUNTER
+    let count = 1337;
+    setInterval(() => { count++; const el = document.getElementById('visitor-count'); if (el) el.textContent = String(count).padStart(6,'0'); }, 7000);
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) target.scrollIntoView({ behavior: 'smooth' }); });
+    });
+
+    // LANGUAGE GREETINGS
+    const greetings = {
+        en: { text: '"hey, what\'s up? welcome to my corner of the internet."', color: '#00C8FF' },
+        mk: { text: '"здраво! добредојде на мојот дел од интернетот."', color: '#FF2D78' },
+        tr: { text: '"selam! internetin benim köşeme hoş geldin."', color: '#FFE500' },
+        de: { text: '"hallo... äh... willkommen? ich lerne noch." 😅', color: '#888' }
+    };
+    function playGreeting(lang) {
+        const g = greetings[lang];
+        const el = document.getElementById('greeting-display');
+        el.style.display = 'block';
+        el.style.color = g.color;
+        el.style.borderColor = g.color;
+        el.textContent = g.text;
+        if ('speechSynthesis' in window) {
+            const utter = new SpeechSynthesisUtterance(g.text.replace(/["""]/g,''));
+            const langMap = { en: 'en-US', mk: 'mk-MK', tr: 'tr-TR', de: 'de-DE' };
+            utter.lang = langMap[lang];
+            utter.rate = 0.9;
+            window.speechSynthesis.speak(utter);
+        }
+    }
+
+    // MINECRAFT TOOLTIP
+    function showMcTooltip(el, text) { document.getElementById('mc-tooltip').textContent = '> ' + text; }
+    function hideMcTooltip() { document.getElementById('mc-tooltip').textContent = ''; }
+
+    // DRAGGABLE STICKY NOTE
+    const noteEl = document.getElementById('draggable-note');
+    const handle = document.getElementById('note-handle');
+    let isDragging = false, startX, startY, startLeft, startTop;
+    handle.addEventListener('mousedown', (e) => {
+        isDragging = true; noteEl.classList.add('dragging');
+        startX = e.clientX; startY = e.clientY;
+        const rect = noteEl.getBoundingClientRect();
+        startLeft = rect.left; startTop = rect.top;
+        e.preventDefault();
+    });
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX, dy = e.clientY - startY;
+        noteEl.style.left = (startLeft + dx) + 'px';
+        noteEl.style.top = (startTop + dy) + 'px';
+        noteEl.style.right = 'auto';
+    });
+    document.addEventListener('mouseup', () => { isDragging = false; noteEl.classList.remove('dragging'); });
+</script>
+</body>
+</html>

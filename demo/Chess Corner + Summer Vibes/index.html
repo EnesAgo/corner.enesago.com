@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chess Corner + Summer Vibes - Exported from UXMagic Copilot">
+    <title>Chess Corner + Summer Vibes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config={theme:{extend:{fontFamily:{heading:['Space Grotesk','sans-serif'],body:['IBM Plex Mono','monospace']},borderRadius:{small:'0px',large:'0px'},boxShadow:{custom:'4px 4px 0px rgb(0 0 0)','custom-hover':'2px 2px 0px rgb(0 0 0)'}}}}
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="theme-color" content="#007bff">
+    <meta name="color-scheme" content="light dark">
+    <meta name="author" content="UXMagic Copilot">
+</head>
+<body>
+    
+
+<div class="blob" style="width:600px;height:600px;background:#FFE500;top:-100px;left:-200px;"></div>
+<div class="blob" style="width:500px;height:500px;background:#FF6B35;top:600px;right:-150px;animation-delay:-4s;"></div>
+<div class="blob" style="width:400px;height:400px;background:#00C8FF;top:1400px;left:30%;animation-delay:-8s;"></div>
+<div id="cur"></div>
+<div id="fl"></div>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu">
+  <button onclick="toggleMenu()" style="position:absolute;top:20px;right:20px;background:none;border:2px solid #333;color:#888;padding:8px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;">✕ CLOSE</button>
+  <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/chess-corner-summer-vibes" onclick="toggleMenu()" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#FFE500;letter-spacing:3px;text-decoration:none;">♟ CHESS</a>
+  <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/chess-corner-summer-vibes" onclick="toggleMenu()" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#FF6B35;letter-spacing:3px;text-decoration:none;">☀ SUMMER</a>
+  <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/cartoon-easter-eggs-layer" onclick="toggleMenu()" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#FF2D78;letter-spacing:3px;text-decoration:none;">🥚 EASTER EGGS</a>
+</div>
+
+<!-- TICKER -->
+<div style="background:#FFE500;border-bottom:3px solid #000;height:30px;display:flex;align-items:center;padding:0 18px;overflow:hidden;position:relative;z-index:50;">
+  <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#000;white-space:nowrap;">♟ CHESS RATING: 1100 · thinking in patterns · e4 e5 Nf3 Nc6 · ☀ SUMMER VIBES LOADING... · flip flops on asphalt · ice cream melting faster than you can eat it · ★ same universe, different temperature ★</span>
+</div>
+
+<!-- NAV -->
+<nav style="background:rgba(10,10,10,.96);border-bottom:3px solid #FFE500;padding:0 16px;position:sticky;top:0;z-index:200;backdrop-filter:blur(8px);">
+  <div style="max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:36px;height:36px;background:#FFE500;border:2px solid #000;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P',monospace;font-size:9px;color:#000;box-shadow:2px 2px 0px #fff;cursor:pointer;flex-shrink:0;">dk</div>
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFE500;letter-spacing:2px;line-height:1;">DEVKID.EXE</div><div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#444;">v2.0.11 · <span id="clk">--:--:--</span></div></div>
+    </div>
+    <div class="hidden lg:flex items-center gap-0 flex-wrap">
+      <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/chess-corner-summer-vibes" class="hs" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;border:2px solid #FFE500;text-decoration:none;transition:all .15s;" onmouseover="this.style.background='#FFE500';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#FFE500'">♟ CHESS</a>
+      <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/chess-corner-summer-vibes" class="hs" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#ccc;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;border:2px solid #222;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#FF6B35';this.style.color='#FF6B35'" onmouseout="this.style.borderColor='#222';this.style.color='#ccc'">☀ SUMMER</a>
+      <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/cartoon-easter-eggs-layer" class="hs" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#ccc;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;border:2px solid #222;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#FF2D78';this.style.color='#FF2D78'" onmouseout="this.style.borderColor='#222';this.style.color='#ccc'">🥚 EASTER EGGS</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="hidden lg:flex items-center gap-2" style="border:1px solid #1a1a1a;padding:4px 10px;background:#0d0d0d;"><div class="md" style="background:#00FF88;"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00FF88;text-transform:uppercase;letter-spacing:1px;">online</span></div>
+      <button class="lg:hidden" onclick="toggleMenu()" style="background:none;border:2px solid #FFE500;color:#FFE500;padding:6px 12px;font-family:'IBM Plex Mono',monospace;font-size:11px;cursor:pointer;letter-spacing:1px;">MENU</button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section style="max-width:1440px;margin:0 auto;padding:32px 16px 0;" class="md:px-8">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:3px;">// personal sections</span>
+    <div style="flex:1;min-width:40px;height:1px;background:linear-gradient(90deg,#222,transparent);"></div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-bottom:28px;">
+    <h1 class="font-heading" style="font-size:clamp(32px,7vw,72px);font-weight:700;color:#f0f0f0;letter-spacing:-2px;line-height:.9;margin:0;">TWO SIDES<br><span style="color:#FFE500;">OF THE SAME</span><br><span style="color:#FF6B35;">BRAIN</span></h1>
+    <div style="display:flex;flex-direction:column;gap:6px;padding-bottom:4px;">
+      <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:2px;">chess corner</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;border:1px solid #FFE500;padding:1px 6px;">1100 elo</span></div>
+      <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:2px;">summer vibes</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF6B35;border:1px solid #FF6B35;padding:1px 6px;">☀ always</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- CHESS CORNER SECTION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="chess" style="max-width:1440px;margin:0 auto;padding:0 16px 48px;" class="md:px-8">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// section A</span>
+    <h2 class="font-heading" style="font-size:clamp(28px,5vw,48px);font-weight:700;color:#f0f0f0;letter-spacing:-1px;margin:0;">CHESS CORNER</h2>
+    <span style="font-family:'Press Start 2P',monospace;font-size:9px;color:#FFE500;border:2px solid #FFE500;padding:4px 10px;box-shadow:2px 2px 0px #FFE500;">♟ 1100</span>
+    <div style="flex:1;min-width:40px;height:2px;background:linear-gradient(90deg,#FFE500,transparent);"></div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- LEFT: BOARD + NOTATION -->
+    <div class="lg:col-span-2" style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- BOARD WIDGET -->
+      <div style="border:3px solid #FFE500;background:#0d0d0d;box-shadow:6px 6px 0px #FFE500;overflow:hidden;" class="board-pulse">
+        <div class="wb" style="padding:8px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #2a2a4a;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:10px;height:10px;background:#FF2D78;border-radius:50%;"></div>
+            <div style="width:10px;height:10px;background:#FFE500;border-radius:50%;"></div>
+            <div style="width:10px;height:10px;background:#00FF88;border-radius:50%;"></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;margin-left:8px;">board.exe — position after 12 moves</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div class="md" style="background:#FFE500;width:6px;height:6px;"></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;">white to move</span>
+          </div>
+        </div>
+        <div style="padding:16px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+          <!-- MINI BOARD -->
+          <div style="flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">
+              <div style="width:16px;"></div>
+              <div style="display:grid;grid-template-columns:repeat(8,1fr);width:200px;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">a</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">b</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">c</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">d</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">e</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">f</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">g</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">h</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:4px;">
+              <div style="display:flex;flex-direction:column;justify-content:space-around;width:16px;height:200px;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">8</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">7</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">6</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">5</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">4</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">3</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">2</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-align:center;">1</div>
+              </div>
+              <div id="chessboard" style="display:grid;grid-template-columns:repeat(8,25px);grid-template-rows:repeat(8,25px);border:2px solid #333;width:200px;height:200px;flex-shrink:0;"></div>
+            </div>
+          </div>
+          <!-- BOARD INFO -->
+          <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:12px;">
+            <div style="border:2px solid #1a1a1a;background:#080808;padding:12px;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">// current position</div>
+              <div style="font-family:'Caveat',cursive;font-size:15px;color:#888;line-height:1.7;">Ruy Lopez opening. I always play e4. It's not the most creative choice but it's honest. Like me.</div>
+            </div>
+            <div style="border:2px solid #1a1a1a;background:#080808;padding:12px;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">// thinking</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#FFE500;" id="thinking-display">Nf3 → d4 → Bc4...</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;margin-top:4px;" id="eval-bar-label">eval: +0.3 (slight advantage)</div>
+              <div class="rating-bar" style="margin-top:6px;"><div class="rating-fill" style="width:53%;"></div></div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <div style="border:2px solid #333;padding:8px 12px;background:#0a0a0a;flex:1;text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#FFE500;line-height:1;">1100</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-transform:uppercase;letter-spacing:1px;">elo rating</div>
+              </div>
+              <div style="border:2px solid #333;padding:8px 12px;background:#0a0a0a;flex:1;text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00C8FF;line-height:1;">847</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-transform:uppercase;letter-spacing:1px;">games played</div>
+              </div>
+              <div style="border:2px solid #333;padding:8px 12px;background:#0a0a0a;flex:1;text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00FF88;line-height:1;">54%</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#333;text-transform:uppercase;letter-spacing:1px;">win rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOVE NOTATION LOG -->
+      <div style="border:2px solid #222;background:#0a0a0a;overflow:hidden;">
+        <div style="background:#111;padding:8px 14px;border-bottom:2px solid #222;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:8px;height:8px;background:#FF2D78;border-radius:50%;"></div>
+            <div style="width:8px;height:8px;background:#FFE500;border-radius:50%;"></div>
+            <div style="width:8px;height:8px;background:#00FF88;border-radius:50%;"></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;margin-left:8px;">game_log.pgn — last 847 games</span>
+          </div>
+          <span style="font-family:'VT323',monospace;font-size:14px;color:#333;">blitz · 5+0</span>
+        </div>
+        <div style="padding:14px;display:grid;grid-template-columns:auto 1fr 1fr;gap:4px 16px;max-height:160px;overflow-y:auto;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;text-transform:uppercase;letter-spacing:1px;">#</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;">WHITE</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px;">BLACK</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">1.</span>
+          <span class="move-notation white-move">e4</span>
+          <span class="move-notation black-move">e5</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">2.</span>
+          <span class="move-notation white-move">Nf3</span>
+          <span class="move-notation black-move">Nc6</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">3.</span>
+          <span class="move-notation white-move">Bb5</span>
+          <span class="move-notation black-move">a6</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">4.</span>
+          <span class="move-notation white-move">Ba4</span>
+          <span class="move-notation black-move">Nf6</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">5.</span>
+          <span class="move-notation white-move">O-O</span>
+          <span class="move-notation black-move">Be7</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">6.</span>
+          <span class="move-notation white-move">Re1</span>
+          <span class="move-notation black-move">b5</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">7.</span>
+          <span class="move-notation white-move">Bb3</span>
+          <span class="move-notation black-move">d6</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">8.</span>
+          <span class="move-notation white-move">c3</span>
+          <span class="move-notation black-move">O-O</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">9.</span>
+          <span class="move-notation white-move">h3</span>
+          <span class="move-notation black-move">Nb8</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">10.</span>
+          <span class="move-notation white-move">d4</span>
+          <span class="move-notation black-move">Nbd7</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">11.</span>
+          <span class="move-notation white-move">Nbd2</span>
+          <span class="move-notation black-move">Bb7</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">12.</span>
+          <span class="move-notation white-move" style="color:#FFE500;font-weight:700;">Nf1 ←</span>
+          <span class="move-notation black-move">...</span>
+        </div>
+      </div>
+
+      <!-- PATTERN GRID / THINKING VISUALIZATION -->
+      <div style="border:2px solid #1a1a1a;background:#0a0a0a;padding:16px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;">// how i think about the board</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div style="border:2px solid #111;padding:12px;background:#080808;position:relative;overflow:hidden;">
+            <div style="position:absolute;top:0;right:0;width:40px;height:40px;opacity:.05;display:grid;grid-template-columns:repeat(4,1fr);">
+              <div style="background:#fff;"></div><div style="background:#000;"></div><div style="background:#fff;"></div><div style="background:#000;"></div>
+              <div style="background:#000;"></div><div style="background:#fff;"></div><div style="background:#000;"></div><div style="background:#fff;"></div>
+              <div style="background:#fff;"></div><div style="background:#000;"></div><div style="background:#fff;"></div><div style="background:#000;"></div>
+              <div style="background:#000;"></div><div style="background:#fff;"></div><div style="background:#000;"></div><div style="background:#fff;"></div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">PATTERN RECOGNITION</div>
+            <div style="font-family:'Caveat',cursive;font-size:14px;color:#666;line-height:1.6;">I see the board like a grid of possibilities. Every piece is a variable. Every move is a function call.</div>
+          </div>
+          <div style="border:2px solid #111;padding:12px;background:#080808;position:relative;overflow:hidden;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">OPENING THEORY</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#555;">Ruy Lopez</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00C8FF;">main</span></div>
+              <div class="rating-bar"><div class="rating-fill" style="width:85%;background:linear-gradient(90deg,#00C8FF,#9B59FF);"></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#555;">Sicilian</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;">learning</span></div>
+              <div class="rating-bar"><div class="rating-fill" style="width:40%;background:linear-gradient(90deg,#9B59FF,#FF2D78);"></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#555;">King's Indian</span><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;">chaos</span></div>
+              <div class="rating-bar"><div class="rating-fill" style="width:20%;background:linear-gradient(90deg,#FF2D78,#FF6B00);"></div></div>
+            </div>
+          </div>
+          <div style="border:2px solid #111;padding:12px;background:#080808;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF2D78;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">BLUNDER ARCHIVE</div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;display:flex;align-items:center;gap:6px;"><span style="color:#FF2D78;">??</span><span>hung my queen. again.</span></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;display:flex;align-items:center;gap:6px;"><span style="color:#FF6B00;">?</span><span>missed back rank mate</span></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;display:flex;align-items:center;gap:6px;"><span style="color:#FF2D78;">??</span><span>forgot en passant exists</span></div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;display:flex;align-items:center;gap:6px;"><span style="color:#FF6B00;">?</span><span>traded bishop for knight (why)</span></div>
+            </div>
+            <div style="margin-top:8px;font-family:'Caveat',cursive;font-size:12px;color:#222;font-style:italic;">these are features, not bugs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: CHESS SIDEBAR -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- RATING CARD -->
+      <div style="border:3px solid #FFE500;background:#0d0800;box-shadow:6px 6px 0px #FFE500;overflow:hidden;">
+        <div style="background:#1a1200;padding:8px 14px;border-bottom:2px solid #FFE500;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;" class="piece-float">♟</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FFE500;text-transform:uppercase;letter-spacing:1px;">chess.com profile</span>
+        </div>
+        <div style="padding:16px;">
+          <div style="text-align:center;margin-bottom:14px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;color:#FFE500;line-height:1;text-shadow:0 0 30px rgba(255,229,0,.2);">1100</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#3a2a00;text-transform:uppercase;letter-spacing:3px;">rapid rating</div>
+            <div style="margin-top:8px;display:flex;justify-content:center;gap:4px;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00FF88;border:1px solid #00FF88;padding:2px 6px;">↑ +47 this month</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid #1a1200;padding-bottom:4px;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#3a2a00;text-transform:uppercase;">rapid</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FFE500;">1100</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid #1a1200;padding-bottom:4px;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#3a2a00;text-transform:uppercase;">blitz</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF6B00;">987</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid #1a1200;padding-bottom:4px;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#3a2a00;text-transform:uppercase;">bullet</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#FF2D78;">812</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#3a2a00;text-transform:uppercase;">puzzles</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9B59FF;">1340</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHESS DIARY -->
+      <div style="border:2px solid #222;background:#0a0a0a;overflow:hidden;">
+        <div style="background:#111;padding:8px 12px;border-bottom:2px solid #222;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FFE500;text-transform:uppercase;letter-spacing:1px;">📓 chess diary</span>
+        </div>
+        <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+          <div style="border-bottom:1px solid #111;padding-bottom:8px;">
+            <div style="font-family:'VT323',monospace;font-size:13px;color:#333;margin-bottom:4px;">NOV 13 · 23:55</div>
+            <p style="font-family:'Caveat',cursive;font-size:14px;color:#666;line-height:1.5;margin:0;">lost to a 900 because i was coding at the same time. multitasking is a myth.</p>
+          </div>
+          <div style="border-bottom:1px solid #111;padding-bottom:8px;">
+            <div style="font-family:'VT323',monospace;font-size:13px;color:#333;margin-bottom:4px;">NOV 10 · 01:12</div>
+            <p style="font-family:'Caveat',cursive;font-size:14px;color:#666;line-height:1.5;margin:0;">finally broke 1100. celebrated by immediately losing 3 games in a row.</p>
+          </div>
+          <div>
+            <div style="font-family:'VT323',monospace;font-size:13px;color:#333;margin-bottom:4px;">NOV 07 · 22:30</div>
+            <p style="font-family:'Caveat',cursive;font-size:14px;color:#666;line-height:1.5;margin:0;">chess and coding feel the same. both are just pattern matching with consequences.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PIECE PHILOSOPHY -->
+      <div style="border:2px dashed #333;background:#080808;padding:14px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">// piece philosophy</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;cursor:default;transition:all .2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform=''">
+            <span style="font-size:16px;">♛</span>
+            <span style="font-family:'Caveat',cursive;font-size:13px;color:#444;">queen = do everything, panic later</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;cursor:default;transition:all .2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform=''">
+            <span style="font-size:16px;">♞</span>
+            <span style="font-family:'Caveat',cursive;font-size:13px;color:#444;">knight = the weird one. my favorite.</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;cursor:default;transition:all .2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform=''">
+            <span style="font-size:16px;">♝</span>
+            <span style="font-family:'Caveat',cursive;font-size:13px;color:#444;">bishop = long range, often forgotten</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;cursor:default;transition:all .2s;" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform=''">
+            <span style="font-size:16px;">♟</span>
+            <span style="font-family:'Caveat',cursive;font-size:13px;color:#444;">pawn = underrated. like junior devs.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHESS + CODE CONNECTION -->
+      <div style="border:2px solid #1a1a1a;background:#0a0a0a;padding:14px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;right:0;width:60px;height:60px;opacity:.04;display:grid;grid-template-columns:repeat(4,1fr);">
+          <div style="background:#fff;"></div><div style="background:#000;"></div><div style="background:#fff;"></div><div style="background:#000;"></div>
+          <div style="background:#000;"></div><div style="background:#fff;"></div><div style="background:#000;"></div><div style="background:#fff;"></div>
+          <div style="background:#fff;"></div><div style="background:#000;"></div><div style="background:#fff;"></div><div style="background:#000;"></div>
+          <div style="background:#000;"></div><div style="background:#fff;"></div><div style="background:#000;"></div><div style="background:#fff;"></div>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">// chess ↔ code</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;line-height:2;">
+          <div>opening theory <span style="color:#FFE500;">→</span> architecture</div>
+          <div>middlegame <span style="color:#FFE500;">→</span> feature dev</div>
+          <div>endgame <span style="color:#FFE500;">→</span> debugging</div>
+          <div>blunder <span style="color:#FF2D78;">→</span> pushing to prod</div>
+          <div>resign <span style="color:#FF2D78;">→</span> git revert</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div style="max-width:1440px;margin:0 auto;padding:0 16px;" class="md:px-8">
+  <div style="border-top:3px solid #111;position:relative;margin-bottom:0;">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#080808;padding:0 20px;display:flex;align-items:center;gap:12px;">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;text-transform:uppercase;letter-spacing:3px;">temperature change</span>
+      <span style="font-size:18px;">♟</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">→</span>
+      <span style="font-size:18px;">☀</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SUMMER VIBES SECTION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="summer" style="max-width:1440px;margin:0 auto;padding:48px 16px;" class="md:px-8">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:3px;">// section B</span>
+    <h2 class="font-heading" style="font-size:clamp(28px,5vw,48px);font-weight:700;color:#FF6B35;letter-spacing:-1px;margin:0;text-shadow:0 0 30px rgba(255,107,53,.2);">SUMMER VIBES</h2>
+    <span style="font-family:'Permanent Marker',cursive;font-size:18px;color:#FFB800;transform:rotate(-2deg);display:inline-block;" class="wiggle">☀ always</span>
+    <div style="flex:1;min-width:40px;height:2px;background:linear-gradient(90deg,#FF6B35,#FFB800,transparent);"></div>
+  </div>
+
+  <!-- SUMMER HERO BANNER -->
+  <div style="border:3px solid #000;background:linear-gradient(135deg,#FF6B35 0%,#FFB800 35%,#FF2D78 65%,#9B59FF 100%);box-shadow:8px 8px 0px #000;overflow:hidden;margin-bottom:24px;position:relative;" class="color-shift">
+    <!-- DECORATIVE ELEMENTS -->
+    <div style="position:absolute;top:16px;right:20px;font-size:48px;opacity:.15;" class="sun-spin">☀</div>
+    <div style="position:absolute;bottom:10px;left:10px;font-size:32px;opacity:.2;" class="cloud-drift">☁</div>
+    <div style="position:absolute;top:50%;right:80px;font-size:24px;opacity:.2;" class="bounce-fun">🌊</div>
+    <div style="padding:24px 28px;position:relative;z-index:2;">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Permanent Marker',cursive;font-size:clamp(28px,5vw,52px);color:#000;line-height:1;margin-bottom:8px;text-shadow:3px 3px 0px rgba(255,255,255,.3);">SUMMER NEVER ENDS</div>
+          <div style="font-family:'Caveat',cursive;font-size:clamp(16px,2.5vw,22px);color:rgba(0,0,0,.7);line-height:1.4;">in my head it's always 28°C, the music is loud,<br>and the ice cream is melting faster than i can eat it.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+          <div style="background:rgba(0,0,0,.2);border:2px solid rgba(0,0,0,.3);padding:8px 14px;backdrop-filter:blur(4px);">
+            <div style="font-family:'Press Start 2P',monospace;font-size:8px;color:#000;opacity:.7;margin-bottom:4px;">CURRENT TEMP</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#000;line-height:1;">28°C</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(0,0,0,.6);">in my imagination</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- LEFT: SUMMER CARDS GRID -->
+    <div class="lg:col-span-2" style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- SUMMER ACTIVITIES GRID -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="summer-card" style="padding:16px;text-align:center;background:#FFF9E6;transform:rotate(-2deg);">
+          <div style="font-size:32px;margin-bottom:8px;" class="float-up">🛹</div>
+          <div style="font-family:'Permanent Marker',cursive;font-size:13px;color:#000;line-height:1.3;">parking lot at golden hour</div>
+          <div style="font-family:'Caveat',cursive;font-size:11px;color:#888;margin-top:4px;">every summer, no exception</div>
+        </div>
+        <div class="summer-card" style="padding:16px;text-align:center;background:#FFF0E6;transform:rotate(1.5deg);">
+          <div style="font-size:32px;margin-bottom:8px;" class="drip">🍦</div>
+          <div style="font-family:'Permanent Marker',cursive;font-size:13px;color:#000;line-height:1.3;">ice cream emergency</div>
+          <div style="font-family:'Caveat',cursive;font-size:11px;color:#888;margin-top:4px;">melts before you finish</div>
+        </div>
+        <div class="summer-card" style="padding:16px;text-align:center;background:#E6F9FF;transform:rotate(-1deg);">
+          <div style="font-size:32px;margin-bottom:8px;" class="wave-anim">🌊</div>
+          <div style="font-family:'Permanent Marker',cursive;font-size:13px;color:#000;line-height:1.3;">lake days, no plans</div>
+          <div style="font-family:'Caveat',cursive;font-size:11px;color:#888;margin-top:4px;">phone on airplane mode</div>
+        </div>
+        <div class="summer-card" style="padding:16px;text-align:center;background:#FFF0FF;transform:rotate(2.5deg);">
+          <div style="font-size:32px;margin-bottom:8px;" class="bounce-fun">🎵</div>
+          <div style="font-family:'Permanent Marker',cursive;font-size:13px;color:#000;line-height:1.3;">windows down, volume up</div>
+          <div style="font-family:'Caveat',cursive;font-size:11px;color:#888;margin-top:4px;">blink-182 obviously</div>
+        </div>
+      </div>
+
+      <!-- SUMMER PLAYLIST -->
+      <div style="border:3px solid #000;background:#FFF9E6;box-shadow:6px 6px 0px #000;overflow:hidden;">
+        <div style="background:#FF6B35;padding:8px 14px;border-bottom:3px solid #000;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#000;">☀ SUMMER PLAYLIST</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div class="md" style="background:#000;width:6px;height:6px;"></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#000;font-weight:700;">NOW PLAYING</span>
+          </div>
+        </div>
+        <div style="padding:14px;">
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-bottom:2px solid #000;background:#FFE500;cursor:pointer;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#000;min-width:20px;font-weight:700;">▶</span>
+              <div style="flex:1;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#000;font-weight:700;">All The Small Things</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;">Blink-182</div>
+              </div>
+              <span style="font-family:'VT323',monospace;font-size:14px;color:#333;">2:49</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.1);cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(255,107,53,.1)'" onmouseout="this.style.background='transparent'">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;min-width:20px;">02</span>
+              <div style="flex:1;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#333;">Hey Ya!</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;">OutKast</div>
+              </div>
+              <span style="font-family:'VT323',monospace;font-size:14px;color:#888;">3:55</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.1);cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(255,107,53,.1)'" onmouseout="this.style.background='transparent'">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;min-width:20px;">03</span>
+              <div style="flex:1;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#333;">Summerboy</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;">Lady Gaga</div>
+              </div>
+              <span style="font-family:'VT323',monospace;font-size:14px;color:#888;">4:10</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.1);cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(255,107,53,.1)'" onmouseout="this.style.background='transparent'">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;min-width:20px;">04</span>
+              <div style="flex:1;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#333;">Mr. Brightside</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;">The Killers</div>
+              </div>
+              <span style="font-family:'VT323',monospace;font-size:14px;color:#888;">3:42</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 10px;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='rgba(255,107,53,.1)'" onmouseout="this.style.background='transparent'">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;min-width:20px;">05</span>
+              <div style="flex:1;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#333;">Reptilia</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;">The Strokes</div>
+              </div>
+              <span style="font-family:'VT323',monospace;font-size:14px;color:#888;">3:33</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMER PHOTO WALL -->
+      <div style="border:3px solid #000;background:#FFF9E6;box-shadow:6px 6px 0px #000;overflow:hidden;">
+        <div style="background:#FFB800;padding:8px 14px;border-bottom:3px solid #000;">
+          <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#000;">📸 SUMMER ROLL</span>
+        </div>
+        <div style="padding:14px;display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;">
+          <div style="flex-shrink:0;width:110px;background:#fff;padding:6px 6px 24px;border:2px solid #000;box-shadow:3px 3px 0px #000;transform:rotate(-3deg);transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='rotate(0deg) scale(1.05)'" onmouseout="this.style.transform='rotate(-3deg)'">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200&amp;h=200&amp;fit=crop" alt="beach" style="width:100%;height:80px;object-fit:cover;display:block;filter:saturate(1.3) contrast(1.1);">
+            <div style="font-family:'Caveat',cursive;font-size:11px;color:#333;text-align:center;padding-top:5px;">beach day ☀</div>
+          </div>
+          <div style="flex-shrink:0;width:110px;background:#fff;padding:6px 6px 24px;border:2px solid #000;box-shadow:3px 3px 0px #000;transform:rotate(2deg);transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='rotate(0deg) scale(1.05)'" onmouseout="this.style.transform='rotate(2deg)'">
+            <img src="https://images.unsplash.com/photo-1473496169904-658ba7574b0d?w=200&amp;h=200&amp;fit=crop" alt="skate" style="width:100%;height:80px;object-fit:cover;display:block;filter:saturate(1.4) contrast(1.1);">
+            <div style="font-family:'Caveat',cursive;font-size:11px;color:#333;text-align:center;padding-top:5px;">golden hour 🛹</div>
+          </div>
+          <div style="flex-shrink:0;width:110px;background:#fff;padding:6px 6px 24px;border:2px solid #000;box-shadow:3px 3px 0px #000;transform:rotate(-1.5deg);transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='rotate(0deg) scale(1.05)'" onmouseout="this.style.transform='rotate(-1.5deg)'">
+            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=200&amp;h=200&amp;fit=crop" alt="ice cream" style="width:100%;height:80px;object-fit:cover;display:block;filter:saturate(1.5) contrast(1.1);">
+            <div style="font-family:'Caveat',cursive;font-size:11px;color:#333;text-align:center;padding-top:5px;">melting 🍦</div>
+          </div>
+          <div style="flex-shrink:0;width:110px;background:#fff;padding:6px 6px 24px;border:2px solid #000;box-shadow:3px 3px 0px #000;transform:rotate(3deg);transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='rotate(0deg) scale(1.05)'" onmouseout="this.style.transform='rotate(3deg)'">
+            <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=200&amp;h=200&amp;fit=crop" alt="sunset" style="width:100%;height:80px;object-fit:cover;display:block;filter:saturate(1.6) contrast(1.1);">
+            <div style="font-family:'Caveat',cursive;font-size:11px;color:#333;text-align:center;padding-top:5px;">sunset 🌅</div>
+          </div>
+          <div style="flex-shrink:0;width:110px;background:#fff;padding:6px 6px 24px;border:2px solid #000;box-shadow:3px 3px 0px #000;transform:rotate(-2.5deg);transition:transform .2s;cursor:pointer;" onmouseover="this.style.transform='rotate(0deg) scale(1.05)'" onmouseout="this.style.transform='rotate(-2.5deg)'">
+            <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=200&amp;h=200&amp;fit=crop" alt="festival" style="width:100%;height:80px;object-fit:cover;display:block;filter:saturate(1.4) contrast(1.1);">
+            <div style="font-family:'Caveat',cursive;font-size:11px;color:#333;text-align:center;padding-top:5px;">festival 🎪</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMER ABSURDITY LOG -->
+      <div style="border:3px solid #000;background:#E6F9FF;box-shadow:6px 6px 0px #000;overflow:hidden;">
+        <div style="background:#00C8FF;padding:8px 14px;border-bottom:3px solid #000;display:flex;align-items:center;gap:8px;">
+          <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#000;">🌊 ABSURDITY LOG</span>
+          <span style="font-family:'Caveat',cursive;font-size:14px;color:rgba(0,0,0,.6);">things that only happen in summer</span>
+        </div>
+        <div style="padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="border:2px solid #000;padding:10px;background:#fff;transform:rotate(-1deg);">
+            <div style="font-size:20px;margin-bottom:4px;">🦟</div>
+            <div style="font-family:'Caveat',cursive;font-size:13px;color:#333;line-height:1.5;">mosquito finds you specifically at 3am. every night. without fail.</div>
+          </div>
+          <div style="border:2px solid #000;padding:10px;background:#fff;transform:rotate(1.5deg);">
+            <div style="font-size:20px;margin-bottom:4px;">🍦</div>
+            <div style="font-family:'Caveat',cursive;font-size:13px;color:#333;line-height:1.5;">ice cream melts before you even pay for it. physics is personal.</div>
+          </div>
+          <div style="border:2px solid #000;padding:10px;background:#fff;transform:rotate(1deg);">
+            <div style="font-size:20px;margin-bottom:4px;">🌅</div>
+            <div style="font-family:'Caveat',cursive;font-size:13px;color:#333;line-height:1.5;">stayed up so late it became early. watched the sunrise. no regrets.</div>
+          </div>
+          <div style="border:2px solid #000;padding:10px;background:#fff;transform:rotate(-2deg);">
+            <div style="font-size:20px;margin-bottom:4px;">🎵</div>
+            <div style="font-family:'Caveat',cursive;font-size:13px;color:#333;line-height:1.5;">that one song that makes every summer feel like the same summer.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: SUMMER SIDEBAR -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- SUN WIDGET -->
+      <div style="border:3px solid #000;background:#FFF9E6;box-shadow:6px 6px 0px #000;overflow:hidden;text-align:center;padding:24px 16px;" class="sun-pulse">
+        <div style="font-size:72px;line-height:1;margin-bottom:8px;" class="sun-spin" id="sun-icon">☀</div>
+        <div style="font-family:'Permanent Marker',cursive;font-size:22px;color:#FF6B35;margin-bottom:4px;">ALWAYS SUMMER</div>
+        <div style="font-family:'Caveat',cursive;font-size:15px;color:#888;line-height:1.5;">in my head, at least.<br>munich disagrees.</div>
+        <div style="margin-top:12px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap;">
+          <span class="sk" style="background:#FF6B35;color:#fff;border:2px solid #000;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #000;">☀ vibes</span>
+          <span class="sk2" style="background:#FFB800;color:#000;border:2px solid #000;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #000;">🌊 energy</span>
+          <span class="sk3" style="background:#FF2D78;color:#fff;border:2px solid #000;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;box-shadow:2px 2px 0px #000;">🎪 chaos</span>
+        </div>
+      </div>
+
+      <!-- SUMMER DIARY -->
+      <div style="border:3px solid #000;background:#FFF0E6;box-shadow:5px 5px 0px #000;overflow:hidden;">
+        <div style="background:#FF6B35;padding:8px 12px;border-bottom:3px solid #000;">
+          <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#000;">📓 SUMMER DIARY</span>
+        </div>
+        <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+          <div style="border-bottom:2px dashed rgba(0,0,0,.1);padding-bottom:8px;">
+            <div style="font-family:'VT323',monospace;font-size:14px;color:#FF6B35;margin-bottom:4px;">AUG 14 · 22:00</div>
+            <p style="font-family:'Caveat',cursive;font-size:14px;color:#555;line-height:1.5;margin:0;">skated until the streetlights came on. then kept going. the city is different at night in summer.</p>
+          </div>
+          <div style="border-bottom:2px dashed rgba(0,0,0,.1);padding-bottom:8px;">
+            <div style="font-family:'VT323',monospace;font-size:14px;color:#FFB800;margin-bottom:4px;">JUL 28 · 14:30</div>
+            <p style="font-family:'Caveat',cursive;font-size:14px;color:#555;line-height:1.5;margin:0;">bought 3 ice creams. ate them all before reaching the bench. no shame.</p>
+          </div>
+          <div>
+            <div style="font-family:'VT323',monospace;font-size:14px;color:#FF2D78;margin-bottom:4px;">JUL 04 · 23:55</div>
+            <p style="font-family:'Caveat',cursive;font-size:14px;color:#555;line-height:1.5;margin:0;">burned a summer cd. put "hey ya" first. it's the law.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMER CHECKLIST -->
+      <div style="border:3px solid #000;background:#E6FFE6;box-shadow:5px 5px 0px #000;overflow:hidden;">
+        <div style="background:#00FF88;padding:8px 12px;border-bottom:3px solid #000;">
+          <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#000;">✓ SUMMER CHECKLIST</span>
+        </div>
+        <div style="padding:14px;display:flex;flex-direction:column;gap:6px;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Caveat',cursive;font-size:14px;color:#333;">
+            <input type="checkbox" checked="" style="width:16px;height:16px;accent-color:#FF6B35;"> skate at golden hour
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Caveat',cursive;font-size:14px;color:#333;">
+            <input type="checkbox" checked="" style="width:16px;height:16px;accent-color:#FF6B35;"> burn a summer cd
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Caveat',cursive;font-size:14px;color:#333;">
+            <input type="checkbox" checked="" style="width:16px;height:16px;accent-color:#FF6B35;"> eat ice cream irresponsibly
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Caveat',cursive;font-size:14px;color:#333;">
+            <input type="checkbox" style="width:16px;height:16px;accent-color:#FF6B35;"> watch sunrise (not on purpose)
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Caveat',cursive;font-size:14px;color:#333;">
+            <input type="checkbox" style="width:16px;height:16px;accent-color:#FF6B35;"> swim in a lake at midnight
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Caveat',cursive;font-size:14px;color:#333;">
+            <input type="checkbox" style="width:16px;height:16px;accent-color:#FF6B35;"> find a rooftop
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Caveat',cursive;font-size:14px;color:#333;">
+            <input type="checkbox" style="width:16px;height:16px;accent-color:#FF6B35;"> get lost on purpose
+          </label>
+        </div>
+      </div>
+
+      <!-- SUMMER SPARKLES -->
+      <div style="border:3px solid #000;background:linear-gradient(135deg,#FF6B35,#FFB800);box-shadow:5px 5px 0px #000;padding:16px;text-align:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:8px;left:12px;font-size:14px;" class="sparkle">✨</div>
+        <div style="position:absolute;top:12px;right:16px;font-size:12px;" class="sparkle">⭐</div>
+        <div style="position:absolute;bottom:8px;left:20px;font-size:10px;" class="sparkle">✦</div>
+        <div style="position:absolute;bottom:12px;right:12px;font-size:14px;" class="sparkle">✨</div>
+        <div style="position:absolute;top:50%;left:8px;font-size:10px;" class="sparkle">★</div>
+        <div style="font-family:'Permanent Marker',cursive;font-size:18px;color:#000;margin-bottom:6px;position:relative;z-index:2;">same universe.</div>
+        <div style="font-family:'Permanent Marker',cursive;font-size:18px;color:#000;margin-bottom:8px;position:relative;z-index:2;">different temperature.</div>
+        <div style="font-family:'Caveat',cursive;font-size:13px;color:rgba(0,0,0,.7);line-height:1.5;position:relative;z-index:2;">chess corner is cold logic.<br>summer vibes is warm chaos.<br>i contain both.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW NAVIGATION -->
+<div style="background:#0a0a0a;border-top:3px solid #111;border-bottom:3px solid #111;">
+  <div style="max-width:1440px;margin:0 auto;padding:20px 16px;" class="md:px-8">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:2px;">// flow navigation</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/chess-corner-summer-vibes" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:#FFE500;background:transparent;border:2px solid #FFE500;padding:8px 16px;text-decoration:none;transition:all .15s;" onmouseover="this.style.background='#FFE500';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#FFE500'">♟ CHESS + SUMMER ←</a>
+        <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/cartoon-easter-eggs-layer" style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:#FF2D78;background:transparent;border:2px solid #FF2D78;padding:8px 16px;text-decoration:none;transition:all .15s;" onmouseover="this.style.background='#FF2D78';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#FF2D78'">🥚 EASTER EGGS →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#080808;border-top:3px solid #FFE500;">
+  <div style="max-width:1440px;margin:0 auto;padding:24px 16px;" class="md:px-8">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;background:#FFE500;border:2px solid #000;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P',monospace;font-size:9px;color:#000;box-shadow:2px 2px 0px #fff;flex-shrink:0;">dk</div>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFE500;letter-spacing:2px;">DEVKID.EXE</span>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/chess-corner-summer-vibes" class="lh" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#FFE500'" onmouseout="this.style.color='#444'">♟ chess + summer</a>
+        <a href="/api/copilot/prototype/bcf83697-1d07-4db3-922d-d371c7cf9d82/cartoon-easter-eggs-layer" class="lh" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#444;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#FF2D78'" onmouseout="this.style.color='#444'">🥚 easter eggs</a>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#222;">© 2024 devkid.exe · ♟ 1100 elo · ☀ always summer</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.querySelectorAll('a,button,[onclick],input,label').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('h'));el.addEventListener('mouseleave',()=>cur.classList.remove('h'));});
+
+// CLOCK
+function updateClock(){const t=new Date().toTimeString().slice(0,8);document.getElementById('clk').textContent=t;}
+setInterval(updateClock,1000);updateClock();
+
+// MOBILE MENU
+function toggleMenu(){document.getElementById('mob-menu').classList.toggle('open');}
+
+// CHESS BOARD RENDER
+const pieces = {
+  '00':'♜','10':'♞','20':'♝','30':'♛','40':'♚','50':'♝','60':'♞','70':'♜',
+  '01':'♟','11':'♟','21':'♟','31':'♟','41':'♟','51':'♟','61':'♟','71':'♟',
+  '06':'♙','16':'♙','26':'♙','36':'♙','46':'♙','56':'♙','66':'♙','76':'♙',
+  '07':'♖','17':'♘','27':'♗','37':'♕','47':'♔','57':'♗','67':'♘','77':'♖',
+  '44':'♙','34':'♟','25':'♘','52':'♞'
+};
+const board = document.getElementById('chessboard');
+if(board){
+  for(let row=0;row<8;row++){
+    for(let col=0;col<8;col++){
+      const cell=document.createElement('div');
+      const isLight=(row+col)%2===0;
+      cell.className='chess-cell '+(isLight?'chess-light':'chess-dark');
+      const key=col+''+row;
+      if(pieces[key]){
+        cell.textContent=pieces[key];
+        cell.style.fontSize='14px';
+        cell.style.color=(row<2)?'#1a0a00':'#f5f0e8';
+        cell.style.textShadow=(row<2)?'1px 1px 0px rgba(0,0,0,.5)':'1px 1px 0px rgba(0,0,0,.3)';
+      }
+      if(col===4&&row===4){cell.classList.add('active');}
+      if(col===3&&row===4){cell.classList.add('threat');}
+      board.appendChild(cell);
+    }
+  }
+}
+
+// THINKING DISPLAY CYCLE
+const thoughts=['Nf3 → d4 → Bc4...','calculating 3 moves ahead...','is this a trap? probably.','Nf1 → g3 → f5 plan','e5 push? or Nd4?','time: 2:34 remaining ⏱'];
+let ti=0;
+setInterval(()=>{
+  ti=(ti+1)%thoughts.length;
+  const el=document.getElementById('thinking-display');
+  if(el){el.style.opacity='0';setTimeout(()=>{el.textContent=thoughts[ti];el.style.opacity='1';},200);}
+},2500);
+document.getElementById('thinking-display').style.transition='opacity .2s';
+
+// SUN SPIN TOGGLE
+const sunIcon=document.getElementById('sun-icon');
+if(sunIcon){
+  sunIcon.addEventListener('click',()=>{
+    sunIcon.style.fontSize=sunIcon.style.fontSize==='96px'?'72px':'96px';
+  });
+}
+</script>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
