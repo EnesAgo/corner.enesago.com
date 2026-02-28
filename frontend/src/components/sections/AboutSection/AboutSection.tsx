@@ -1,4 +1,5 @@
 import ProfileCard from './ProfileCard';
+import StickyNote from './StickyNote';
 import CollectibleBadges from './CollectibleBadges';
 import SocialLinks from './SocialLinks';
 import ThingsICareAbout from './ThingsICareAbout';
@@ -18,6 +19,7 @@ export default function AboutSection({ onOpenEgg }: AboutSectionProps) {
         {/* Left: Profile Card */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <ProfileCard />
+          <StickyNote />
           <CollectibleBadges />
           <SocialLinks />
         </div>

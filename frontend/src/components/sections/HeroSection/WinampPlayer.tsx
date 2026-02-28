@@ -3,8 +3,7 @@
 /// <reference types="youtube" />
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-
-const VIDEO_ID = '3bfkyXtuIXk';
+import { playlist } from '@/data/playlist';
 
 const bars = [
   { color: '#FF2D78', dur: '.4s', delay: '0s', h: '60%' },
@@ -24,52 +23,58 @@ function formatTime(seconds: number): string {
 }
 
 export default function WinampPlayer() {
+  const [trackIndex, setTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(239); // 3:59 fallback
+  const [duration, setDuration] = useState(239);
   const [isReady, setIsReady] = useState(false);
+
+  const track = playlist[trackIndex];
 
   const playerRef = useRef<YT.Player | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const unmutedRef = useRef(false);
 
-  // Unmute on first user interaction anywhere on the page
+  // Unmute on first user interaction
   useEffect(() => {
-    function handleInteraction() {
-      if (playerRef.current && isMuted) {
-        playerRef.current.unMute();
-        playerRef.current.setVolume(100);
-        setIsMuted(false);
+    function unmute() {
+      if (unmutedRef.current) return;
+      unmutedRef.current = true;
+      const p = playerRef.current;
+      if (p) {
+        p.unMute();
+        p.setVolume(100);
+        // If autoplay was blocked, also start playing
+        try { p.playVideo(); } catch { /* ignore */ }
       }
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('keydown', handleInteraction);
-      document.removeEventListener('scroll', handleInteraction, true);
+      document.removeEventListener('scroll', unmute, true);
+      document.removeEventListener('click', unmute);
+      document.removeEventListener('keydown', unmute);
+      document.removeEventListener('touchstart', unmute);
     }
 
-    if (isMuted) {
-      document.addEventListener('click', handleInteraction);
-      document.addEventListener('keydown', handleInteraction);
-      document.addEventListener('scroll', handleInteraction, true);
-    }
+    document.addEventListener('scroll', unmute, true);
+    document.addEventListener('click', unmute);
+    document.addEventListener('keydown', unmute);
+    document.addEventListener('touchstart', unmute);
 
     return () => {
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('keydown', handleInteraction);
-      document.removeEventListener('scroll', handleInteraction, true);
+      document.removeEventListener('scroll', unmute, true);
+      document.removeEventListener('click', unmute);
+      document.removeEventListener('keydown', unmute);
+      document.removeEventListener('touchstart', unmute);
     };
-  }, [isMuted]);
+  }, []);
 
   // Load YouTube IFrame API
   useEffect(() => {
-    // If API is already loaded, create player immediately
     if (window.YT && window.YT.Player) {
       createPlayer();
       return;
     }
 
-    // Set up the callback for when API loads
     const win = window as unknown as { onYouTubeIframeAPIReady?: () => void };
     const prevCallback = win.onYouTubeIframeAPIReady;
     win.onYouTubeIframeAPIReady = () => {
@@ -77,7 +82,6 @@ export default function WinampPlayer() {
       createPlayer();
     };
 
-    // Only add the script tag if it doesn't exist
     if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
@@ -95,7 +99,7 @@ export default function WinampPlayer() {
     if (!containerRef.current || playerRef.current) return;
 
     playerRef.current = new window.YT.Player(containerRef.current, {
-      videoId: VIDEO_ID,
+      videoId: playlist[0].videoId,
       height: '0',
       width: '0',
       playerVars: {
@@ -110,6 +114,7 @@ export default function WinampPlayer() {
         onReady: (event: YT.PlayerEvent) => {
           setDuration(event.target.getDuration());
           setIsReady(true);
+          // Start muted so browser allows autoplay, unmute happens on first interaction
           event.target.mute();
           event.target.playVideo();
         },
@@ -130,14 +135,36 @@ export default function WinampPlayer() {
             }
           }
 
-          // Reset when ended
+          // Auto-advance to next track when ended
           if (event.data === window.YT.PlayerState.ENDED) {
             setCurrentTime(0);
             setIsPlaying(false);
+            setTrackIndex((prev) => {
+              const next = (prev + 1) % playlist.length;
+              setTimeout(() => loadTrack(next), 100);
+              return next;
+            });
           }
         },
       },
     });
+  }
+
+  function loadTrack(index: number) {
+    if (!playerRef.current) return;
+    playerRef.current.loadVideoById(playlist[index].videoId);
+    setCurrentTime(0);
+    // Duration will update once the new video starts playing
+    const checkDuration = setInterval(() => {
+      if (playerRef.current) {
+        const d = playerRef.current.getDuration();
+        if (d > 0) {
+          setDuration(d);
+          clearInterval(checkDuration);
+        }
+      }
+    }, 200);
+    setTimeout(() => clearInterval(checkDuration), 5000);
   }
 
   const togglePlay = useCallback(() => {
@@ -149,11 +176,19 @@ export default function WinampPlayer() {
     }
   }, [isPlaying, isReady]);
 
-  const restart = useCallback(() => {
+  const prevTrack = useCallback(() => {
     if (!playerRef.current || !isReady) return;
-    playerRef.current.seekTo(0, true);
-    playerRef.current.playVideo();
-  }, [isReady]);
+    const prev = (trackIndex - 1 + playlist.length) % playlist.length;
+    setTrackIndex(prev);
+    loadTrack(prev);
+  }, [isReady, trackIndex]);
+
+  const nextTrack = useCallback(() => {
+    if (!playerRef.current || !isReady) return;
+    const next = (trackIndex + 1) % playlist.length;
+    setTrackIndex(next);
+    loadTrack(next);
+  }, [isReady, trackIndex]);
 
   const handleProgressClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -170,9 +205,9 @@ export default function WinampPlayer() {
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   const controls = [
-    { icon: '⏮', action: restart },
+    { icon: '⏮', action: prevTrack },
     { icon: isPlaying ? '⏸' : '▶', action: togglePlay },
-    { icon: '⏭', action: restart },
+    { icon: '⏭', action: nextTrack },
   ];
 
   return (
@@ -187,17 +222,17 @@ export default function WinampPlayer() {
         <div style={{ width: 10, height: 10, background: '#FFE500', borderRadius: '50%' }} />
         <div style={{ width: 10, height: 10, background: '#00FF88', borderRadius: '50%' }} />
         <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#444', marginLeft: 8 }}>
-          winamp.exe — {isPlaying ? (isMuted ? '🔇 click to unmute' : 'now playing') : isReady ? 'paused' : 'loading...'}
+          winamp.exe — {isPlaying ? 'now playing' : isReady ? 'paused' : 'loading...'}
         </span>
       </div>
       <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 14 }}>
         <div style={{ width: 52, height: 52, flexShrink: 0, border: '2px solid #222', overflow: 'hidden' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`https://i.ytimg.com/vi/${VIDEO_ID}/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDB3BBYiyaHKSA0zf5woT-XFMHEDg`} alt="album" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'saturate(1.4) contrast(1.1)', opacity: 0.8 }} />
+          <img src={`https://i.ytimg.com/vi/${track.videoId}/hqdefault.jpg`} alt="album" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'saturate(1.4) contrast(1.1)', opacity: 0.8 }} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: '#fff', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>Senden Daha Güzel - Duman</div>
-          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', marginTop: 2 }}>Duman II · 2009</div>
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: '#fff', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{track.title} - {track.artist}</div>
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', marginTop: 2 }}>{track.album} · {track.year}</div>
           <div
             ref={progressRef}
             onClick={handleProgressClick}
@@ -222,6 +257,13 @@ export default function WinampPlayer() {
                 width: 26,
                 height: 26,
                 fontSize: 10,
+                padding: 0,
+                margin: 0,
+                lineHeight: '26px',
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 cursor: isReady ? 'pointer' : 'not-allowed',
                 fontWeight: i === 1 ? 700 : 400,
                 opacity: isReady ? 1 : 0.5,

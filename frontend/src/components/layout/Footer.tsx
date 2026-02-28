@@ -44,13 +44,8 @@ export default function Footer({ eggsFound, entryCount, visitCount }: FooterProp
               <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#FFE500', letterSpacing: 2 }}>ENESAGO.EXE</span>
             </div>
             <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#444', lineHeight: 1.85, maxWidth: 340, margin: '0 0 16px 0' }}>
-              a personal website. not a brand. not a product. just a person on the internet making stuff and writing about it. no algorithm. no ads. just vibes.
+              a personal website. just a person on the internet making stuff and writing about it.
             </p>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
-              <span className="sk" style={{ border: '2px solid #222', color: '#444', padding: '3px 8px', fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, textTransform: 'uppercase', letterSpacing: 1 }}>no cookies 🍪</span>
-              <span className="sk2" style={{ border: '2px solid #222', color: '#444', padding: '3px 8px', fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, textTransform: 'uppercase', letterSpacing: 1 }}>no tracking 👁</span>
-              <span className="sk" style={{ border: '2px solid #222', color: '#444', padding: '3px 8px', fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, textTransform: 'uppercase', letterSpacing: 1 }}>no ads 🚫</span>
-            </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
               {thanks.map((t, i) => (
                 <span
