@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { useEasterEggs } from '@/hooks';
+import { useVisitorCount } from '@/hooks/useVisitorCount';
 import {
   Ticker,
   CustomCursor,
@@ -37,6 +38,7 @@ export default function Home() {
   const { openEgg, closeEgg, isEggOpen, eggsFound } = useEasterEggs();
   const [entryCount, setEntryCount] = useState(0);
   const handleCountChange = useCallback((count: number) => setEntryCount(count), []);
+  const { count: visitCount } = useVisitorCount();
 
   return (
     <>
@@ -85,7 +87,7 @@ export default function Home() {
       <LabSection />
 
       {/* Footer */}
-      <Footer eggsFound={eggsFound} entryCount={entryCount} />
+      <Footer eggsFound={eggsFound} entryCount={entryCount} visitCount={visitCount} />
     </>
   );
 }

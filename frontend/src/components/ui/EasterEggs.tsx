@@ -34,7 +34,7 @@ export function KonamiEgg({ onClose }: { onClose: () => void }) {
         <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 10, color: '#FFE500', marginBottom: 16, lineHeight: 2 }}>🎮 CHEAT CODE ACTIVATED</div>
         <div style={{ fontFamily: "'Caveat', cursive", fontSize: 16, color: '#aaa', lineHeight: 1.8, marginBottom: 16 }}>
           hey, you actually did it. the konami code. you&apos;re my kind of person.<br /><br />
-          secret: i built this whole site in one night listening to blink-182 on repeat. the visitor counter is fake. the guestbook is real.
+          secret: i built this whole site in one night listening to blink-182 on repeat. everything here is real. the guestbook, the visitor counter, the vibes.
         </div>
         <div style={{ border: '2px dashed #333', padding: 14, background: '#0a0a0a', marginBottom: 16 }}>
           <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#555', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 2 }}>// unlocked: secret playlist</div>

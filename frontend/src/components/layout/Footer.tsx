@@ -1,9 +1,10 @@
 interface FooterProps {
   eggsFound: number;
   entryCount: number;
+  visitCount: number;
 }
 
-export default function Footer({ eggsFound, entryCount }: FooterProps) {
+export default function Footer({ eggsFound, entryCount, visitCount }: FooterProps) {
   const pages = [
     { href: '#home', label: '→ home', color: '#444' },
     { href: '#about', label: '→ about', color: '#444' },
@@ -43,7 +44,7 @@ export default function Footer({ eggsFound, entryCount }: FooterProps) {
               <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#FFE500', letterSpacing: 2 }}>ENESAGO.EXE</span>
             </div>
             <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#444', lineHeight: 1.85, maxWidth: 340, margin: '0 0 16px 0' }}>
-              a personal website. not a brand. not a product. just a person on the internet making stuff and writing about it. no tracking. no analytics. no algorithm.
+              a personal website. not a brand. not a product. just a person on the internet making stuff and writing about it. no algorithm. no ads. just vibes.
             </p>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
               <span className="sk" style={{ border: '2px solid #222', color: '#444', padding: '3px 8px', fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, textTransform: 'uppercase', letterSpacing: 1 }}>no cookies 🍪</span>
@@ -101,7 +102,7 @@ export default function Footer({ eggsFound, entryCount }: FooterProps) {
 
         <div style={{ borderTop: '2px solid #111', paddingTop: 18, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
           <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#222' }}>© 2024 ENESAGO.EXE · built with html, css, vibes, and too many blink-182 songs</div>
-          <div style={{ fontFamily: "'VT323', monospace", fontSize: 15, color: '#1a1a1a' }}>visitors: 004,892 (fake) · entries: {entryCount} (real)</div>
+          <div style={{ fontFamily: "'VT323', monospace", fontSize: 15, color: '#1a1a1a' }}>visitors: {String(visitCount).padStart(6, '0')} · entries: {entryCount}</div>
         </div>
       </div>
     </footer>

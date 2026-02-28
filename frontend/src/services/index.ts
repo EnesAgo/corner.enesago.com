@@ -5,4 +5,10 @@ export {
   getEntryCount,
   type GuestbookEntry,
 } from './guestbook.service';
+export {
+  recordVisit,
+  getVisitorCount,
+  getTotalVisits,
+  type VisitorData,
+} from './visitor.service';
 

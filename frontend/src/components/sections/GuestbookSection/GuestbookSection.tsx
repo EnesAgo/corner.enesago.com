@@ -118,7 +118,7 @@ export default function GuestbookSection({ onCountChange }: GuestbookSectionProp
               </div>
             </div>
             <div style={{ border: '2px dashed #222', padding: 14, background: '#080808', textAlign: 'center' }}>
-              <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#444', lineHeight: 1.7 }}>&quot;this guestbook is real.<br />the visitor counter is fake.<br />the vibes are authentic.&quot;</div>
+              <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#444', lineHeight: 1.7 }}>&quot;this guestbook is real.<br />the visitor counter is real.<br />the vibes are authentic.&quot;</div>
               <div style={{ marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#222' }}>— site owner, probably at 3am</div>
             </div>
           </div>
