@@ -17,7 +17,7 @@ export default function StickyNote() {
       {/* Top tape effect */}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: 'rgba(0,0,0,.08)' }} />
       <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#000', lineHeight: 1.6 }}>
-        &quot;the best code i ever wrote was for a site nobody uses. it was perfect.&quot; — me, 3am
+        &quot;Life is more than just scrolling. Go outside & have fun. Don’t waste your life.&quot; — me
       </div>
     </div>
   );

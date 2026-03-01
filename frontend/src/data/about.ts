@@ -42,7 +42,7 @@ export const spokenLanguages = [
 ];
 
 export const currentlyIntoItems = [
-  { icon: '🎵', label: 'listening', value: 'Blink-182', sub: 'also: Kanye, Strokes', color: '#888' },
+  { icon: '🎵', label: 'listening', value: 'Duman', sub: 'also: Kanye, Strokes', color: '#888' },
   { icon: '💻', label: 'coding', value: 'NightShot v2', sub: 'photo sharing', color: '#00FF88' },
   { icon: '📖', label: 'reading', value: 'Clean Architecture', sub: 'Robert C. Martin', color: '#888' },
   { icon: '🇩🇪', label: 'learning', value: 'Deutsch', sub: 'langsam aber sicher', color: '#FFE500' },
@@ -56,6 +56,6 @@ export const skillBars = [
 ];
 
 export const aboutParagraphs = [
-  "i started coding when i was 16 because i wanted to make a website for my skate crew. it was terrible. it had autoplay music and a hit counter. i loved it. now i build production apps but i still think about that site.",
-  "by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, burning mix cds, taking photos with a disposable camera, and writing blog posts nobody asked for.",
+  "i started coding in 7th grade with c++. I started with competitive programming (for competitions & olympiad) but after that i discovered web dev and i loved it. My first website was terible but now i build production apps.",
+  "by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, gaming, taking clips with an old camera, and creating random projects just for fun.",
 ];

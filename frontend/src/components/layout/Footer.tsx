@@ -96,7 +96,7 @@ export default function Footer({ eggsFound, entryCount, visitCount }: FooterProp
         </div>
 
         <div style={{ borderTop: '2px solid #111', paddingTop: 18, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
-          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#222' }}>© 2024 ENESAGO.EXE · built with html, css, vibes, and too many blink-182 songs</div>
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#222' }}>© 2024 ENESAGO.EXE · built with html, css, vibes, and too many Duman songs</div>
           <div style={{ fontFamily: "'VT323', monospace", fontSize: 15, color: '#1a1a1a' }}>visitors: {String(visitCount).padStart(6, '0')} · entries: {entryCount}</div>
         </div>
       </div>

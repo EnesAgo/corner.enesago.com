@@ -5,7 +5,7 @@ export const smallPosts = [
 
 export const currentlySidebarItems = [
   { label: 'reading', value: 'Clean Architecture — Robert C. Martin', color: '#888' },
-  { label: 'playing', value: 'Blink-182 — Enema of the State', color: '#888' },
+  { label: 'playing', value: 'Senden Daha Güzel - Duman', color: '#888' },
   { label: 'coding', value: 'NightShot v2', color: '#00FF88' },
   { label: 'learning', value: 'Deutsch 🇩🇪', color: '#FFE500' },
   { label: 'feeling', value: 'chaotic but okay ✌️', color: '#FF2D78' },
