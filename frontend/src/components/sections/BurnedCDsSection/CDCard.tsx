@@ -1,5 +1,12 @@
 import type { CDData } from '@/data/burnedCds';
 
+function openYouTube(artist: string, title: string) {
+  // Strip annotations like "← if they get it" from title
+  const cleanTitle = title.replace(/\s*←.*$/, '').trim();
+  const query = encodeURIComponent(`${artist} - ${cleanTitle}`);
+  window.open(`https://www.youtube.com/results?search_query=${query}`, '_blank', 'noopener');
+}
+
 export default function CDCard({ cd }: { cd: CDData }) {
   const discSize = cd.small ? 48 : 52;
   const innerSize = cd.small ? 12 : 13;
@@ -18,12 +25,24 @@ export default function CDCard({ cd }: { cd: CDData }) {
         </div>
         <div>
           {cd.tracks.map((track) => (
-            <div key={track.n} className="cdt">
+            <div
+              key={track.n}
+              className="cdt"
+              onClick={() => openYouTube(track.artist, track.title)}
+              style={{ cursor: 'pointer', transition: 'background .15s' }}
+              onMouseOver={(e) => {
+                (e.currentTarget as HTMLElement).style.background = '#1a1a1a';
+              }}
+              onMouseOut={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'transparent';
+              }}
+            >
               <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: track.highlight ? cd.color : '#444', minWidth: 16 }}>{track.n}</span>
               <div style={{ flex: 1 }}>
                 <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: track.highlight ? cd.color : '#ccc' }}>{track.title}</div>
                 <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444' }}>{track.artist}</div>
               </div>
+              <span style={{ fontFamily: "'VT323', monospace", fontSize: 14, color: '#555', marginRight: 4, opacity: 0.6 }}>▶</span>
               <span style={{ fontFamily: "'VT323', monospace", fontSize: 14, color: '#444' }}>{track.dur}</span>
             </div>
           ))}

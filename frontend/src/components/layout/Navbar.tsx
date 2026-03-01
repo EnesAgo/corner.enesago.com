@@ -1,6 +1,6 @@
 'use client';
 
-import { useClock } from '@/hooks';
+import { useClock, useActiveSection } from '@/hooks';
 import { toggleMobileMenu } from './MobileMenu';
 
 interface NavbarProps {
@@ -8,7 +8,7 @@ interface NavbarProps {
 }
 
 const navLinks = [
-  { href: '#home', label: 'HOME', hoverColor: '#FFE500', isActive: true },
+  { href: '#home', label: 'HOME', hoverColor: '#FFE500' },
   { href: '#about', label: 'ABOUT', hoverColor: '#FF2D78' },
   { href: '#projects', label: 'WORK', hoverColor: '#00C8FF' },
   { href: '#chapters', label: 'ERAS', hoverColor: '#FFE500' },
@@ -22,6 +22,7 @@ const navLinks = [
 
 export default function Navbar({ onOpenEgg }: NavbarProps) {
   const time = useClock();
+  const activeSection = useActiveSection();
 
   return (
     <nav style={{ background: 'rgba(10,10,10,.96)', borderBottom: '3px solid #FFE500', padding: '0 16px', position: 'sticky', top: 0, zIndex: 200, backdropFilter: 'blur(8px)' }}>
@@ -46,37 +47,41 @@ export default function Navbar({ onOpenEgg }: NavbarProps) {
 
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-0 flex-wrap">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="hs"
-              style={{
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: 9,
-                color: link.isActive ? '#FFE500' : '#ccc',
-                textTransform: 'uppercase',
-                letterSpacing: 1,
-                padding: '5px 10px',
-                border: link.isActive ? '2px solid #FFE500' : '2px solid #222',
-                textDecoration: 'none',
-                transition: 'all .15s',
-              }}
-              onMouseOver={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = link.hoverColor;
-                (e.currentTarget as HTMLElement).style.color = link.hoverColor;
-                if (link.isActive) (e.currentTarget as HTMLElement).style.background = link.hoverColor;
-                if (link.isActive) (e.currentTarget as HTMLElement).style.color = '#000';
-              }}
-              onMouseOut={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = link.isActive ? '#FFE500' : '#222';
-                (e.currentTarget as HTMLElement).style.color = link.isActive ? '#FFE500' : '#ccc';
-                if (link.isActive) (e.currentTarget as HTMLElement).style.background = 'transparent';
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const sectionId = link.href.replace('#', '');
+            const isActive = activeSection === sectionId;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className="hs"
+                style={{
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontSize: 9,
+                  color: isActive ? link.hoverColor : '#ccc',
+                  textTransform: 'uppercase',
+                  letterSpacing: 1,
+                  padding: '5px 10px',
+                  border: isActive ? `2px solid ${link.hoverColor}` : '2px solid #222',
+                  textDecoration: 'none',
+                  transition: 'all .15s',
+                }}
+                onMouseOver={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = link.hoverColor;
+                  (e.currentTarget as HTMLElement).style.color = link.hoverColor;
+                  if (isActive) (e.currentTarget as HTMLElement).style.background = link.hoverColor;
+                  if (isActive) (e.currentTarget as HTMLElement).style.color = '#000';
+                }}
+                onMouseOut={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = isActive ? link.hoverColor : '#222';
+                  (e.currentTarget as HTMLElement).style.color = isActive ? link.hoverColor : '#ccc';
+                  if (isActive) (e.currentTarget as HTMLElement).style.background = 'transparent';
+                }}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </div>
 
         {/* Right side */}

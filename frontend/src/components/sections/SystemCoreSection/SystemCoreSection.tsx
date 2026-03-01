@@ -1,4 +1,5 @@
 import { universityModules, securitySkills } from '@/data/systemCore';
+import InteractiveTerminal from './InteractiveTerminal';
 
 export default function SystemCoreSection() {
 
@@ -12,29 +13,8 @@ export default function SystemCoreSection() {
           <div style={{ flex: 1, minWidth: 40, height: 2, background: 'linear-gradient(90deg,#00FF88,transparent)' }} />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Terminal */}
-          <div style={{ border: '2px solid #00FF88', background: '#020a02', boxShadow: '0 0 30px rgba(0,255,136,.08)', position: 'relative', overflow: 'hidden' }}>
-            <div className="sln" style={{ animationDuration: '5s' }} />
-            <div style={{ background: '#001a00', padding: '8px 14px', borderBottom: '2px solid #00FF88', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{ width: 10, height: 10, background: '#FF2D78', borderRadius: '50%' }} />
-              <div style={{ width: 10, height: 10, background: '#FFE500', borderRadius: '50%' }} />
-              <div style={{ width: 10, height: 10, background: '#00FF88', borderRadius: '50%' }} />
-              <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#00FF88', marginLeft: 8, opacity: 0.7 }}>terminal — mudt_system.sh</span>
-            </div>
-            <div style={{ padding: 18, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, lineHeight: 2 }}>
-              <div style={{ color: '#1a4a1a' }}>$ whoami</div>
-              <div style={{ color: '#00FF88', marginBottom: 8 }}>enes_ago · student · hacker (the good kind)</div>
-              <div style={{ color: '#1a4a1a' }}>$ cat university.txt</div>
-              <div style={{ color: '#00FF88', marginBottom: 8 }}>Munich University of Digital Technologies<br /><span style={{ color: '#00aa55' }}>B.Sc. Cyber Security · Munich, DE 🇩🇪</span></div>
-              <div style={{ color: '#1a4a1a' }}>$ ls subjects/</div>
-              <div style={{ color: '#00aa55', marginBottom: 8 }}>network_security/ &nbsp; cryptography/<br />algoritms_&_ds/ &nbsp;&nbsp; secure_coding/</div>
-              <div style={{ color: '#1a4a1a' }}>$ cat current_focus.txt</div>
-              <div style={{ color: '#00FF88', marginBottom: 8 }}>→ learning how to break things (legally)<br />→ the intersection of dev + security = my thing</div>
-              <div style={{ color: '#1a4a1a' }}>$ uptime</div>
-              <div style={{ color: '#007733' }}>enrolled for 2 semesters · still going strong</div>
-              <div style={{ marginTop: 12, color: '#00FF88' }}>$ <span className="tcur">_</span></div>
-            </div>
-          </div>
+          {/* Interactive Terminal */}
+          <InteractiveTerminal />
           {/* Right info */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div style={{ border: '2px solid #1a3a1a', background: '#020a02', padding: 16 }}>
