@@ -17,7 +17,7 @@ export default function MinecraftInventory({ onOpenEgg }: { onOpenEgg: (n: numbe
       </div>
       <div style={{ padding: 12 }}>
         <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#3a6028', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 1 }}>hotbar — things i carry</div>
-        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+        <div style={{ display: 'inline-flex', flexWrap: 'wrap', backgroundColor: "#C6C6C6", padding: "3px", paddingBottom: "2px" }}>
           {hotbarItems.map((item) => (
             <div key={item.name} className="mcs" data-c={item.count} onMouseOver={() => setTooltip(item.name)} onMouseOut={() => setTooltip('')}>{item.emoji}</div>
           ))}

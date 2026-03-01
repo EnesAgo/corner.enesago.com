@@ -52,7 +52,7 @@ export const skillBars = [
   { name: 'React / Next.js', pct: 92, color: '#FF2D78', grad: 'linear-gradient(90deg,#FF2D78,#9B59FF)', delay: '0s' },
   { name: 'NestJS / Node.js', pct: 85, color: '#FFE500', grad: 'linear-gradient(90deg,#FFE500,#FF2D78)', delay: '.5s' },
   { name: 'MongoDB / Redis', pct: 78, color: '#00FF88', grad: 'linear-gradient(90deg,#00FF88,#00C8FF)', delay: '.7s' },
-  { name: 'Cyber Security', pct: 68, color: '#00C8FF', grad: 'linear-gradient(90deg,#00C8FF,#9B59FF)', delay: '.9s' },
+  { name: 'Failing', pct: 0, color: '#00C8FF', grad: 'linear-gradient(90deg,#00C8FF,#9B59FF)', delay: '.9s' },
 ];
 
 export const aboutParagraphs = [

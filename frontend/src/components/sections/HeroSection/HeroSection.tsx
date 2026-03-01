@@ -44,8 +44,8 @@ export default function HeroSection({ onOpenEgg }: HeroSectionProps) {
           <div style={{ position: 'relative', marginBottom: 18 }}>
             <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: 'linear-gradient(180deg,#FFE500,#FF2D78,#00C8FF)' }} />
             <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#888', lineHeight: 1.8, paddingLeft: 16 }}>
-              i build things with react, nextjs, nestjs + mongodb. i skate, play piano at 2am, burn cds nobody asked for, take grainy photos, and occasionally write stuff that makes sense.<br />
-              <span style={{ color: '#555', fontStyle: 'italic' }}>this is my site. not a portfolio. a place.</span>
+              i build things with react/nextjs, nestjs + mongodb. i skate, play piano, code, take skate clips, and occasionally write stuff that makes sense (just started).<br />
+              <span style={{ color: '#555', fontStyle: 'italic' }}>this is my corner of the internet. not a portfolio. a place.</span>
             </p>
           </div>
 

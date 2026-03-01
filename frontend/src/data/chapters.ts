@@ -10,11 +10,11 @@ export interface TimelineItemData {
 
 export const timeline: TimelineItemData[] = [
   {
-    year: '2011 — THE ORIGIN',
+    year: '2018 — THE ORIGIN',
     color: '#FF2D78',
-    title: 'first html file',
-    desc: 'built a myspace page for my skate crew. autoplay music, hit counter, guestbook. terrible. perfect.',
-    tags: ['HTML', 'MySpace CSS'],
+    title: 'first C++ file',
+    desc: 'Solved my first competitive programming problem, it was',
+    tags: ['CPP', 'Competitive Programming'],
     company: null,
   },
   {
@@ -22,35 +22,38 @@ export const timeline: TimelineItemData[] = [
     color: '#9B59FF',
     title: 'learning everything',
     desc: 'javascript, then react, then node. youtube tutorials at 2am. building things nobody asked for. breaking things. fixing things. repeat.',
-    tags: ['JavaScript', 'React'],
+    tags: ['JavaScript', 'nodejs', 'React'],
     company: null,
   },
   {
-    year: '2023 — EAGLEIT INTERNSHIP',
+    year: '2023 & 2024 — EAGLEIT INTERNSHIPS',
     color: '#00C8FF',
     title: null,
-    company: { name: 'EagleIT', sub: 'Fullstack Internship · 2023' },
-    desc: 'first real internship. first real codebase. built features, broke prod once (sorry), learned more in 3 months than 2 years of tutorials.',
-    tags: ['React', 'NestJS'],
+    company: { name: 'EagleIT', sub: 'Fullstack Internships · 2023 - 2024' },
+    desc: 'first real internship. first real codebase. built features, learned a lot in 6 months.',
+    tags: ['ReactJS', 'ExpressJS', 'MongoDB'],
   },
   {
-    year: 'NOW — ZENFULFILLMENT',
+    year: '2026 and so on — ZENFULFILLMENT',
     color: '#FFE500',
     title: null,
     company: { name: 'Zenfulfillment', sub: 'Fullstack Internship · Munich, Germany · 2024 → present' },
-    desc: 'building real features for a real product in munich. huge codebase. great team. learning german by osmosis and eating too many pretzels.',
+    desc: 'building real features for a real product in munich. huge codebase. great team. learning german and eating too many pretzels (and Kaiserschmarrn with nutella).',
     tags: ['Next.js', 'NestJS', 'Munich 🥨'],
     current: true,
   },
 ];
 
 export const hotbarItems = [
-  { emoji: '⚛', count: '64', name: 'React' },
-  { emoji: '🪺', count: '32', name: 'NestJS' },
-  { emoji: '🍃', count: '16', name: 'MongoDB' },
+  { emoji: '🗡', count: '', name: 'Diamond Sword' },
+  { emoji: '🏹', count: '', name: 'Bow' },
+  { emoji: '⛏️', count: '', name: 'Diamond Pickaxe' },
+  { emoji: '🍎', count: '48', name: 'Golden Apple' },
+  { emoji: '🏎️', count: '16', name: 'Audi A3' },
   { emoji: '🎹', count: '8', name: 'Piano 🎹' },
-  { emoji: '✨', count: '∞', name: 'Vibes ✨' },
-  { emoji: '🛹', count: '1', name: 'Skateboard 🛹' },
+  { emoji: '🛹', count: '32', name: 'Skateboard 🛹' },
+  { emoji: '✨', count: '64', name: 'Vibes ✨' },
+  { emoji: '🪣', count: '', name: 'Water Bucket' },
 ];
 
 export interface FileEntry {

@@ -14,7 +14,7 @@ const FS: Record<string, string> = {
   'current_focus.txt':
     '→ learning how to break things (legally)\n→ the intersection of dev + security = my thing\n→ building stuff at night, studying by day',
   'skills.txt':
-    'React / Next.js ···· ████████████████████░░ 92%\nNestJS / Node.js ··· █████████████████░░░░░ 85%\nMongoDB / Redis ···· ████████████████░░░░░░ 78%\nCyber Security ····· ██████████████░░░░░░░░ 68%',
+    'React / Next.js ···· ████████████████████░░ 92%\nNestJS / Node.js ··· █████████████████░░░░░ 85%\nMongoDB / Redis ···· ████████████████░░░░░░ 78%\nFailing ····· ██████████████░░░░░░░░ 0%',
   'about.txt':
     'i started coding in 7th grade with c++. I started with competitive programming (for competitions & olympiad) but after that i discovered web dev and i loved it. My first website was terible but now i build production apps.',
   'interests.txt':
