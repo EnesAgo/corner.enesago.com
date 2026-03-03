@@ -42,9 +42,9 @@ export const spokenLanguages = [
 ];
 
 export const currentlyIntoItems = [
-  { icon: '🎵', label: 'listening', value: 'Duman', sub: 'also: Kanye, Strokes', color: '#888' },
-  { icon: '💻', label: 'coding', value: 'NightShot v2', sub: 'photo sharing', color: '#00FF88' },
-  { icon: '📖', label: 'reading', value: 'Clean Architecture', sub: 'Robert C. Martin', color: '#888' },
+  { icon: '🎵', label: 'listening', value: 'Duman & Model', sub: 'also: Ezhel, Şehinşah, No. 1', color: '#888' },
+  { icon: '🎮', label: 'playing', value: 'Minecraft', sub: 'Mojang', color: '#00FF88' },
+  { icon: '📖', label: 'watching', value: 'Death Note', sub: 'by Tsugumi Ohba, Takeshi Obata', color: '#888' },
   { icon: '🇩🇪', label: 'learning', value: 'Deutsch', sub: 'langsam aber sicher', color: '#FFE500' },
 ];
 
@@ -56,6 +56,6 @@ export const skillBars = [
 ];
 
 export const aboutParagraphs = [
-  "i just a random person that likes coding, skating, minecraft, cartoon network, piano and hangouts. my passiong for coding: i started coding in 7th grade with c++. I started with competitive programming (for competitions & olympiad) but after that i discovered web dev and i loved it.",
-  "My first website was terible but now i build prod apps. by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, gaming, filming clips with an old camera, and being myself",
+  "im just a random person that likes coding, skating, minecraft, cars, cartoon network, audi, piano and hangouts. my passiong for coding: i started coding in 7th grade with c++. I started with competitive programming (for competitions & olympiad) but after that i discovered web dev and i loved it.",
+  "My first website was terible but now i build prod apps. by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, gaming, filming clips with an old camera, driving my audiii and being myself.",
 ];
