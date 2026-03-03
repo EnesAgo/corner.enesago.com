@@ -56,6 +56,6 @@ export const skillBars = [
 ];
 
 export const aboutParagraphs = [
-  "i started coding in 7th grade with c++. I started with competitive programming (for competitions & olympiad) but after that i discovered web dev and i loved it. My first website was terible but now i build production apps.",
-  "by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, gaming, taking clips with an old camera, and creating random projects just for fun.",
+  "i just a random person that likes coding, skating, minecraft, cartoon network, piano and hangouts. my passiong for coding: i started coding in 7th grade with c++. I started with competitive programming (for competitions & olympiad) but after that i discovered web dev and i loved it.",
+  "My first website was terible but now i build prod apps. by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, gaming, filming clips with an old camera, and being myself",
 ];

@@ -21,7 +21,7 @@ export default function Footer({ eggsFound, entryCount, visitCount }: FooterProp
   const secrets = [
     { hint: '↑↑↓↓←→←→BA', desc: 'konami code' },
     { hint: 'type "billcipher"', desc: 'gravity falls' },
-    { hint: 'click the ea logo', desc: 'time capsule' },
+    { hint: 'click the ae logo', desc: 'time capsule' },
     { hint: 'open the inventory', desc: 'minecraft world' },
     { hint: 'find the hidden folder', desc: 'private.txt' },
   ];

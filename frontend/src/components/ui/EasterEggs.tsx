@@ -34,12 +34,12 @@ export function KonamiEgg({ onClose }: { onClose: () => void }) {
         <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 10, color: '#FFE500', marginBottom: 16, lineHeight: 2 }}>🎮 CHEAT CODE ACTIVATED</div>
         <div style={{ fontFamily: "'Caveat', cursive", fontSize: 16, color: '#aaa', lineHeight: 1.8, marginBottom: 16 }}>
           hey, you actually did it. the konami code. you&apos;re my kind of person.<br /><br />
-          secret: i built this whole site in one night listening to Duman on repeat. everything here is real. the guestbook, the visitor counter, the vibes.
+          secret: i built this whole site in while i was in vacation at home. everything here is real. the guestbook, the visitor counter, the vibes.
         </div>
         <div style={{ border: '2px dashed #333', padding: 14, background: '#0a0a0a', marginBottom: 16 }}>
           <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#555', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 2 }}>// unlocked: secret playlist</div>
           <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#FFE500', lineHeight: 1.8 }}>
-            1. Duman — Bekle Dedi Gitti Ben Beklemedim<br />2. Duman — Kolay Değildir<br />3. Duman - Kırmış Kalbini<br />Elif Ayavefe -Bu Kız - Son Feci Bisiklet (cover) <br />5. Bırakman Doğru Mu? (Akustik) - Zeynep Bastık, @AnilPiyanci
+            1. Duman — Bekle Dedi Gitti Ben Beklemedim<br />2. Duman — Kolay Değildir<br />3. Duman - Kırmış Kalbini<br />4. Elif Ayavefe -Bu Kız - Son Feci Bisiklet (cover) <br />5. Bırakman Doğru Mu? (Akustik) - Zeynep Bastık, @AnilPiyanci
           </div>
         </div>
         <button onClick={onClose} style={{ width: '100%', background: '#FFE500', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>
@@ -64,7 +64,7 @@ export function BillCipherEgg({ onClose }: { onClose: () => void }) {
         </div>
         <div className="gfg" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, color: '#FFD700', letterSpacing: 4, marginBottom: 12 }}>A-HAHAHA! DEAL?</div>
         <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#aa9900', lineHeight: 1.8, marginBottom: 20 }}>
-          &quot;a developer who builds for fun, not profit. I haven&apos;t seen that since 2009. That auth refactor at 3am? Inspired. Chaotic. <em style={{ color: '#FFD700' }}>My kind of energy.</em>&quot;
+          &quot;a person that likes the stuff that i like. I haven&apos;t seen that since i moved to munich. <br /> Cool person. Chaotic & Awesome. <em style={{ color: '#FFD700' }}>My kind of energy.</em>&quot;
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button onClick={onClose} style={{ flex: 1, background: '#FFD700', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Bebas Neue', sans-serif", fontSize: 16, letterSpacing: 2, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>MAKE A DEAL</button>
@@ -79,11 +79,11 @@ export function TimeCapsuleEgg({ onClose }: { onClose: () => void }) {
   return (
     <div style={{ border: '3px solid #00C8FF', background: '#0d0d0d', maxWidth: 480, width: '100%', boxShadow: '8px 8px 0px #00C8FF', maxHeight: '90vh', overflowY: 'auto' }}>
       <div className="wb" style={{ padding: '8px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#666' }}>time_capsule.exe — 2009</span>
+        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#666' }}>time_capsule.exe — 2026</span>
         <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: 16 }}>✕</button>
       </div>
       <div style={{ padding: 20 }}>
-        <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 9, color: '#00C8FF', marginBottom: 16, lineHeight: 2 }}>📼 TIME CAPSULE: 2009</div>
+        <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 9, color: '#00C8FF', marginBottom: 16, lineHeight: 2 }}>📼 TIME CAPSULE: 2026</div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
           <div style={{ border: '2px solid #111', padding: 10, background: '#0a0a0a' }}>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', marginBottom: 6, textTransform: 'uppercase' }}>top 8 friends</div>
@@ -95,7 +95,7 @@ export function TimeCapsuleEgg({ onClose }: { onClose: () => void }) {
           </div>
         </div>
         <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#555', textAlign: 'center', marginBottom: 16, lineHeight: 1.7 }}>
-          &quot;myspace. 2009. i was 16 and thought html was magic.<br /><span style={{ color: '#888' }}>it still is.</span>&quot;
+          &quot;3rd march 2026. i am 19, in a week 20 (╥_╥). finished the first semester uni, and started intern as a fullstack dev (੭˃ᴗ˂)੭<br /><span style={{ color: '#888' }}>aaand yes i do skating, playing minecraft & piano. <br />(づ๑•ᴗ•๑)づ♡ for u</span>&quot;
         </div>
         <button onClick={onClose} style={{ width: '100%', background: '#00C8FF', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>CLOSE TIME CAPSULE</button>
       </div>
@@ -119,10 +119,10 @@ export function MinecraftEgg({ onClose }: { onClose: () => void }) {
             {colors.map((c, i) => <div key={i} style={{ height: 14, background: c }} />)}
           </div>
         </div>
-        <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#7ab85a', lineHeight: 1.8, marginBottom: 16 }}>
-          &quot;playing since alpha. my first server was &apos;enesago_world&apos;. i built a skatepark. it was terrible. i was so proud.&quot;
+        <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#7ab85a', lineHeight: 1.8, textAlign: 'center', marginBottom: 16 }}>
+          &quot;playing since 2014. my first world was lovely and discovered redstone. i built a big rollercoaster. it was terrible. i was so proud  ᕙ(  •̀ ᗜ •́  )ᕗ.&quot;
         </div>
-        <button onClick={onClose} style={{ width: '100%', background: '#5D9E3F', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Press Start 2P', monospace", fontSize: 9, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>JOIN WORLD</button>
+        <button onClick={onClose} style={{ width: '100%', background: '#5D9E3F', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Press Start 2P', monospace", fontSize: 9, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>CLOSE</button>
       </div>
     </div>
   );
@@ -130,7 +130,7 @@ export function MinecraftEgg({ onClose }: { onClose: () => void }) {
 
 export function HiddenFolderEgg({ onClose }: { onClose: () => void }) {
   return (
-    <div style={{ border: '3px solid #9B59FF', background: '#0d0d0d', maxWidth: 460, width: '100%', boxShadow: '8px 8px 0px #9B59FF', maxHeight: '90vh', overflowY: 'auto' }}>
+    <div style={{ border: '3px solid #9B59FF', background: '#0d0d0d', maxWidth: 490, width: '100%', boxShadow: '8px 8px 0px #9B59FF', maxHeight: '90vh', overflowY: 'auto' }}>
       <div className="wb" style={{ padding: '8px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#666' }}>hidden_folder/private.txt</span>
         <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: 16 }}>✕</button>
@@ -138,14 +138,14 @@ export function HiddenFolderEgg({ onClose }: { onClose: () => void }) {
       <div style={{ padding: 20 }}>
         <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 8, color: '#9B59FF', marginBottom: 16, lineHeight: 2 }}>📁 YOU FOUND THE HIDDEN FOLDER</div>
         <div style={{ border: '2px solid #1a1a1a', background: '#080808', padding: 16, marginBottom: 16 }}>
-          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#9B59FF', marginBottom: 8 }}>private.txt — last modified: 3am</div>
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#9B59FF', marginBottom: 8 }}>private.txt — last modified: 3 march 02:28</div>
           <div style={{ fontFamily: "'Caveat', cursive", fontSize: 16, color: '#888', lineHeight: 1.8 }}>
             things i haven&apos;t told the internet:<br /><br />
-            1. i&apos;ve never had a gf, waiting for my future wife<br />
-            2. i still have my first skate deck<br />
-            3. best code i wrote was at 4am (i&apos;m more productive at night)<br />
-            4. i&apos;m scared of shipping things<br />
-            5. i ship them anyway
+            1. i&apos;ve never had a gf, waiting for my future wife (who is it ∘∘∘( ° ヮ ° ) ? ).<br />
+            2. i still have my first skate deck.<br />
+            3. i have the coolest friends.<br />
+            4. i&apos;m scared of nothing except sometimes of women...<br />
+            5. i love playing minecraft, i like playing valorant aaand i play league...
           </div>
         </div>
         <button onClick={onClose} style={{ width: '100%', background: '#9B59FF', color: '#fff', border: '3px solid #000', padding: 10, fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>

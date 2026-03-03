@@ -16,7 +16,7 @@ const FS: Record<string, string> = {
   'skills.txt':
     'React / Next.js ···· ████████████████████░░ 92%\nNestJS / Node.js ··· █████████████████░░░░░ 85%\nMongoDB / Redis ···· ████████████████░░░░░░ 78%\nFailing ····· ██████████████░░░░░░░░ 0%',
   'about.txt':
-    'i started coding in 7th grade with c++. I started with competitive programming (for competitions & olympiad) but after that i discovered web dev and i loved it. My first website was terible but now i build production apps.',
+    'i just a random person that likes coding, skating, minecraft, cartoon network, piano and hangouts. my passiong for coding: i started coding in 7th grade with c++. I started with competitive programming (for competitions & olympiad) but after that i discovered web dev and i loved it. \n\nMy first website was terible but now i build prod apps. by day: fullstack dev + cyber security student in munich. by night: skating, playing piano, gaming, filming clips with an old camera, and being myself',
   'interests.txt':
     '🛹 skateboarding\n🎤 hip-hop\n🎸 rock\n📸 film skate clips\n💿 cd burning\n🌃 night city walks\n🎹 piano & singing\n🎮 minecraft\n🏎️ Audi',
   'contact.txt':
