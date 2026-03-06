@@ -16,7 +16,7 @@ export const experiments: ExperimentMeta[] = [
     num: '002',
     color: '#FFE500',
     title: 'VHS Filter Canvas',
-    desc: 'drop any image, get vhs scanlines + grain + color bleed. canvas api + webgl.',
+    desc: 'drop any image, get vhs scanlines + grain + color bleed. chose your image:',
   },
   {
     num: '003',

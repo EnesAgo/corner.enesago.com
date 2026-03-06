@@ -1,18 +1,12 @@
 import ExperimentCard from './ExperimentCard';
 import GlitchGenerator from './GlitchGenerator';
+import VHSFilter from './VHSFilter';
 import { experiments } from '@/data/lab';
 
 export default function LabSection() {
   const experimentChildren: Record<string, React.ReactNode> = {
     '001': <GlitchGenerator />,
-    '002': (
-      <div style={{ border: '2px solid #111', overflow: 'hidden', height: 72, position: 'relative', marginBottom: 14 }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=400&h=200&fit=crop" alt="vhs" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'contrast(1.4) saturate(.25) brightness(.65)' }} />
-        <div className="vhs" style={{ position: 'absolute', inset: 0 }} />
-        <div style={{ position: 'absolute', top: 6, right: 8, fontFamily: "'VT323', monospace", fontSize: 14, color: 'rgba(255,45,120,.85)' }}>VHS ●</div>
-      </div>
-    ),
+    '002': <VHSFilter />,
     '003': (
       <div style={{ border: '2px solid #111', padding: 12, background: '#080808', marginBottom: 14, textAlign: 'center' }}>
         <span style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 12, color: '#FF2D78', lineHeight: 1.9 }}>PIXEL<br />PERFECT</span>
