@@ -1,17 +1,14 @@
 import ExperimentCard from './ExperimentCard';
 import GlitchGenerator from './GlitchGenerator';
 import VHSFilter from './VHSFilter';
+import PixelFontRenderer from './PixelFontRenderer';
 import { experiments } from '@/data/lab';
 
 export default function LabSection() {
   const experimentChildren: Record<string, React.ReactNode> = {
     '001': <GlitchGenerator />,
     '002': <VHSFilter />,
-    '003': (
-      <div style={{ border: '2px solid #111', padding: 12, background: '#080808', marginBottom: 14, textAlign: 'center' }}>
-        <span style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 12, color: '#FF2D78', lineHeight: 1.9 }}>PIXEL<br />PERFECT</span>
-      </div>
-    ),
+    '003': <PixelFontRenderer />,
   };
 
   return (
