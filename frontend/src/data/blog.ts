@@ -4,7 +4,7 @@ export const smallPosts = [
 ];
 
 export const currentlySidebarItems = [
-  { label: 'reading', value: 'Clean Architecture — Robert C. Martin', color: '#888' },
+  { label: 'reading', value: 'Introduction to Algorithms 4th Edition — Thomas H. Cormen', color: '#888' },
   { label: 'playing', value: 'Senden Daha Güzel - Duman', color: '#888' },
   { label: 'coding', value: 'NightShot v2', color: '#00FF88' },
   { label: 'learning', value: 'Deutsch 🇩🇪', color: '#FFE500' },

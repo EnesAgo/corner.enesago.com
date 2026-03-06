@@ -23,6 +23,7 @@ export const cds: CDData[] = [
       { n: '03', title: 'Through the Wire ← if they get it', artist: 'Kanye West', dur: '3:32', highlight: true },
       { n: '04', title: 'Hey Ya!', artist: 'OutKast', dur: '3:55' },
       { n: '05', title: "I'm Not Okay (I Promise)", artist: 'My Chemical Romance', dur: '3:08' },
+      { n: '06', title: "I'm Not Okay (I Promise)", artist: 'My Chemical Romance', dur: '3:08' },
     ],
   },
   {

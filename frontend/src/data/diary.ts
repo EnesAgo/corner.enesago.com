@@ -1,6 +1,6 @@
 export const diaryEntries = [
-  { date: 'NOV 14 · 03:47', text: "can't sleep. been refactoring the auth module for 3 hours. it's actually good now. maybe." },
-  { date: 'NOV 12 · 22:15', text: 'played piano for an hour after work. no sheet music. just making stuff up. it was good.' },
-  { date: 'NOV 09 · 01:30', text: 'burned a cd for someone i like. put "reptilia" as track 3. if they get it, they get it.' },
-  { date: 'NOV 06 · 19:00', text: 'first week at zenfulfillment done. munich is cold. the codebase is huge. i love it.' },
+  { date: 'SEP 24 · 21:47', text: "arrived to munich for uni, my new home. a brand new start. its weird moving to another country, but its fun. new characters to unlock, new levels to explore, new biomes to discover & new challenges to complete." },
+  { date: 'OCT 24 · 22:15', text: 'bought a piano in munich, cannot stop playing it. good distraction when nothing to do' },
+  { date: 'NOV 09 · 01:30', text: 'went ice skating with my classmates, it was fun. we had great time. i didn\'t fall, but i cannot say that for some of my classmates (ᵕ—ᴗ—)' },
+  { date: 'FEB 26 · 19:00', text: 'passed the interview and now employed at zenfulfillment as fullstack intern ( ๑ ˃̵ᴗ˂̵)و . the codebase is huge & a lot of microservices. i love it.' },
 ];
