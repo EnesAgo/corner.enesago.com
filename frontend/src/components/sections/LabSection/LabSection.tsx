@@ -1,13 +1,10 @@
 import ExperimentCard from './ExperimentCard';
+import GlitchGenerator from './GlitchGenerator';
 import { experiments } from '@/data/lab';
 
 export default function LabSection() {
   const experimentChildren: Record<string, React.ReactNode> = {
-    '001': (
-      <div style={{ border: '2px solid #111', padding: 12, background: '#080808', marginBottom: 14 }}>
-        <div className="gt" data-text="HELLO WORLD" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 26, color: '#00FF88', letterSpacing: 2 }}>HELLO WORLD</div>
-      </div>
-    ),
+    '001': <GlitchGenerator />,
     '002': (
       <div style={{ border: '2px solid #111', overflow: 'hidden', height: 72, position: 'relative', marginBottom: 14 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}

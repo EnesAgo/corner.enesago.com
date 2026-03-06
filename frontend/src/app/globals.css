@@ -119,6 +119,7 @@ body::after {
 .gt {
   position: relative;
   display: inline-block;
+  --glitch-intensity: 5; /* default intensity */
 }
 
 .gt::before, .gt::after {
@@ -144,14 +145,14 @@ body::after {
 
 @keyframes g1 {
   0%, 88%, 100% { transform: translate(0); }
-  90% { transform: translate(-3px, 1px); }
-  93% { transform: translate(3px, -1px); }
+  90% { transform: translate(calc(var(--glitch-intensity) * -0.6px), calc(var(--glitch-intensity) * 0.2px)); }
+  93% { transform: translate(calc(var(--glitch-intensity) * 0.6px), calc(var(--glitch-intensity) * -0.2px)); }
 }
 
 @keyframes g2 {
   0%, 85%, 100% { transform: translate(0); }
-  87% { transform: translate(3px, -1px); }
-  91% { transform: translate(-3px, 1px); }
+  87% { transform: translate(calc(var(--glitch-intensity) * 0.6px), calc(var(--glitch-intensity) * -0.2px)); }
+  91% { transform: translate(calc(var(--glitch-intensity) * -0.6px), calc(var(--glitch-intensity) * 0.2px)); }
 }
 
 /* ========================================================================
