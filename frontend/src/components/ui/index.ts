@@ -8,4 +8,4 @@ export { default as ConsoleArt } from './ConsoleArt';
 export { default as MatrixRain } from './MatrixRain';
 export { default as RageClickDetector } from './RageClickDetector';
 export { default as EasterEggModal } from './EasterEggs';
-export { KonamiEgg, BillCipherEgg, TimeCapsuleEgg, MinecraftEgg, HiddenFolderEgg } from './EasterEggs';
+export { KonamiEgg, BillCipherEgg, TimeCapsuleEgg, MinecraftEgg, HiddenFolderEgg, NyanCatEgg } from './EasterEggs';

@@ -54,6 +54,20 @@ export function useEasterEggs() {
     return () => document.removeEventListener('keydown', handler);
   }, [openEgg]);
 
+  // Nyan Cat
+  useEffect(() => {
+    let seq = '';
+    const handler = (e: KeyboardEvent) => {
+      if (e.key.length === 1) {
+        seq += e.key.toLowerCase();
+        seq = seq.slice(-4);
+        if (seq === 'nyan') openEgg(6);
+      }
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [openEgg]);
+
   // Site Flip — type "flip"
   useEffect(() => {
     let seq = '';

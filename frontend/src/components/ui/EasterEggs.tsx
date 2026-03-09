@@ -157,3 +157,25 @@ export function HiddenFolderEgg({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
+export function NyanCatEgg({ onClose }: { onClose: () => void }) {
+  return (
+    <div style={{ border: '3px solid #FF69B4', background: '#0a0a12', maxWidth: 500, width: '100%', boxShadow: '8px 8px 0px #FF69B4', overflow: 'hidden', maxHeight: '90vh', overflowY: 'auto' }}>
+      <div className="wb" style={{ padding: '8px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#666' }}>nyan_cat.exe</span>
+        <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: 16 }}>✕</button>
+      </div>
+      <div style={{ padding: 20, textAlign: 'center' }}>
+        <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'center' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://media.tenor.com/zBc1XhcbTSoAAAAM/nyan-cat-rainbow.gif" alt="Nyan Cat" style={{ width: 350, height: 'auto', imageRendering: 'pixelated', filter: 'drop-shadow(0 0 20px #FF69B4)' }} />
+        </div>
+        <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 12, color: '#FF69B4', letterSpacing: 2, marginBottom: 12 }}>NYAN NYAN NYAN NYAN</div>
+        <div style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#aaa', lineHeight: 1.8, marginBottom: 20 }}>
+          &quot;you found the nyan cat. you&apos;re officially a person of culture. <br />this meme is might be older than some of the people viewing this&quot;
+        </div>
+        <button onClick={onClose} style={{ width: '100%', background: '#FF69B4', color: '#000', border: '3px solid #000', padding: 10, fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2, cursor: 'pointer', boxShadow: '4px 4px 0px #000' }}>NYAN AWAY</button>
+      </div>
+    </div>
+  );
+}

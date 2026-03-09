@@ -19,6 +19,7 @@ import {
   TimeCapsuleEgg,
   MinecraftEgg,
   HiddenFolderEgg,
+  NyanCatEgg,
 } from '@/components/ui';
 import { Navbar, Footer, MobileMenu } from '@/components/layout';
 import {
@@ -72,6 +73,9 @@ export default function Home() {
       </EasterEggModal>
       <EasterEggModal isOpen={isEggOpen(5)} onClose={() => closeEgg(5)}>
         <HiddenFolderEgg onClose={() => closeEgg(5)} />
+      </EasterEggModal>
+      <EasterEggModal isOpen={isEggOpen(6)} onClose={() => closeEgg(6)}>
+        <NyanCatEgg onClose={() => closeEgg(6)} />
       </EasterEggModal>
 
       {/* Navigation */}
