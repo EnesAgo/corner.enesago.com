@@ -103,17 +103,17 @@ export default function Home() {
       <AboutSection onOpenEgg={openEgg} />
       <ProjectsSection />
       <PolaroidWall />
-      <EDCSection />
+      {/* <EDCSection /> */}
       <ChaptersSection onOpenEgg={openEgg} />
       <SystemCoreSection />
       <ChangelogSection />
       <MusicSection />
       <BurnedCDsSection />
-      <BookmarksBarSection />
+      {/* <BookmarksBarSection /> */}
       <BlogSection />
-      <HateWallSection />
+      {/* <HateWallSection /> */}
       <GuestbookSection onCountChange={handleCountChange} />
-      <FriendsSection />
+      {/* <FriendsSection /> */}
       <VlogSection />
       <LabSection />
 

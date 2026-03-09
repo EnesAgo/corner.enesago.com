@@ -105,7 +105,7 @@ function ChangelogCard({ entry, isLatest }: { entry: ChangelogEntry; isLatest: b
 export default function ChangelogSection() {
   return (
     <section id="changelog" style={{ borderTop: '3px solid #00FF88', borderBottom: '3px solid #111' }}>
-      <div style={{ maxWidth: 900, margin: '0 auto', padding: '40px 16px' }} className="md:px-8">
+      <div style={{ maxWidth: 1440, margin: '0 auto', padding: '40px 16px' }} className="md:px-8">
         {/* Section header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 8, flexWrap: 'wrap' }}>
           <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', textTransform: 'uppercase', letterSpacing: 3 }}>// 010</span>
