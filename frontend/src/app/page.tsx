@@ -9,6 +9,10 @@ import {
   ConsoleArt,
   MatrixRain,
   RageClickDetector,
+  BootSequence,
+  ContextMenu,
+  ShortcutsOverlay,
+  CommandPalette,
   CustomCursor,
   BackgroundBlobs,
   FlashOverlay,
@@ -21,6 +25,7 @@ import {
   HiddenFolderEgg,
   NyanCatEgg,
 } from '@/components/ui';
+import { AchievementProvider } from '@/components/ui';
 import { Navbar, Footer, MobileMenu } from '@/components/layout';
 import {
   HeroSection,
@@ -29,12 +34,17 @@ import {
   AboutSection,
   ProjectsSection,
   PolaroidWall,
+  EDCSection,
   ChaptersSection,
   SystemCoreSection,
+  ChangelogSection,
   MusicSection,
   BurnedCDsSection,
+  BookmarksBarSection,
   BlogSection,
+  HateWallSection,
   GuestbookSection,
+  FriendsSection,
   VlogSection,
   LabSection,
 } from '@/components/sections';
@@ -46,12 +56,16 @@ export default function Home() {
   const { count: visitCount } = useVisitorCount();
 
   return (
-    <>
+    <AchievementProvider>
       {/* Global overlays */}
+      <BootSequence />
       <ScrollProgress />
       <ConsoleArt />
       <MatrixRain />
       <RageClickDetector />
+      <ContextMenu />
+      <ShortcutsOverlay />
+      <CommandPalette />
       <BackgroundBlobs />
       <CustomCursor />
       <FlashOverlay />
@@ -89,18 +103,23 @@ export default function Home() {
       <AboutSection onOpenEgg={openEgg} />
       <ProjectsSection />
       <PolaroidWall />
+      <EDCSection />
       <ChaptersSection onOpenEgg={openEgg} />
       <SystemCoreSection />
+      <ChangelogSection />
       <MusicSection />
       <BurnedCDsSection />
+      <BookmarksBarSection />
       <BlogSection />
+      <HateWallSection />
       <GuestbookSection onCountChange={handleCountChange} />
+      <FriendsSection />
       <VlogSection />
       <LabSection />
 
       {/* Footer */}
       <Footer eggsFound={eggsFound} entryCount={entryCount} visitCount={visitCount} />
-    </>
+    </AchievementProvider>
   );
 }
 

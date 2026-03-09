@@ -16,7 +16,7 @@ export default function GlitchGenerator() {
           </div>
         </div>
         <button
-          onClick={() => setIsExpanded(true)}
+          onClick={() => { setIsExpanded(true); window.dispatchEvent(new CustomEvent('achievement', { detail: 'lab_rat' })); }}
           style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#000', background: '#00FF88', border: '2px solid #000', padding: '6px 14px', textDecoration: 'none', fontWeight: 700, textTransform: 'uppercase', display: 'inline-block', cursor: 'pointer', width: '100%' }}
         >
           TRY IT →

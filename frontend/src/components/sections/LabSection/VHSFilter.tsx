@@ -144,7 +144,7 @@ export default function VHSFilter() {
           <div style={{ position: 'absolute', top: 6, right: 8, fontFamily: "'VT323', monospace", fontSize: 14, color: 'rgba(255,45,120,.85)' }}>VHS ●</div>
         </div>
         <button
-          onClick={() => setIsExpanded(true)}
+          onClick={() => { setIsExpanded(true); window.dispatchEvent(new CustomEvent('achievement', { detail: 'lab_rat' })); }}
           style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#000', background: '#FFE500', border: '2px solid #000', padding: '6px 14px', textDecoration: 'none', fontWeight: 700, textTransform: 'uppercase', display: 'inline-block', cursor: 'pointer', width: '100%' }}
         >
           TRY IT →

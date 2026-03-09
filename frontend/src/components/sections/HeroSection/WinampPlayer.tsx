@@ -173,6 +173,7 @@ export default function WinampPlayer() {
       playerRef.current.pauseVideo();
     } else {
       playerRef.current.playVideo();
+      window.dispatchEvent(new CustomEvent('achievement', { detail: 'dj_mode' }));
     }
   }, [isPlaying, isReady]);
 

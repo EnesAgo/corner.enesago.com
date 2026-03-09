@@ -9,6 +9,8 @@ export function useEasterEggs() {
   const openEgg = useCallback((n: number) => {
     setOpenEggs((prev) => new Set(prev).add(n));
     setEggsFound((prev) => Math.max(prev, n));
+    // Notify achievement system
+    window.dispatchEvent(new CustomEvent('achievement', { detail: 'konami_kid' }));
   }, []);
 
   const closeEgg = useCallback((n: number) => {

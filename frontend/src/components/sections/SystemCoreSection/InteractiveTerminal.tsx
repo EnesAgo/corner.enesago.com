@@ -48,7 +48,7 @@ const HELP = `available commands:
 const NEOFETCH = `
        ████████            enes@corner.enesago.com
      ██░░░░░░░░██          ————————————————————————
-   ██░░████████░░██        OS:      enesOS v2.0.11
+   ██░░████████░░██        OS:      enesOS v2.4.0
   ██░░██      ██░░██       Host:    Munich, DE 🇩🇪
   ██░░██      ██░░██       Kernel:  curiosity-6.1.0
   ██░░████████░░██         Shell:   zsh + vibes
@@ -143,7 +143,7 @@ function processCommand(input: string): Line[] {
 }
 
 const INITIAL_LINES: Line[] = [
-  { type: 'output', text: 'Welcome to enesOS v2.0.11 — type "help" to get started', color: '#007733' },
+  { type: 'output', text: 'Welcome to enesOS v2.4.0 — type "help" to get started', color: '#007733' },
   { type: 'output', text: '————————————————————————————————————————\n', color: '#1a3a1a' },
   { type: 'input', text: 'whoami' },
   { type: 'output', text: 'enes_ago · student · hacker (the good kind)', color: '#00FF88' },

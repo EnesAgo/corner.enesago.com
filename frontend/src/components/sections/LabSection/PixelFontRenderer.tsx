@@ -100,7 +100,7 @@ export default function PixelFontRenderer() {
           <span style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 12, color: '#FF2D78', lineHeight: 1.9 }}>PIXEL<br />PERFECT</span>
         </div>
         <button
-          onClick={() => setIsExpanded(true)}
+          onClick={() => { setIsExpanded(true); window.dispatchEvent(new CustomEvent('achievement', { detail: 'lab_rat' })); }}
           style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#fff', background: '#FF2D78', border: '2px solid #000', padding: '6px 14px', textDecoration: 'none', fontWeight: 700, textTransform: 'uppercase', display: 'inline-block', cursor: 'pointer', width: '100%' }}
         >
           TRY IT →

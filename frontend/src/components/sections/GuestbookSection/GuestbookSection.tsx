@@ -20,6 +20,7 @@ export default function GuestbookSection({ onCountChange }: GuestbookSectionProp
     await submitEntry(name, msg);
     setName('');
     setMsg('');
+    window.dispatchEvent(new CustomEvent('achievement', { detail: 'signed_wall' }));
   };
 
   /** Format a Date into a relative time string. */

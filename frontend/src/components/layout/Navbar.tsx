@@ -41,7 +41,7 @@ export default function Navbar({ onOpenEgg }: NavbarProps) {
           </div>
           <div>
             <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, color: '#FFE500', letterSpacing: 2, lineHeight: 1 }}>ENESAGO.EXE</div>
-            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.3, color: '#444' }}>v2.0.11 · <span>{time}</span></div>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.3, color: '#444' }}>v2.4.0 · <span>{time}</span></div>
           </div>
         </div>
 
