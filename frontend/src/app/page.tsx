@@ -5,6 +5,10 @@ import { useEasterEggs } from '@/hooks';
 import { useVisitorCount } from '@/hooks/useVisitorCount';
 import {
   Ticker,
+  ScrollProgress,
+  ConsoleArt,
+  MatrixRain,
+  RageClickDetector,
   CustomCursor,
   BackgroundBlobs,
   FlashOverlay,
@@ -43,6 +47,10 @@ export default function Home() {
   return (
     <>
       {/* Global overlays */}
+      <ScrollProgress />
+      <ConsoleArt />
+      <MatrixRain />
+      <RageClickDetector />
       <BackgroundBlobs />
       <CustomCursor />
       <FlashOverlay />

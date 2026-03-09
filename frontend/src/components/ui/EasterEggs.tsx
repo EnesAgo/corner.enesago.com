@@ -90,7 +90,7 @@ export function TimeCapsuleEgg({ onClose }: { onClose: () => void }) {
             <div style={{ fontFamily: "'Caveat', cursive", fontSize: 13, color: '#888', lineHeight: 1.7 }}>Moving to Munich. &#160; ✔<br /> Barbecuing shirtless in the snow. &#160; ✔<br />Coding this page. &#160; ✔<br />Finding a job (paid intenrship). &#160; ✔<br />Ofcorse Skating. &#160; ✔<br />Climbing a tree (tall one). &#160; ✔</div>
           </div>
           <div style={{ border: '2px solid #111', padding: 10, background: '#0a0a0a' }}>
-            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', marginBottom: 6, textTransform: 'uppercase' }}>top 8 sidequests.</div>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', marginBottom: 6, textTransform: 'uppercase' }}>top 8 sidequests. </div>
             <div style={{ fontFamily: "'Caveat', cursive", fontSize: 13, color: '#888', lineHeight: 1.7 }}>Speeding (ofc nothing illegal). &#160; ✔<br /> Build a snowman. &#160; ✔</div> <br />
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', marginBottom: 6, textTransform: 'uppercase' }}>mood</div>
             <div style={{ fontFamily: "'Caveat', cursive", fontSize: 13, color: '#FFE500', lineHeight: 1.7 }}>♫ Köprüaltı & Bırakman Doğru Mu<br />feeling: excited, scared but proud &#160;🫠</div>

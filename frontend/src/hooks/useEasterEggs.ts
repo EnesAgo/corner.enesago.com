@@ -54,5 +54,25 @@ export function useEasterEggs() {
     return () => document.removeEventListener('keydown', handler);
   }, [openEgg]);
 
+  // Site Flip — type "flip"
+  useEffect(() => {
+    let seq = '';
+    const handler = (e: KeyboardEvent) => {
+      if (e.key.length === 1) {
+        seq += e.key.toLowerCase();
+        seq = seq.slice(-4);
+        if (seq === 'flip') {
+          const body = document.body;
+          const isFlipped = body.style.transform === 'rotate(180deg)';
+          body.style.transition = 'transform 0.8s ease';
+          body.style.transform = isFlipped ? '' : 'rotate(180deg)';
+          seq = '';
+        }
+      }
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, []);
+
   return { openEgg, closeEgg, isEggOpen, eggsFound };
 }
