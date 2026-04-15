@@ -9,7 +9,7 @@ export default function FeaturedPost() {
           <span style={{ background: '#00C8FF', color: '#000', border: '2px solid #000', padding: '2px 8px', fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, fontWeight: 700, textTransform: 'uppercase' }}>LATEST</span>
         </div>
         <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-          <div style={{ fontFamily: "'VT323', monospace", fontSize: 14, color: '#555', marginBottom: 5 }}>NOV 14 2024 · 03:47</div>
+          <div style={{ fontFamily: "'VT323', monospace", fontSize: 14, color: '#555', marginBottom: 5 }}>Mar 2026 · 03:47</div>
           <h3 className="font-heading" style={{ fontSize: 'clamp(16px,3vw,20px)', fontWeight: 700, color: '#fff', margin: '0 0 5px 0' }}>Why I Still Burn CDs in 2024</h3>
           <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#888', margin: 0, lineHeight: 1.6 }}>there&apos;s something about making a physical thing that streaming will never replace.</p>
         </div>

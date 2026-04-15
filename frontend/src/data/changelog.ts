@@ -9,7 +9,7 @@ export interface ChangelogEntry {
 export const changelog: ChangelogEntry[] = [
   {
     version: 'v2.4.0',
-    date: '2025-01',
+    date: '2026-03',
     title: 'THE BIG INTERACTIVE UPDATE',
     changes: [
       'added achievement system with 10 unlockable badges',
@@ -27,7 +27,7 @@ export const changelog: ChangelogEntry[] = [
   },
   {
     version: 'v2.3.0',
-    date: '2024-12',
+    date: '2026-03',
     title: 'LAB EXPERIMENTS',
     changes: [
       'glitch generator — break images on purpose',
@@ -39,7 +39,7 @@ export const changelog: ChangelogEntry[] = [
   },
   {
     version: 'v2.2.0',
-    date: '2024-11',
+    date: '2026-03',
     title: 'INTERACTIVE TERMINAL',
     changes: [
       'fully functional terminal in SystemCore section',
@@ -51,7 +51,7 @@ export const changelog: ChangelogEntry[] = [
   },
   {
     version: 'v2.1.0',
-    date: '2024-10',
+    date: '2026-03',
     title: 'SCROLL ANIMATION & NAV',
     changes: [
       'active section detection via IntersectionObserver',
@@ -62,7 +62,7 @@ export const changelog: ChangelogEntry[] = [
   },
   {
     version: 'v2.0.0',
-    date: '2024-09',
+    date: '2026-03',
     title: 'NEXT.JS REWRITE',
     changes: [
       'migrated entire site from static HTML to Next.js',
@@ -75,7 +75,7 @@ export const changelog: ChangelogEntry[] = [
   },
   {
     version: 'v1.5.0',
-    date: '2024-08',
+    date: '2026-03',
     title: 'EASTER EGG HUNT',
     changes: [
       'konami code — classic arcade treat',
@@ -88,7 +88,7 @@ export const changelog: ChangelogEntry[] = [
   },
   {
     version: 'v1.0.0',
-    date: '2024-07',
+    date: '2026-02',
     title: 'INITIAL LAUNCH',
     changes: [
       'static HTML/CSS/JS personal site',
