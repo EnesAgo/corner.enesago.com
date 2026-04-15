@@ -52,7 +52,7 @@ body {
   pointer-events: none;
   z-index: 99999;
   transform: translate(-50%, -50%);
-  transition: width .15s, height .15s, background .15s;
+  transition: width .15s, height .15s, background-color .15s;
 }
 #cur.h {
   width: 28px;
@@ -132,13 +132,13 @@ body::after {
 }
 
 .gt::before {
-  color: #FF2D78;
+  color: rgb(255, 45, 120);
   animation: g1 4s infinite;
   clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
 }
 
 .gt::after {
-  color: #00C8FF;
+  color: rgb(0, 255, 136);
   animation: g2 4s infinite;
   clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
 }
@@ -529,7 +529,7 @@ body::after {
   cursor: pointer;
   transition: background 0.15s;
 }
-.cdt:hover { background: rgba(255,45,120,.06); }
+.cdt:hover { background: rgba(255,107,0,.06); }
 .cdt:last-child { border-bottom: none; }
 
 /* ========================================================================
@@ -591,9 +591,9 @@ body::after {
   right: 10px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 9px;
-  color: #FF2D78;
+  color: #9B59FF;
   z-index: 2;
-  text-shadow: 0 0 8px #FF2D78;
+  text-shadow: 0 0 8px #9B59FF;
 }
 
 /* ========================================================================

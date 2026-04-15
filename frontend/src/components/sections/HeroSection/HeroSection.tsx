@@ -18,8 +18,8 @@ export default function HeroSection({ onOpenEgg }: HeroSectionProps) {
             <div style={{ flex: 1, minWidth: 40, height: 1, background: 'linear-gradient(90deg,#222,transparent)' }} />
           </div>
           <div style={{ position: 'relative', marginBottom: 20 }}>
-            <h1 className="font-heading gt" data-text="ENES AGO" style={{ fontSize: 'clamp(48px,10vw,104px)', fontWeight: 700, color: '#f0f0f0', lineHeight: 0.88, letterSpacing: -3 }}>ENES AGO</h1>
-            <div style={{ position: 'absolute', bottom: -6, left: 0, width: '100%', height: 3, background: 'linear-gradient(90deg,#FFE500 0%,#FF2D78 40%,#00C8FF 70%,transparent 100%)' }} />
+            <h1 className="font-heading gt" data-text="ENES AGO" style={{ fontSize: 'clamp(48px,10vw,104px)', fontWeight: 700, color: '#F2ECE2', lineHeight: 0.88, letterSpacing: -3 }}>ENES AGO</h1>
+            <div style={{ position: 'absolute', bottom: -6, left: 0, width: '100%', height: 3, background: 'linear-gradient(90deg,#8B5CF6 0%, #F2ECE2 52%,#60A5FA 100%)' }} />
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', marginBottom: 14 }}>
             <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(20px,4vw,30px)', color: '#FF2D78', letterSpacing: 2 }}>FULLSTACK DEV</span>
