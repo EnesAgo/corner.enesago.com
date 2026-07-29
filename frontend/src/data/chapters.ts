@@ -45,15 +45,14 @@ export const timeline: TimelineItemData[] = [
 ];
 
 export const hotbarItems = [
-  { emoji: '🗡', count: '', name: 'Diamond Sword' },
-  { emoji: '🏹', count: '', name: 'Bow' },
-  { emoji: '⛏️', count: '', name: 'Diamond Pickaxe' },
-  { emoji: '🍎', count: '48', name: 'Golden Apple' },
-  { emoji: '🏎️', count: '16', name: 'Audi A3' },
-  { emoji: '🎹', count: '8', name: 'Piano 🎹' },
-  { emoji: '🛹', count: '32', name: 'Skateboard 🛹' },
-  { emoji: '✨', count: '64', name: 'Vibes ✨' },
-  { emoji: '🪣', count: '', name: 'Water Bucket' },
+  { img: '/pictures/mc/DiamondSword.gif', count: '', name: 'Diamond Sword' },
+  { img: '/pictures/mc/DiamondPickaxe.webp', count: '', name: 'Diamond Pickaxe' },
+  { img: '/pictures/mc/DiamondAxe.gif', count: '', name: 'Diamond Axe' },
+  { img: '/pictures/mc/Bow.png', count: '', name: 'Bow' },
+  { img: '/pictures/mc/EnderPearl.webp', count: '16', name: 'Ender Pearl' },
+  { img: '/pictures/mc/NotchApple.webp', count: '64', name: 'Notch Apple' },
+  { img: '/pictures/mc/Torch.gif', count: '32', name: 'Torch' },
+  { img: '/pictures/mc/Firework.webp', count: '64', name: 'Firework Rocket' },
 ];
 
 export interface FileEntry {

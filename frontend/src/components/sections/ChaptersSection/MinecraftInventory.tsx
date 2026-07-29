@@ -18,8 +18,11 @@ export default function MinecraftInventory({ onOpenEgg }: { onOpenEgg: (n: numbe
       <div style={{ padding: 12 }}>
         <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#3a6028', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 1 }}>hotbar — things i carry</div>
         <div style={{ display: 'inline-flex', flexWrap: 'wrap', backgroundColor: "#C6C6C6", padding: "3px", paddingBottom: "2px" }}>
-          {hotbarItems.map((item, index) => (
-            <div key={item.name} className="mcs" data-c={item.count} style={{ display: index === 7 ? 'none' : 'flex' }} onMouseOver={() => setTooltip(item.name)} onMouseOut={() => setTooltip('')}>{item.emoji}</div>
+          {hotbarItems.map((item) => (
+            <div key={item.name} className="mcs" data-c={item.count} onMouseOver={() => setTooltip(item.name)} onMouseOut={() => setTooltip('')}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={item.img} alt={item.name} style={{ width: 32, height: 32, objectFit: 'contain', imageRendering: 'pixelated' }} />
+            </div>
           ))}
         </div>
         <div style={{ fontFamily: "'Press Start 2P', monospace", fontSize: 8, color: '#5D9E3F', marginTop: 8, minHeight: 14 }}>{tooltip}</div>
