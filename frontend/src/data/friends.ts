@@ -10,6 +10,15 @@ export interface Friend {
 
 export const friends: Friend[] = [
   {
+    name: 'Molimbo',
+    handle: '@molimbo',
+    url: 'https://molimbo.com',
+    avatar: '🎨',
+    role: 'Gamer',
+    vibe: 'makes life 10x better',
+    color: '#FF2D78',
+  },
+  {
     name: 'Berk',
     handle: '@berkdev',
     url: 'https://github.com',
@@ -17,15 +26,6 @@ export const friends: Friend[] = [
     role: 'backend wizard',
     vibe: 'explains things at 2am without complaining',
     color: '#00FF88',
-  },
-  {
-    name: 'Mila',
-    handle: '@miladesigns',
-    url: 'https://dribbble.com',
-    avatar: '🎨',
-    role: 'UI/UX designer',
-    vibe: 'makes everything look 10x better',
-    color: '#FF2D78',
   },
   {
     name: 'Kerem',

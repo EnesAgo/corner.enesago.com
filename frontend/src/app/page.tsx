@@ -111,10 +111,10 @@ export default function Home() {
       <BurnedCDsSection />
       {/*<BookmarksBarSection />*/}
       <BlogSection />
-      {/*<HateWallSection />*/}
+      <HateWallSection />
       <GuestbookSection onCountChange={handleCountChange} />
       {/*<FriendsSection />*/}
-      <VlogSection />
+      {/*<VlogSection />*/}
       <LabSection />
 
       {/* Footer */}

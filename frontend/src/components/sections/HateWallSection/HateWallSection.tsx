@@ -69,7 +69,7 @@ export default function HateWallSection() {
           </span>
         </div>
         <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#444', marginBottom: 28, letterSpacing: 1 }}>
-          things that make me mass-delete node_modules at 3am. no filter. no apologies.
+          things that live in my head rent-free. no filter. no apologies.
         </p>
 
         {/* Cards grid */}

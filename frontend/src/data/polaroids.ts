@@ -1,4 +1,5 @@
 export const polaroidPhotos = [
+  { src: '/pictures/EnesSinging.jpeg', full: '/pictures/EnesSinging.jpeg', cap: 'on stage 🎤', fullCap: 'on stage 🎤', rot: '-2deg' },
   { src: '/pictures/IMG_snow.png', full: '/pictures/IMG_snow.png', cap: 'munich, 2am', fullCap: 'munich, 2am 🌃', rot: '-3deg' },
   { src: '/pictures/1000024739.JPG', full: '/pictures/1000024739.JPG', cap: 'the shot 🛹🔥', fullCap: 'the shot 🛹🔥', rot: '2deg' },
   { src: '/pictures/myCar.JPG', full: '/pictures/myCar.JPG', cap: 'the love', fullCap: 'the love audi a3', rot: '2deg' },

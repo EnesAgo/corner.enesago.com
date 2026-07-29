@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { tapes } from '@/data/music';
 
 export default function MusicSection() {
@@ -5,13 +6,13 @@ export default function MusicSection() {
     <section id="music" style={{ maxWidth: 1440, margin: '0 auto', padding: '40px 16px' }} className="md:px-8">
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28, flexWrap: 'wrap' }}>
         <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: '#444', textTransform: 'uppercase', letterSpacing: 3 }}>// 005</span>
-        <h2 className="font-heading" style={{ fontSize: 'clamp(28px,5vw,40px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: -1, margin: 0 }}>MUSIC / PIANO - COMING SOON</h2>
+        <h2 className="font-heading" style={{ fontSize: 'clamp(28px,5vw,40px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: -1, margin: 0 }}>MUSIC / PIANO</h2>
         <div style={{ flex: 1, minWidth: 40, height: 2, background: 'linear-gradient(90deg,#9B59FF,transparent)' }} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          {/* Video */}
-          <div style={{ border: '3px solid #9B59FF', background: '#0d0d0d', boxShadow: '6px 6px 0px #9B59FF', overflow: 'hidden' }}>
+          {/* Video → studio */}
+          <Link href="/studio/piano" style={{ border: '3px solid #9B59FF', background: '#0d0d0d', boxShadow: '6px 6px 0px #9B59FF', overflow: 'hidden', display: 'block', textDecoration: 'none' }}>
             <div style={{ background: '#110d1a', padding: '8px 14px', borderBottom: '2px solid #9B59FF', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <div className="md" style={{ background: '#FF2D78', width: 8, height: 8 }} />
@@ -25,16 +26,16 @@ export default function MusicSection() {
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(transparent 40%,rgba(0,0,0,.85))' }} />
               <div className="vhs" style={{ position: 'absolute', inset: 0 }} />
               <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                <div style={{ fontFamily: "'Caveat', cursive", fontSize: 13, color: 'rgba(155,89,255,.8)', marginBottom: 5 }}>recorded on my laptop webcam, 11pm</div>
-                <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, color: '#fff', letterSpacing: 1 }}>Nocturne in E-flat — Chopin (badly)</div>
+                <div style={{ fontFamily: "'Caveat', cursive", fontSize: 13, color: 'rgba(155,89,255,.8)', marginBottom: 5 }}>recorded on my phone cam, 11pm</div>
+                <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, color: '#fff', letterSpacing: 1 }}>Hatırla Sevgili</div>
               </div>
               <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 52, height: 52, background: 'rgba(155,89,255,.85)', border: '3px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                 <span style={{ color: '#fff', fontSize: 18, marginLeft: 4 }}>▶</span>
               </div>
             </div>
-          </div>
+          </Link>
           <div style={{ border: '2px dashed #333', padding: 14, background: '#0a0a0a' }}>
-            <p style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#666', lineHeight: 1.7, margin: 0 }}>&quot;i&apos;m not a musician. i just play piano and sometimes sing when nobody&apos;s home. these are webcam recordings. the quality is bad. the feeling is real.&quot;</p>
+            <p style={{ fontFamily: "'Caveat', cursive", fontSize: 15, color: '#666', lineHeight: 1.7, margin: 0 }}>&quot;i just play piano and sing when nobody&apos;s home. these are webcam recordings. the quality is bad. the feeling is real.&quot;</p>
           </div>
         </div>
         {/* Tape archive list */}
@@ -44,16 +45,24 @@ export default function MusicSection() {
               <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#9B59FF', textTransform: 'uppercase', letterSpacing: 1 }}>📼 tape archive</span>
             </div>
             <div>
-              {tapes.map((tape, i) => (
-                <div key={i} className="hs" style={{ padding: '10px 14px', borderBottom: i < tapes.length - 1 ? '1px solid #111' : 'none', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }}>
-                  <div style={{ width: 32, height: 32, background: '#1a1a1a', border: `2px solid ${tape.borderColor}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0, color: '#ccc' }}>▶</div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#ccc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tape.title}</div>
-                    <div style={{ fontFamily: "'VT323', monospace", fontSize: 13, color: '#444' }}>{tape.meta}</div>
-                  </div>
-                  <span style={{ fontFamily: "'VT323', monospace", fontSize: 14, color: '#444', flexShrink: 0 }}>{tape.dur}</span>
-                </div>
-              ))}
+              {tapes.map((tape, i) => {
+                const rowStyle: React.CSSProperties = { padding: '10px 14px', borderBottom: i < tapes.length - 1 ? '1px solid #111' : 'none', display: 'flex', alignItems: 'center', gap: 12, opacity: tape.comingSoon ? 0.5 : 1, textDecoration: 'none' };
+                const inner = (
+                  <>
+                    <div style={{ width: 32, height: 32, background: '#1a1a1a', border: `2px solid ${tape.borderColor}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0, color: '#ccc' }}>{tape.comingSoon ? '🔒' : '▶'}</div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#ccc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tape.title}</div>
+                      <div style={{ fontFamily: "'VT323', monospace", fontSize: 13, color: '#444' }}>{tape.meta}</div>
+                    </div>
+                    <span style={{ fontFamily: "'VT323', monospace", fontSize: 14, color: '#444', flexShrink: 0 }}>{tape.dur}</span>
+                  </>
+                );
+                return tape.href ? (
+                  <Link key={i} href={tape.href} className="hs" style={{ ...rowStyle, cursor: 'pointer' }}>{inner}</Link>
+                ) : (
+                  <div key={i} style={{ ...rowStyle, cursor: 'default' }}>{inner}</div>
+                );
+              })}
             </div>
           </div>
         </div>

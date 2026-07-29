@@ -35,7 +35,7 @@ export const changelog: ChangelogEntry[] = [
       'pixel font renderer — 5×7 dot matrix text',
       'GitHub live ticker pulling real commit data',
     ],
-    tag: 'feature',
+    tag: 'easter-egg',
   },
   {
     version: 'v2.2.0',
@@ -58,7 +58,7 @@ export const changelog: ChangelogEntry[] = [
       'smooth scroll navigation with offset',
       'mobile hamburger menu with backdrop blur',
     ],
-    tag: 'feature',
+    tag: 'design',
   },
   {
     version: 'v2.0.0',

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amortized Analysis — Interactive Slides</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --navy: #1C2B4A; --teal: #1D9E75; --teal-l: #E1F5EE; --teal-m: #9FE1CB; --teal-d: #085041;
+            --purple: #534AB7; --purple-l: #EEEDFE; --purple-d: #26215C;
+            --coral: #D85A30; --coral-l: #FAECE7; --coral-d: #4A1B0C;
+            --amber: #BA7517; --amber-l: #FAEEDA;
+            --white: #FFFFFF; --off: #F8F9FA; --border: #E2E8F0;
+            --text: #1C2B4A; --mid: #4A5568; --light: #718096;
+        }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1724; color: var(--text); min-height: 100vh; }
+
+        /* ── OUTER SHELL ── */
+        .shell { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+        .deck-title { color: #9FE1CB; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+
+        /* ── SLIDE CARD ── */
+        .slide { display: none; background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.45); min-height: 580px; }
+        .slide.active { display: flex; flex-direction: column; }
+
+        /* dark slides */
+        .slide.dark { background: var(--navy); color: #fff; }
+
+        /* ── SLIDE HEADER ── */
+        .s-head { padding: 22px 32px 16px; border-bottom: 1px solid var(--border); }
+        .dark .s-head { border-color: rgba(255,255,255,.08); }
+        .s-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .s-num { font-size: 11px; font-weight: 700; color: var(--light); letter-spacing: .06em; }
+        .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 20px; }
+        .tag-teal  { background: var(--teal-l); color: var(--teal-d); }
+        .tag-purple{ background: var(--purple-l); color: var(--purple-d); }
+        .tag-coral { background: var(--coral-l); color: var(--coral-d); }
+        .tag-amber { background: var(--amber-l); color: var(--amber); }
+        .tag-white { background: rgba(255,255,255,.15); color: #fff; }
+        .s-title { font-size: 24px; font-weight: 700; line-height: 1.2; }
+        .dark .s-title { color: #fff; }
+
+        /* ── SLIDE BODY ── */
+        .s-body { padding: 24px 32px; flex: 1; }
+
+        /* ── NAVIGATION ── */
+        .nav-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+        .nav-dots { display: flex; gap: 6px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2); cursor: pointer; transition: all .2s; border: none; }
+        .dot.active { background: var(--teal-m); transform: scale(1.3); }
+        .nav-btns { display: flex; gap: 8px; }
+        .nav-btns button { padding: 8px 20px; border-radius: 8px; border: 1.5px solid rgba(255,255,255,.2); background: transparent; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+        .nav-btns button:hover { background: rgba(255,255,255,.1); }
+        .nav-btns button:disabled { opacity: .3; cursor: default; }
+        .nav-btns .btn-next { background: var(--teal); border-color: var(--teal); }
+        .nav-btns .btn-next:hover { background: #18b880; }
+        .slide-counter { color: rgba(255,255,255,.4); font-size: 12px; }
+
+        /* ── COMPONENTS ── */
+        .callout { border-radius: 10px; padding: 14px 16px; margin: 14px 0; font-size: 13.5px; line-height: 1.6; }
+        .callout-amber { background: var(--amber-l); border-left: 4px solid var(--amber); color: #5A4000; }
+        .callout-teal  { background: var(--teal-l);  border-left: 4px solid var(--teal);  color: var(--teal-d); }
+        .callout-purple{ background: var(--purple-l); border-left: 4px solid var(--purple); color: var(--purple-d); }
+        .callout-coral { background: var(--coral-l); border-left: 4px solid var(--coral); color: var(--coral-d); }
+        .dark .callout-teal { background: rgba(29,158,117,.15); border-color: var(--teal); color: var(--teal-m); }
+        .dark .callout-purple { background: rgba(83,74,183,.2); border-color: #9A8FF0; color: #C5C0F8; }
+
+        .kp-list { display: flex; flex-direction: column; gap: 10px; }
+        .kp { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--mid); line-height: 1.55; }
+        .dark .kp { color: #A0AEC0; }
+        .kp-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+        .kp strong { color: var(--text); }
+        .dark .kp strong { color: #fff; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+        .card { background: var(--off); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+        .dark .card { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.08); }
+        .card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+        .card p, .card li { font-size: 12.5px; color: var(--mid); line-height: 1.55; }
+        .dark .card p, .dark .card li { color: #A0AEC0; }
+        .card-teal { border-top: 3px solid var(--teal); }
+        .card-purple{ border-top: 3px solid var(--purple); }
+        .card-coral { border-top: 3px solid var(--coral); }
+
+        /* ── ARRAY VIZ ── */
+        .array-wrap { margin: 12px 0; }
+        .array-row { display: flex; gap: 5px; flex-wrap: wrap; }
+        .cell {
+            width: 44px; height: 44px; border: 2px solid var(--border); border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px; font-weight: 700; color: var(--light);
+            background: var(--off); transition: all .3s ease;
+        }
+        .cell.hi    { background: var(--purple-l); border-color: var(--purple); color: var(--purple-d); }
+        .cell.found { background: var(--teal-l);   border-color: var(--teal);   color: var(--teal-d); }
+        .cell.win   { background: var(--coral-l);  border-color: var(--coral);  color: var(--coral-d); }
+        .cell.min-cell { background: var(--teal-l); border-color: var(--teal); color: var(--teal-d); border-width: 2.5px; }
+        .ptr-row { display: flex; gap: 5px; margin-top: 4px; }
+        .ptr-label { width: 44px; height: 18px; font-size: 10px; font-weight: 800; text-align: center; }
+        .ptr-L { color: var(--purple); }
+        .ptr-R { color: var(--coral); }
+        .ptr-both { color: var(--teal); }
+
+        /* ── STEP DEMO ── */
+        .demo-box { background: var(--off); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin: 14px 0; }
+        .dark .demo-box { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.08); }
+        .demo-msg { font-size: 13px; color: var(--mid); min-height: 20px; margin: 10px 0 4px; font-style: italic; }
+        .dark .demo-msg { color: #9FE1CB; }
+        .demo-result { font-size: 14px; font-weight: 700; color: var(--teal-d); min-height: 22px; }
+        .demo-btns { display: flex; gap: 8px; margin-top: 12px; }
+        .btn { padding: 7px 18px; border-radius: 8px; border: 1.5px solid; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .15s; }
+        .btn-step { background: var(--purple-l); border-color: var(--purple); color: var(--purple-d); }
+        .btn-step:hover { background: var(--purple); color: #fff; }
+        .btn-reset{ background: var(--off); border-color: var(--border); color: var(--light); }
+        .btn-reset:hover { background: var(--border); }
+
+        /* ── DEQUE ── */
+        .deque-wrap { display: flex; align-items: center; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+        .deque-label { font-size: 11px; font-weight: 700; color: var(--light); }
+        .q-cell { min-width: 36px; height: 34px; border: 2px solid var(--purple); border-radius: 7px; background: var(--purple-l); color: var(--purple-d); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 8px; transition: all .3s; }
+        .q-cell.front { background: var(--purple); color: #fff; }
+        .q-empty { font-size: 12px; color: var(--light); font-style: italic; }
+
+        /* ── COMPLEXITY BADGE ── */
+        .cx { display: inline-block; font-family: 'Consolas', monospace; font-size: 13px; background: var(--navy); color: #9FE1CB; padding: 3px 10px; border-radius: 6px; }
+        .dark .cx { background: rgba(29,158,117,.2); color: var(--teal-m); }
+
+        /* ── BUDGET BAR ── */
+        .budget-track { background: rgba(255,255,255,.08); border-radius: 6px; height: 22px; position: relative; overflow: hidden; margin: 4px 0; }
+        .budget-fill { height: 100%; background: var(--teal); border-radius: 6px; transition: width .5s ease; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 700; color: #fff; }
+        .budget-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+        .budget-lbl { font-size: 12px; color: rgba(255,255,255,.5); width: 60px; }
+
+        /* ── COMPLEXITY TABLE ── */
+        table.cx-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+        .cx-table th { background: var(--navy); color: #fff; padding: 8px 12px; text-align: left; font-size: 12px; }
+        .cx-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--mid); }
+        .cx-table tr:last-child td { border-bottom: none; }
+        .cx-table tr:nth-child(even) td { background: var(--off); }
+        .good { color: var(--teal-d); font-weight: 700; }
+        .bad  { color: var(--coral);  font-weight: 700; }
+
+        /* ── REAL WORLD ── */
+        .rw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+        .rw-card { background: var(--off); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+        .rw-card .rw-icon { font-size: 22px; margin-bottom: 6px; }
+        .rw-card h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .rw-card p  { font-size: 12px; color: var(--mid); line-height: 1.5; }
+        .rw-card .rw-tech { display: inline-block; font-size: 10px; font-weight: 700; margin-top: 6px; padding: 2px 8px; border-radius: 20px; background: var(--teal-l); color: var(--teal-d); }
+
+        /* ── PROGRESS BAR ── */
+        .progress { height: 3px; background: rgba(255,255,255,.1); position: relative; }
+        .progress-fill { height: 100%; background: var(--teal); transition: width .4s ease; }
+
+        /* ── SUMMARY CARDS ── */
+        .sum-card { border-radius: 12px; padding: 18px; }
+        .sum-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+        .sum-card ul { padding-left: 16px; }
+        .sum-card li { font-size: 12.5px; margin-bottom: 5px; line-height: 1.5; }
+        .sc-teal   { background: var(--teal-l); color: var(--teal-d); }
+        .sc-purple { background: var(--purple-l); color: var(--purple-d); }
+        .sc-coral  { background: var(--coral-l); color: var(--coral-d); }
+
+        /* section labels */
+        .section-label { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--light); margin: 18px 0 8px; }
+        .dark .section-label { color: rgba(255,255,255,.35); }
+
+        /* Animated arrow */
+        @keyframes bounce-r { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
+        .arr-anim { display:inline-block; animation: bounce-r 1s infinite; }
+    </style>
+</head>
+<body>
+<div class="shell">
+    <div class="deck-title">📚 Amortized Analysis — Interactive Deck · 10 slides</div>
+    <div class="progress"><div class="progress-fill" id="prog" style="width:10%"></div></div>
+    <br>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 1 — TITLE
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide dark active" id="s0">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">01 / 10</span><span class="tag tag-white">Introduction</span></div>
+            <div class="s-title" style="font-size:30px;">Amortized Analysis</div>
+            <div style="color:#9FE1CB;font-size:16px;margin-top:6px;">Two Pointers &nbsp;·&nbsp; Sliding Window</div>
+        </div>
+        <div class="s-body">
+            <p style="color:#A0AEC0;font-size:14px;line-height:1.7;max-width:640px;">
+                Some algorithms look slow step-by-step but are blazing fast overall. <strong style="color:#fff">Amortized analysis</strong> reveals the truth by studying the <em>total</em> cost across all operations — not just the worst single one.
+            </p>
+            <div class="two-col" style="margin-top:20px;">
+                <div class="card card-purple">
+                    <h4 style="color:var(--purple);">Two Pointers</h4>
+                    <p>Two indices moving through an array in one direction each. Solves subarray sum & pair problems in <span class="cx">O(n)</span>.</p>
+                </div>
+                <div class="card card-teal">
+                    <h4 style="color:var(--teal);">Sliding Window</h4>
+                    <p>A fixed-size window sliding right, maintaining the minimum with a deque in <span class="cx">O(n)</span> instead of <span class="cx">O(nk)</span>.</p>
+                </div>
+            </div>
+            <div class="callout callout-teal" style="margin-top:20px;">
+                <strong>Core idea:</strong> A pointer that moves at most <em>n</em> total steps across all iterations can never cost more than O(n) — regardless of how unevenly those steps are distributed.
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 2 — WHAT IS AMORTIZED?
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s1">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">02 / 10</span><span class="tag tag-teal">Core Concept</span></div>
+            <div class="s-title">What is Amortized Analysis?</div>
+        </div>
+        <div class="s-body">
+            <div class="callout callout-amber">
+                <strong>Analogy:</strong> You pay €30 for groceries most weeks, but once a month you stock up and spend €150. The <em>amortized</em> cost per week is €45 — far more accurate than the €150 peak.
+            </div>
+            <div class="kp-list" style="margin-top:16px;">
+                <div class="kp"><div class="kp-dot" style="background:var(--teal)"></div><div><strong>The idea:</strong> Instead of bounding each operation's worst case, bound the <em>total</em> cost of all operations together, then divide by the number of operations.</div></div>
+                <div class="kp"><div class="kp-dot" style="background:var(--purple)"></div><div><strong>When it matters:</strong> Operations whose cost varies — most are cheap O(1), a few are expensive O(n) — but the expensive ones are rare enough to keep the total budget under O(n).</div></div>
+                <div class="kp"><div class="kp-dot" style="background:var(--coral)"></div><div><strong>The trick:</strong> Find a <em>potential</em> or <em>budget</em> argument. E.g. "each element can only be added and removed once, so even if one step removes 10 elements, those 10 will never be removed again."</div></div>
+            </div>
+            <div class="two-col" style="margin-top:16px;">
+                <div class="card card-coral">
+                    <h4>❌ Naïve (wrong) bound</h4>
+                    <p>Each step removes up to <em>n</em> items → n steps × O(n) = <strong>O(n²)</strong>.<br>This is too pessimistic.</p>
+                </div>
+                <div class="card card-teal">
+                    <h4>✅ Amortized (correct) bound</h4>
+                    <p>Total removals across all steps ≤ n (each item removed once) → <strong>O(n)</strong> total.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 3 — TWO POINTERS: WHY & WHEN
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s2">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">03 / 10</span><span class="tag tag-purple">Two Pointers</span></div>
+            <div class="s-title">Why use it & when does it apply?</div>
+        </div>
+        <div class="s-body">
+            <div class="section-label">Why it works</div>
+            <div class="callout callout-purple">
+                By keeping two indices that each only move <strong>forward</strong>, we avoid re-scanning elements we've already processed. The total number of index moves is bounded by 2n — amortized O(1) per element.
+            </div>
+            <div class="section-label">Use two pointers when…</div>
+            <div class="three-col">
+                <div class="card card-purple"><h4>Sorted array + pair/sum</h4><p>Find two elements summing to a target. Left moves right, right moves left.</p></div>
+                <div class="card card-purple"><h4>Positive integers + subarray</h4><p>Find subarray with sum = x. Both pointers move right only.</p></div>
+                <div class="card card-purple"><h4>Remove duplicates</h4><p>In-place dedup on sorted array using a slow + fast pointer pair.</p></div>
+            </div>
+            <div class="section-label">Do NOT use when…</div>
+            <div class="kp-list">
+                <div class="kp"><div class="kp-dot" style="background:var(--coral)"></div><div>Array has <strong>negative numbers</strong> and you need a subarray sum (use prefix sums instead).</div></div>
+                <div class="kp"><div class="kp-dot" style="background:var(--coral)"></div><div>You need all pairs, not just one — two pointers finds one in O(n), not all O(n²) pairs.</div></div>
+                <div class="kp"><div class="kp-dot" style="background:var(--coral)"></div><div>Data is unsorted and sorting it first is not allowed (e.g. must preserve order for a non-sum query).</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 4 — TWO POINTERS: STEP-BY-STEP DEMO (Subarray Sum)
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s3">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">04 / 10</span><span class="tag tag-purple">Two Pointers · Demo</span></div>
+            <div class="s-title">Step-by-step: Subarray Sum = 8</div>
+        </div>
+        <div class="s-body">
+            <p style="font-size:13px;color:var(--mid);margin-bottom:6px;">Array of positive integers. Find contiguous subarray with sum exactly 8.</p>
+            <div class="demo-box">
+                <div class="array-wrap">
+                    <div class="array-row" id="tp-cells"></div>
+                    <div class="ptr-row" id="tp-ptrs"></div>
+                </div>
+                <div class="demo-msg" id="tp-msg">Press "Next Step" to begin.</div>
+                <div class="demo-result" id="tp-res"></div>
+                <div class="demo-btns">
+                    <button class="btn btn-step" onclick="tpNext()">Next Step →</button>
+                    <button class="btn btn-reset" onclick="tpReset()">↺ Reset</button>
+                </div>
+            </div>
+            <div class="two-col">
+                <div class="kp-list">
+                    <div class="kp"><div class="kp-dot" style="background:var(--purple)"></div><div><strong>L advances</strong> every turn (shrinks window from left).</div></div>
+                    <div class="kp"><div class="kp-dot" style="background:var(--coral)"></div><div><strong>R advances</strong> while sum ≤ target (expands window right).</div></div>
+                </div>
+                <div class="kp-list">
+                    <div class="kp"><div class="kp-dot" style="background:var(--teal)"></div><div>L+R together move at most <strong>2n steps total</strong> → <span class="cx">O(n)</span>.</div></div>
+                    <div class="kp"><div class="kp-dot" style="background:var(--teal)"></div><div>Works because all values are <strong>positive</strong> (adding always grows sum).</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 5 — TWO POINTERS: REAL WORLD + COMPLEXITY
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s4">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">05 / 10</span><span class="tag tag-purple">Two Pointers · Real World</span></div>
+            <div class="s-title">Real-life uses & complexity</div>
+        </div>
+        <div class="s-body">
+            <div class="rw-grid">
+                <div class="rw-card">
+                    <div class="rw-icon">🛒</div>
+                    <h4>E-commerce: two products in budget</h4>
+                    <p>Given a sorted price list, find two products whose combined price equals a gift card value exactly. Two pointers on sorted array.</p>
+                    <span class="rw-tech">2SUM · O(n log n)</span>
+                </div>
+                <div class="rw-card">
+                    <div class="rw-icon">🧬</div>
+                    <h4>DNA: longest substring without repeat</h4>
+                    <p>Slide a window over a genome string; left pointer jumps when a repeat is found. Finds the longest unique region in O(n).</p>
+                    <span class="rw-tech">Sliding variant · O(n)</span>
+                </div>
+                <div class="rw-card">
+                    <div class="rw-icon">🎵</div>
+                    <h4>Streaming audio: detect clipping</h4>
+                    <p>Find the shortest contiguous run of samples whose sum exceeds a loudness threshold — subarray sum with two pointers.</p>
+                    <span class="rw-tech">Subarray Sum · O(n)</span>
+                </div>
+                <div class="rw-card">
+                    <div class="rw-icon">🚚</div>
+                    <h4>Logistics: container loading</h4>
+                    <p>Sort packages by weight; fill container from both ends using two pointers to maximise load without exceeding weight limit.</p>
+                    <span class="rw-tech">2SUM variant · O(n log n)</span>
+                </div>
+            </div>
+            <div class="section-label">Time complexity</div>
+            <table class="cx-table">
+                <tr><th>Variant</th><th>Sort needed?</th><th>Complexity</th><th>Notes</th></tr>
+                <tr><td>Subarray sum (positive ints)</td><td>No</td><td class="good">O(n)</td><td>Both pointers move right only</td></tr>
+                <tr><td>2SUM</td><td>Yes</td><td class="good">O(n log n)</td><td>Sort dominates; scan is O(n)</td></tr>
+                <tr><td>3SUM</td><td>Yes</td><td class="good">O(n²)</td><td>Fix one element, run 2SUM</td></tr>
+                <tr><td>Remove duplicates in-place</td><td>Yes</td><td class="good">O(n)</td><td>O(1) extra space</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 6 — SLIDING WINDOW: WHY & WHEN
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s5">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">06 / 10</span><span class="tag tag-coral">Sliding Window</span></div>
+            <div class="s-title">Why use it & when does it apply?</div>
+        </div>
+        <div class="s-body">
+            <div class="callout callout-coral">
+                <strong>Problem:</strong> You have an array and a window of fixed size <em>k</em>. As the window slides right one step at a time, you need the <em>minimum</em> (or maximum) inside the window at every position. Naïve: scan window each step = <span class="cx">O(nk)</span>. With a deque: <span class="cx">O(n)</span>.
+            </div>
+            <div class="section-label">Use sliding window minimum when…</div>
+            <div class="three-col">
+                <div class="card card-coral"><h4>Fixed window stats</h4><p>Min/max over every window of size k. Classic sliding window minimum.</p></div>
+                <div class="card card-coral"><h4>Moving average</h4><p>Running sum / average over a fixed-length period (e.g. 7-day stock avg).</p></div>
+                <div class="card card-coral"><h4>Range min queries</h4><p>Offline queries where windows are traversed left-to-right — deque gives O(1) per query.</p></div>
+            </div>
+            <div class="section-label">How the deque works</div>
+            <div class="kp-list">
+                <div class="kp"><div class="kp-dot" style="background:var(--teal)"></div><div>The deque stores indices in <strong>increasing order of their values</strong>. Front = smallest = window minimum.</div></div>
+                <div class="kp"><div class="kp-dot" style="background:var(--coral)"></div><div>When a new element arrives, <strong>pop from the back</strong> while back value ≥ new value (they're shadowed forever).</div></div>
+                <div class="kp"><div class="kp-dot" style="background:var(--purple)"></div><div>When the front element falls outside the window, <strong>pop from the front</strong>. Then front = new minimum.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 7 — SLIDING WINDOW: STEP-BY-STEP DEMO
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s6">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">07 / 10</span><span class="tag tag-coral">Sliding Window · Demo</span></div>
+            <div class="s-title">Step-by-step: Window Minimum (k=4)</div>
+        </div>
+        <div class="s-body">
+            <p style="font-size:13px;color:var(--mid);margin-bottom:6px;">Array [2,1,4,5,3,4,1,2], window size = 4. Find minimum at each window position.</p>
+            <div class="demo-box">
+                <div class="array-wrap">
+                    <div class="array-row" id="sw-cells"></div>
+                    <div class="ptr-row" id="sw-ptrs"></div>
+                </div>
+                <div class="deque-wrap" style="margin-top:10px;">
+                    <span class="deque-label">DEQUE:</span>
+                    <div id="sw-deque"><span class="q-empty">empty</span></div>
+                    <span style="font-size:11px;color:var(--light);">← front is minimum</span>
+                </div>
+                <div class="demo-msg" id="sw-msg">Press "Next Step" to begin.</div>
+                <div class="demo-result" id="sw-res"></div>
+                <div class="demo-btns">
+                    <button class="btn btn-step" onclick="swNext()" style="background:var(--coral-l);border-color:var(--coral);color:var(--coral-d);">Next Step →</button>
+                    <button class="btn btn-reset" onclick="swReset()">↺ Reset</button>
+                </div>
+            </div>
+            <div id="sw-mins-log" style="font-size:12px;color:var(--mid);margin-top:4px;min-height:20px;"></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 8 — AMORTIZED PROOF (Budget Argument)
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide dark" id="s7">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">08 / 10</span><span class="tag tag-white">Amortized Proof</span></div>
+            <div class="s-title">Why both methods are O(n)</div>
+        </div>
+        <div class="s-body">
+            <div class="section-label">The budget argument</div>
+            <div class="callout callout-teal">
+                Give each element a <strong>token budget</strong>. For two pointers: 1 token for L moving past, 1 for R moving past = 2n tokens total. For sliding window: 1 token for entering deque, 1 for leaving = 2n tokens total. Once a token is spent, it's gone. The algorithm stops when all tokens are spent → <strong>O(n) total work</strong>.
+            </div>
+
+            <div class="section-label">Right pointer budget (Two Pointers demo — n=8)</div>
+            <div id="budget-bars">
+                <!-- filled by JS -->
+            </div>
+            <button class="btn btn-step" onclick="animateBudget()" id="budget-btn" style="margin-top:10px;">▶ Animate budget</button>
+
+            <div class="section-label" style="margin-top:18px;">For sliding window</div>
+            <div class="two-col">
+                <div class="callout callout-purple" style="margin:0;">
+                    <strong>Each element enters deque exactly once.</strong><br>
+                    Appended to back when window reaches it.
+                </div>
+                <div class="callout callout-teal" style="margin:0;">
+                    <strong>Each element leaves deque at most once.</strong><br>
+                    Popped from back (shadowed) or front (out of window).
+                </div>
+            </div>
+            <div style="margin-top:14px;text-align:center;font-size:15px;color:var(--teal-m);font-weight:700;">
+                Worst single step: <span class="cx">O(n)</span> &nbsp;·&nbsp; Amortized per element: <span class="cx">O(1)</span> &nbsp;·&nbsp; Total: <span class="cx">O(n)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 9 — REAL WORLD (Sliding Window)
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s8">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">09 / 10</span><span class="tag tag-coral">Sliding Window · Real World</span></div>
+            <div class="s-title">Real-life uses & complexity</div>
+        </div>
+        <div class="s-body">
+            <div class="rw-grid">
+                <div class="rw-card">
+                    <div class="rw-icon">📈</div>
+                    <h4>Finance: rolling minimum price</h4>
+                    <p>Given daily stock prices, find the lowest price over every trailing 30-day period to compute optimal buy signals. Sliding window min in O(n).</p>
+                    <span class="rw-tech">Window min · O(n)</span>
+                </div>
+                <div class="rw-card">
+                    <div class="rw-icon">🌡️</div>
+                    <h4>IoT sensors: anomaly detection</h4>
+                    <p>Detect if any k-second window of temperature readings contains a reading below a threshold — window minimum compared to threshold.</p>
+                    <span class="rw-tech">Window min · O(n)</span>
+                </div>
+                <div class="rw-card">
+                    <div class="rw-icon">🎮</div>
+                    <h4>Gaming: skill rating windows</h4>
+                    <p>Track the best (max) and worst (min) performance score over the last k matches for adaptive difficulty tuning.</p>
+                    <span class="rw-tech">Window max/min · O(n)</span>
+                </div>
+                <div class="rw-card">
+                    <div class="rw-icon">🔍</div>
+                    <h4>Text search: minimum window substring</h4>
+                    <p>Find the shortest substring of a text that contains all characters of a pattern (classic interview problem). Sliding window with a frequency map.</p>
+                    <span class="rw-tech">Variable window · O(n)</span>
+                </div>
+            </div>
+            <div class="section-label">Time complexity</div>
+            <table class="cx-table">
+                <tr><th>Variant</th><th>Extra space</th><th>Complexity</th><th>vs Naïve</th></tr>
+                <tr><td>Window min / max (fixed k)</td><td>O(k) deque</td><td class="good">O(n)</td><td class="bad">vs O(nk)</td></tr>
+                <tr><td>Moving average</td><td>O(1)</td><td class="good">O(n)</td><td class="bad">vs O(nk)</td></tr>
+                <tr><td>Min window substring</td><td>O(|alphabet|)</td><td class="good">O(n)</td><td class="bad">vs O(n²)</td></tr>
+                <tr><td>Longest substring without repeat</td><td>O(|alphabet|)</td><td class="good">O(n)</td><td class="bad">vs O(n²)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SLIDE 10 — SUMMARY
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s9">
+        <div class="s-head">
+            <div class="s-meta"><span class="s-num">10 / 10</span><span class="tag tag-teal">Summary</span></div>
+            <div class="s-title">Key takeaways</div>
+        </div>
+        <div class="s-body">
+            <div class="three-col">
+                <div class="sum-card sc-teal">
+                    <h4>🔁 Amortized thinking</h4>
+                    <ul>
+                        <li>Count <em>total</em> operations, not per-step worst case</li>
+                        <li>Use a "token budget" argument</li>
+                        <li>Each element's lifecycle (in/out once) is the key</li>
+                    </ul>
+                </div>
+                <div class="sum-card sc-purple">
+                    <h4>↔ Two Pointers</h4>
+                    <ul>
+                        <li>Subarray sum (positive ints) → O(n)</li>
+                        <li>2SUM on sorted array → O(n log n)</li>
+                        <li>3SUM → O(n²)</li>
+                        <li>Both pointers only move forward</li>
+                    </ul>
+                </div>
+                <div class="sum-card sc-coral">
+                    <h4>🪟 Sliding Window</h4>
+                    <ul>
+                        <li>Window min/max → O(n)</li>
+                        <li>Deque: ascending order, front = min</li>
+                        <li>Back pop: new element shadows old ones</li>
+                        <li>Front pop: element left window</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="section-label" style="margin-top:20px;">Quick decision guide</div>
+            <table class="cx-table">
+                <tr><th>Problem type</th><th>Use</th><th>Why</th></tr>
+                <tr><td>Find subarray / pair summing to x</td><td style="color:var(--purple);font-weight:700;">Two Pointers</td><td>Both pointers move forward only → O(n)</td></tr>
+                <tr><td>Min/max of every fixed window of size k</td><td style="color:var(--coral);font-weight:700;">Sliding Window</td><td>Deque, each element enters/leaves once → O(n)</td></tr>
+                <tr><td>Stack/queue where elements enter & leave once</td><td style="color:var(--teal);font-weight:700;">Amortized O(n)</td><td>Budget argument: total ops ≤ 2n</td></tr>
+                <tr><td>Nearest smaller element (monotonic stack)</td><td style="color:var(--teal);font-weight:700;">Amortized O(n)</td><td>Each element pushed/popped at most once</td></tr>
+            </table>
+            <div class="callout callout-teal" style="margin-top:16px;">
+                <strong>Unifying insight:</strong> Whenever you can argue that each element participates in an expensive operation <em>at most once</em> across the entire run, the algorithm is O(n) by amortized analysis — even if a single step looks like O(n).
+            </div>
+        </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="nav-bar">
+        <div class="nav-dots" id="dots"></div>
+        <div style="display:flex;align-items:center;gap:14px;">
+            <span class="slide-counter" id="counter">1 / 10</span>
+            <div class="nav-btns">
+                <button id="prev-btn" onclick="changeSlide(-1)" disabled>‹ Prev</button>
+                <button class="btn-next" id="next-btn" onclick="changeSlide(1)">Next <span class="arr-anim">›</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ── STATE ────────────────────────────────────────────────────────
+    let cur = 0;
+    const total = 10;
+
+    // ── NAV ──────────────────────────────────────────────────────────
+    const dotsEl = document.getElementById('dots');
+    for (let i = 0; i < total; i++) {
+        const d = document.createElement('button');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.onclick = () => goTo(i);
+        dotsEl.appendChild(d);
+    }
+
+    function goTo(n) {
+        document.getElementById('s' + cur).classList.remove('active');
+        document.querySelectorAll('.dot')[cur].classList.remove('active');
+        cur = n;
+        document.getElementById('s' + cur).classList.add('active');
+        document.querySelectorAll('.dot')[cur].classList.add('active');
+        document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+        document.getElementById('prev-btn').disabled = cur === 0;
+        document.getElementById('next-btn').disabled = cur === total - 1;
+        document.getElementById('prog').style.width = ((cur + 1) / total * 100) + '%';
+        if (cur === 3 && tpStep === 0) tpReset();
+        if (cur === 6 && swStep === 0) swReset();
+        if (cur === 7) buildBudget();
+    }
+
+    function changeSlide(d) { if (cur + d >= 0 && cur + d < total) goTo(cur + d); }
+
+    // ── TWO POINTERS DEMO ────────────────────────────────────────────
+    const tpArr  = [1, 3, 2, 5, 1, 1, 2, 3];
+    const tpSteps = [
+        { L: 0, R: 0, sum: 1,  msg: 'Initialize: L=0, R=0. Window = [1], sum = 1. Sum < 8, expand R.', res: '' },
+        { L: 0, R: 1, sum: 4,  msg: 'R moves right → R=1. Window = [1,3], sum = 4. Still < 8, expand R.', res: '' },
+        { L: 0, R: 2, sum: 6,  msg: 'R moves right → R=2. Window = [1,3,2], sum = 6. Still < 8, expand R.', res: '' },
+        { L: 0, R: 3, sum: 11, msg: 'R moves right → R=3. Window = [1,3,2,5], sum = 11 > 8. Stop expanding. Advance L.', res: '' },
+        { L: 1, R: 3, sum: 10, msg: 'L moves right → L=1. Remove 1. Window = [3,2,5], sum = 10 > 8. Advance L again.', res: '' },
+        { L: 2, R: 3, sum: 7,  msg: 'L moves right → L=2. Remove 3. Window = [2,5], sum = 7 < 8. Expand R.', res: '' },
+        { L: 2, R: 4, sum: 8,  msg: 'R moves right → R=4. Window = [2,5,1], sum = 8 = target!', res: '✅ Found! Subarray [2,5,1] at indices 2–4 sums to 8.', found: true },
+    ];
+    let tpStep = 0;
+
+    function tpReset() {
+        tpStep = 0;
+        renderTpArr(-1, -1, false);
+        document.getElementById('tp-msg').textContent = 'Press "Next Step" to begin.';
+        document.getElementById('tp-res').textContent = '';
+    }
+
+    function tpNext() {
+        if (tpStep >= tpSteps.length) { document.getElementById('tp-msg').textContent = 'Demo complete — press Reset to replay.'; return; }
+        const s = tpSteps[tpStep++];
+        renderTpArr(s.L, s.R, !!s.found);
+        document.getElementById('tp-msg').textContent = s.msg;
+        document.getElementById('tp-res').textContent = s.res;
+    }
+
+    function renderTpArr(L, R, found) {
+        const cellsEl = document.getElementById('tp-cells');
+        const ptrsEl  = document.getElementById('tp-ptrs');
+        cellsEl.innerHTML = '';
+        ptrsEl.innerHTML  = '';
+        tpArr.forEach((v, i) => {
+            const c = document.createElement('div');
+            c.className = 'cell';
+            if (L >= 0 && i >= L && i <= R) c.className += found ? ' found' : ' hi';
+            c.textContent = v;
+            cellsEl.appendChild(c);
+            const p = document.createElement('div');
+            p.className = 'ptr-label';
+            if (i === L && i === R) { p.textContent = 'L=R'; p.className += ' ptr-both'; }
+            else if (i === L) { p.textContent = 'L'; p.className += ' ptr-L'; }
+            else if (i === R) { p.textContent = 'R'; p.className += ' ptr-R'; }
+            ptrsEl.appendChild(p);
+        });
+    }
+    tpReset();
+
+    // ── SLIDING WINDOW DEMO ──────────────────────────────────────────
+    const swArr = [2, 1, 4, 5, 3, 4, 1, 2];
+    const WIN   = 4;
+    const swSteps = [
+        { pos: 0, deque: [1], winL: 0, winR: 0, msg: 'Add index 0 (val=2). Deque empty → push. Deque=[2].', min: null },
+        { pos: 1, deque: [1], winL: 0, winR: 1, msg: 'Add index 1 (val=1). 1 < 2 → pop 2, push 1. Deque=[1]. Window not full yet.', min: null },
+        { pos: 2, deque: [1,4], winL: 0, winR: 2, msg: 'Add index 2 (val=4). 4 > 1 → push 4. Deque=[1,4]. Window not full yet.', min: null },
+        { pos: 3, deque: [1,4,5], winL: 0, winR: 3, msg: 'Add index 3 (val=5). 5 > 4 → push 5. Deque=[1,4,5]. Window full!', min: 1 },
+        { pos: 4, deque: [1,3], winL: 1, winR: 4, msg: 'Slide window. Add 3: pop 5, pop 4 (both ≥ 3), push 3. Index 0 out? No (1 ≥ 1). Deque=[1,3].', min: 1 },
+        { pos: 5, deque: [3,4], winL: 2, winR: 5, msg: 'Slide window. Add 4: push 4. Deque front (idx 1) is now outside window [2,5] → pop front. Deque=[3,4].', min: 3 },
+        { pos: 6, deque: [1], winL: 3, winR: 6, msg: 'Slide window. Add 1: pop 4, pop 3 (both ≥ 1), push 1. Deque=[1].', min: 1 },
+        { pos: 7, deque: [1,2], winL: 4, winR: 7, msg: 'Slide window. Add 2: 2 > 1 → push 2. Deque=[1,2]. Front idx 6 still in [4,7].', min: 1 },
+    ];
+    let swStep = 0;
+    let swMins = [];
+
+    function swReset() {
+        swStep = 0; swMins = [];
+        renderSwArr(-1, -1, -1);
+        document.getElementById('sw-deque').innerHTML = '<span class="q-empty">empty</span>';
+        document.getElementById('sw-msg').textContent = 'Press "Next Step" to begin.';
+        document.getElementById('sw-res').textContent = '';
+        document.getElementById('sw-mins-log').textContent = '';
+    }
+
+    function swNext() {
+        if (swStep >= swSteps.length) { document.getElementById('sw-msg').textContent = 'Demo complete — press Reset to replay.'; return; }
+        const s = swSteps[swStep++];
+        renderSwArr(s.winL, s.winR, s.pos);
+
+        const dq = document.getElementById('sw-deque');
+        if (s.deque.length === 0) {
+            dq.innerHTML = '<span class="q-empty">empty</span>';
+        } else {
+            dq.innerHTML = s.deque.map((v, i) => `<div class="q-cell${i===0?' front':''}">${v}</div>`).join('');
+        }
+
+        document.getElementById('sw-msg').textContent = s.msg;
+        if (s.min !== null) {
+            swMins.push(s.min);
+            document.getElementById('sw-res').textContent = `Window minimum = ${s.min}`;
+            document.getElementById('sw-mins-log').textContent = 'Minimums so far: [' + swMins.join(', ') + ']';
+        } else {
+            document.getElementById('sw-res').textContent = '(window not full yet)';
+        }
+    }
+
+    function renderSwArr(winL, winR, cur) {
+        const cellsEl = document.getElementById('sw-cells');
+        const ptrsEl  = document.getElementById('sw-ptrs');
+        cellsEl.innerHTML = '';
+        ptrsEl.innerHTML  = '';
+        swArr.forEach((v, i) => {
+            const c = document.createElement('div');
+            const inWin = winL >= 0 && i >= winL && i <= winR;
+            c.className = 'cell' + (i === cur ? ' found' : inWin ? ' win' : '');
+            c.textContent = v;
+            cellsEl.appendChild(c);
+            const p = document.createElement('div');
+            p.className = 'ptr-label';
+            if (i === cur) { p.textContent = '↑ new'; p.style.color = 'var(--teal)'; p.style.fontSize = '9px'; }
+            ptrsEl.appendChild(p);
+        });
+    }
+    swReset();
+
+    // ── BUDGET ANIMATION ─────────────────────────────────────────────
+    function buildBudget() {
+        const el = document.getElementById('budget-bars');
+        if (el.children.length > 0) return;
+        const steps = [
+            { label: 'Step 1', moves: 1, total: 1 },
+            { label: 'Step 2', moves: 3, total: 4 },
+            { label: 'Step 3', moves: 1, total: 5 },
+            { label: 'Step 4', moves: 2, total: 7 },
+            { label: 'Step 5', moves: 1, total: 8 },
+        ];
+        steps.forEach(s => {
+            const row = document.createElement('div');
+            row.className = 'budget-row';
+            row.innerHTML = `
+      <span class="budget-lbl">${s.label}</span>
+      <div style="flex:1;position:relative;">
+        <div class="budget-track">
+          <div class="budget-fill" id="bf-${s.label.replace(' ','')}" style="width:0%"></div>
+        </div>
+      </div>
+      <span style="font-size:11px;color:rgba(255,255,255,.4);width:100px;">+${s.moves} moves (${s.total}/8)</span>
+    `;
+            el.appendChild(row);
+        });
+    }
+
+    let budgetAnimated = false;
+    function animateBudget() {
+        if (budgetAnimated) {
+            // reset
+            ['Step1','Step2','Step3','Step4','Step5'].forEach(k => {
+                const el = document.getElementById('bf-' + k);
+                if (el) el.style.width = '0%';
+            });
+            budgetAnimated = false;
+            document.getElementById('budget-btn').textContent = '▶ Animate budget';
+            return;
+        }
+        budgetAnimated = true;
+        document.getElementById('budget-btn').textContent = '↺ Reset';
+        const steps = [
+            { key: 'Step1', pct: 12.5 },
+            { key: 'Step2', pct: 50 },
+            { key: 'Step3', pct: 62.5 },
+            { key: 'Step4', pct: 87.5 },
+            { key: 'Step5', pct: 100 },
+        ];
+        steps.forEach((s, i) => {
+            setTimeout(() => {
+                const el = document.getElementById('bf-' + s.key);
+                if (el) el.style.width = s.pct + '%';
+            }, i * 350);
+        });
+    }
+</script>
+</body>
+</html>

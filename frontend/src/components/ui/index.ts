@@ -2,6 +2,7 @@ export { default as CustomCursor } from './CustomCursor';
 export { default as BackgroundBlobs } from './BackgroundBlobs';
 export { default as FlashOverlay, triggerFlash } from './FlashOverlay';
 export { default as Lightbox, openLightbox } from './Lightbox';
+export { default as VideoModal, openVideo } from './VideoModal';
 export { default as Ticker } from './Ticker';
 export { default as ScrollProgress } from './ScrollProgress';
 export { default as ConsoleArt } from './ConsoleArt';

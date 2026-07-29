@@ -55,7 +55,7 @@ export default function GuestbookSection({ onCountChange }: GuestbookSectionProp
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Entries */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxHeight: 520, overflowY: 'auto', paddingRight: 6 }}>
             {loading ? (
               <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: '#444', padding: 20, textAlign: 'center' }}>
                 loading guestbook...
