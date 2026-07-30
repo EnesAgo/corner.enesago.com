@@ -6,7 +6,7 @@ const BOOT_LINES = [
   { text: '[■■■■■■■■■■] LOADING ENESAGO.EXE...', delay: 0 },
   { text: '> mounting filesystem...', delay: 400 },
   { text: '> loading vibes...', delay: 700 },
-  { text: '> connecting to the internet circa 2004...', delay: 1100 },
+  { text: '> connecting to the old internet 2012...', delay: 1100 },
   { text: '> initializing skateboard.dll...', delay: 1500 },
   { text: '> compiling duman-playlist.mp3...', delay: 1800 },
   { text: '> injecting css glitches...', delay: 2100 },
