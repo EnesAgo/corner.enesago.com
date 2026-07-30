@@ -6,7 +6,9 @@ export default function SocialLinks() {
       {socialLinks.map((link) => (
         <a
           key={link.text}
-          href="#"
+          href={link.href}
+          target={link.href.startsWith('http') ? '_blank' : undefined}
+          rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
           className="lh"
           style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: '#555', textDecoration: 'none', border: '2px solid #111', padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all .15s' }}
           onMouseOver={(e) => { e.currentTarget.style.borderColor = '#333'; e.currentTarget.style.color = '#fff'; }}

@@ -19,8 +19,9 @@ export const collectibleBadges = [
 ];
 
 export const socialLinks = [
-  { text: 'github.com/EnesAgo' },
-  { text: 'enesago010@gmail.com' },
+  { text: 'github.com/EnesAgo', href: 'https://github.com/EnesAgo' },
+  { text: 'enesago010@gmail.com', href: 'mailto:enesago010@gmail.com' },
+  { text: 'linkedin.com/in/enes-ago', href: 'https://linkedin.com/in/enes-ago-749a0a20a' },
 ];
 
 export const interests = [
