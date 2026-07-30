@@ -4,6 +4,7 @@ export { default as DiarySection } from './DiarySection';
 export { default as AboutSection } from './AboutSection';
 export { default as ProjectsSection } from './ProjectsSection';
 export { default as PolaroidWall } from './PolaroidWall';
+export { default as ScenesSection } from './ScenesSection';
 export { default as EDCSection } from './EDCSection';
 export { default as ChaptersSection } from './ChaptersSection';
 export { default as SystemCoreSection } from './SystemCoreSection';

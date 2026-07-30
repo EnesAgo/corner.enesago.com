@@ -752,6 +752,19 @@ body::after {
 .stab:hover { transform: translate(-2px,-2px); }
 
 /* ========================================================================
+   Scenes ("my world") images — matched height, natural width, no crop
+   ======================================================================== */
+.scene-img {
+  height: clamp(304px, 44vw, 418px);
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+@media (max-width: 768px) {
+  .scene-img { height: auto; width: 100%; }
+}
+
+/* ========================================================================
    Writing Mode (Vertical)
    ======================================================================== */
 .rl {

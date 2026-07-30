@@ -34,6 +34,7 @@ import {
   AboutSection,
   ProjectsSection,
   PolaroidWall,
+  ScenesSection,
   EDCSection,
   ChaptersSection,
   SystemCoreSection,
@@ -103,6 +104,7 @@ export default function Home() {
       <AboutSection onOpenEgg={openEgg} />
       <ProjectsSection />
       <PolaroidWall />
+      <ScenesSection />
       {/*<EDCSection />*/}
       <ChaptersSection onOpenEgg={openEgg} />
       <SystemCoreSection />

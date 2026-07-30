@@ -26,7 +26,7 @@ export default function Navbar({ onOpenEgg }: NavbarProps) {
   const activeSection = useActiveSection();
 
   return (
-    <nav style={{ background: 'rgba(10,10,10,.96)', borderBottom: '3px solid #FFE500', padding: '0 16px', position: 'sticky', top: 0, zIndex: 200, backdropFilter: 'blur(8px)' }}>
+    <nav style={{ background: 'rgba(10,10,10,.96)', borderBottom: '3px solid #FFE500', padding: '0 16px', position: 'sticky', top: 0, zIndex: 9992, backdropFilter: 'blur(8px)' }}>
       <div style={{ maxWidth: 1440, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56 }}>
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
