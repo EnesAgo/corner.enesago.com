@@ -38,7 +38,7 @@ export const timeline: TimelineItemData[] = [
     color: '#FFE500',
     title: null,
     company: { name: 'Zenfulfillment', sub: 'Fullstack Internship · Munich, Germany · 2024 → present' },
-    desc: 'building real features for a real product in munich. huge codebase. great team. learning german and eating too many pretzels (and Kaiserschmarrn with nutella).',
+    desc: 'building real features for a real product in munich. huge codebase. good stack. great team.',
     tags: ['Next.js', 'NestJS', 'Munich 🥨'],
     current: true,
   },
