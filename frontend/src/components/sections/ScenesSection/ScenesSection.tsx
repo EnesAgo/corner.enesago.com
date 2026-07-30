@@ -28,7 +28,7 @@ export default function ScenesSection() {
         <div style={{ flex: 1, minWidth: 40, height: 2, background: 'linear-gradient(90deg,#9B59FF,transparent)' }} />
       </div>
 
-      <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', gap: 60, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start' }}>
         {scenes.map((s) => (
           <div
             key={s.src}
