@@ -8,10 +8,9 @@ const links = [
   { href: '#projects', label: 'WORK', color: '#f0f0f0' },
   { href: '#chapters', label: 'ERAS', color: '#f0f0f0' },
   { href: '#sysCore', label: 'SYS', color: '#00FF88' },
-  { href: '#music', label: 'MUSIC', color: '#9B59FF' },
+  { href: '/studio/piano', label: 'MUSIC', color: '#9B59FF' },
   { href: '#playlist', label: 'CD', color: '#FF2D78' },
-  { href: '#blog', label: 'BLOG', color: '#f0f0f0' },
-  { href: '/studio/blog', label: 'STUDIO', color: '#9B59FF' },
+  { href: '/studio/blog', label: 'BLOG', color: '#f0f0f0' },
   { href: '#guestbook', label: 'GUESTBOOK', color: '#FFE500' },
   { href: '#lab', label: 'LAB ⚗', color: '#f0f0f0' },
 ];

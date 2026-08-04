@@ -13,10 +13,9 @@ const navLinks = [
   { href: '#projects', label: 'WORK', hoverColor: '#00C8FF' },
   { href: '#chapters', label: 'ERAS', hoverColor: '#FFE500' },
   { href: '#sysCore', label: 'SYS', hoverColor: '#00FF88' },
-  { href: '#music', label: 'MUSIC', hoverColor: '#9B59FF' },
+  { href: '/studio/piano', label: 'MUSIC', hoverColor: '#9B59FF' },
   { href: '#playlist', label: 'CD', hoverColor: '#FF2D78' },
-  { href: '#blog', label: 'BLOG', hoverColor: '#00C8FF' },
-  { href: '/studio/blog', label: 'STUDIO', hoverColor: '#9B59FF' },
+  { href: '/studio/blog', label: 'BLOG', hoverColor: '#00C8FF' },
   { href: '#guestbook', label: 'GUESTBOOK', hoverColor: '#FFE500' },
   { href: '#lab', label: 'LAB ⚗', hoverColor: '#FFE500' },
 ];
