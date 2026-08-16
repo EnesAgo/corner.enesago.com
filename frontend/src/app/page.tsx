@@ -104,7 +104,7 @@ export default function Home() {
       <AboutSection onOpenEgg={openEgg} />
       <ProjectsSection />
       <PolaroidWall />
-      <ScenesSection />
+      {/*<ScenesSection />*/}
       {/*<EDCSection />*/}
       <ChaptersSection onOpenEgg={openEgg} />
       <SystemCoreSection />
